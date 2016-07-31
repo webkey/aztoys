@@ -1,0 +1,43 @@
+/*icons*/
+[class|="depict"],
+[class*=" depict-"]{
+	background:url(../img/sprite-icons.png) 0 0 no-repeat;
+	display: inline-block;
+	vertical-align: top;
+}
+/*icons end*/
+
+/*social icons*/
+[class|="soc-depict"],
+[class*=" soc-depict-"] {
+	background:url(../img/sprite-social.png) 0 0 no-repeat;
+	display: inline-block;
+	vertical-align: top;
+}
+.soc-depict-fb{ background-position: 0 0; width: 50px; height: 50px; }
+.soc-depict-fb-blue{ background-position: 0 -70px; width: 50px; height: 50px; }
+.soc-depict-fb-h{ background-position: 0 -140px; width: 50px; height: 50px; }
+.soc-depict-tw{ background-position: 0 -210px; width: 50px; height: 50px; }
+.soc-depict-tw-blue{ background-position: 0 -280px; width: 50px; height: 50px; }
+.soc-depict-tw-h{ background-position: 0 -350px; width: 50px; height: 50px; }
+.soc-depict-yt{ background-position: 0 -420px; width: 50px; height: 50px; }
+.soc-depict-yt-blue{ background-position: 0 -490px; width: 50px; height: 50px; }
+.soc-depict-yt-h{ background-position: 0 -560px; width: 50px; height: 50px; }
+/*social icons end*/
+
+/*stars*/
+[class|="depict-star"],
+.icon-star,
+[class*=" depict-star-"]{
+	background:url(../img/sprite-rating.png) 0 0 no-repeat;
+	display: inline-block;
+	vertical-align: top;
+}
+/*stars end*/
+
+@media ( -webkit-min-device-pixel-ratio : 1.5 ),
+( min-resolution : 144dpi ){
+	.iii {
+		background-size:38px 38px;
+	}
+}
