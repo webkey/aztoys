@@ -1,7 +1,7 @@
 /*icons*/
 [class|="depict"],
 [class*=" depict-"]{
-	background:url(../img/sprite-icons.png) 0 0 no-repeat;
+	background:url(../img1/sprite-icons.png) 0 0 no-repeat;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -10,7 +10,7 @@
 /*social icons*/
 [class|="soc-depict"],
 [class*=" soc-depict-"] {
-	background:url(../img/sprite-social.png) 0 0 no-repeat;
+	background:url(../img1/sprite-social.png) 0 0 no-repeat;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -29,7 +29,7 @@
 [class|="depict-star"],
 .icon-star,
 [class*=" depict-star-"]{
-	background:url(../img/sprite-rating.png) 0 0 no-repeat;
+	background:url(../img1/sprite-rating.png) 0 0 no-repeat;
 	display: inline-block;
 	vertical-align: top;
 }
