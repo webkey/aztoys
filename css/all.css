@@ -2120,6 +2120,12 @@ a.products__inner:hover{
 	transform: rotate(-35deg);
 }
 
+.button-group button.clear-filter:active > i{
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
 .filter-more-options{
 	display: block;
 	padding: 0 30px;
