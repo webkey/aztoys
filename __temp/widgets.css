@@ -172,7 +172,7 @@
 }
 
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	background-image: url('../img1/fancybox/fancybox_sprite.png');
+	background-image: url('../img/fancybox/fancybox_sprite.png');
 }
 
 #fancybox-loading {
@@ -190,7 +190,7 @@
 #fancybox-loading div {
 	width: 44px;
 	height: 44px;
-	background: url('../img1/fancybox/fancybox_loading.gif') center center no-repeat;
+	background: url('../img/fancybox/fancybox_loading.gif') center center no-repeat;
 }
 
 .fancybox-close {
@@ -210,7 +210,7 @@
 	height: 100%;
 	cursor: pointer;
 	text-decoration: none;
-	background: transparent url('../img1/fancybox/blank.gif'); /* helps IE */
+	background: transparent url('../img/fancybox/blank.gif'); /* helps IE */
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	z-index: 8040;
 }
@@ -270,7 +270,7 @@
 	overflow: hidden;
 	display: none;
 	z-index: 8010;
-	background: url('../img1/fancybox/fancybox_overlay.png');
+	background: url('../img/fancybox/fancybox_overlay.png');
 }
 
 .fancybox-overlay-fixed {
@@ -342,12 +342,12 @@
 	   only screen and (min-device-pixel-ratio: 1.5){
 
 	#fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-		background-image: url('../img1/fancybox/fancybox_sprite@2x.png');
+		background-image: url('../img/fancybox/fancybox_sprite@2x.png');
 		background-size: 44px 152px; /*The size of the normal image, half the size of the hi-res image*/
 	}
 
 	#fancybox-loading div {
-		background-image: url('../img1/fancybox/fancybox_loading@2x.gif');
+		background-image: url('../img/fancybox/fancybox_loading@2x.gif');
 		background-size: 24px 24px; /*The size of the normal image, half the size of the hi-res image*/
 	}
 }
@@ -395,7 +395,7 @@
 
 .bx-wrapper .bx-loading {
 	min-height: 50px;
-	background: url(../img1/bx-slider/bx_loader.gif) center center no-repeat #fff;
+	background: url(../img/bx-slider/bx_loader.gif) center center no-repeat #fff;
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -443,12 +443,12 @@
 
 .bx-wrapper .bx-prev {
 	left: 10px;
-	background: url(../img1/bx-slider/controls.png) no-repeat 0 -32px;
+	background: url(../img/bx-slider/controls.png) no-repeat 0 -32px;
 }
 
 .bx-wrapper .bx-next {
 	right: 10px;
-	background: url(../img1/bx-slider/controls.png) no-repeat -43px -32px;
+	background: url(../img/bx-slider/controls.png) no-repeat -43px -32px;
 }
 
 .bx-wrapper .bx-prev:hover {
@@ -486,7 +486,7 @@
 	width: 10px;
 	height: 11px;
 	outline: 0;
-	background: url(../img1/bx-slider/controls.png) -86px -11px no-repeat;
+	background: url(../img/bx-slider/controls.png) -86px -11px no-repeat;
 	margin: 0 3px;
 }
 
@@ -501,7 +501,7 @@
 	width: 9px;
 	height: 11px;
 	outline: 0;
-	background: url(../img1/bx-slider/controls.png) -86px -44px no-repeat;
+	background: url(../img/bx-slider/controls.png) -86px -44px no-repeat;
 	margin: 0 3px;
 }
 
@@ -690,7 +690,7 @@ div.cselect .ui-multiselect-checkboxes label.ui-state-active {
 	vertical-align: middle;
 	width: 16px;
 	height: 16px;
-	background: url(../img1/sprite-forms.png) 0 0 no-repeat;
+	background: url(../img/sprite-forms.png) 0 0 no-repeat;
 }
 .jquery-checkbox img,
 .jquery-checkbox-disabled img,
@@ -716,7 +716,7 @@ div.cselect .ui-multiselect-checkboxes label.ui-state-active {
 	vertical-align: top;
 	width: 14px;
 	height: 14px;
-	background: url(../img1/sprite-forms.png) 0 0 no-repeat;
+	background: url(../img/sprite-forms.png) 0 0 no-repeat;
 }
 
 .jquery-radiobox img,
@@ -1140,15 +1140,15 @@ div.cselect .ui-multiselect-checkboxes label.ui-state-active {
 
 /* Slider */
 .slick-loading .slick-list{
-	background: #fff url('../img1/slick/ajax-loader.gif') center center no-repeat;
+	background: #fff url('../img/slick/ajax-loader.gif') center center no-repeat;
 }
 /* Icons */
 @font-face{
 	font-family: 'slick';
 	font-weight: normal;
 	font-style: normal;
-	src: url('../fonts1/slick-font/slick.eot');
-	src: url('../fonts1/slick-font/slick.eot?#iefix') format('embedded-opentype'), url('../fonts1/slick-font/slick.woff') format('woff'), url('../fonts1/slick-font/slick.ttf') format('truetype'), url('../fonts1/slick-font/slick.svg#slick') format('svg');
+	src: url('../fonts/slick-font/slick.eot');
+	src: url('../fonts/slick-font/slick.eot?#iefix') format('embedded-opentype'), url('../fonts/slick-font/slick.woff') format('woff'), url('../fonts/slick-font/slick.ttf') format('truetype'), url('../fonts/slick-font/slick.svg#slick') format('svg');
 }
 /* Arrows */
 .slick-prev,

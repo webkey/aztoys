@@ -19,7 +19,7 @@ button{
 [class*=" btn-"] input[type="button"],
 [class|="btn"] input[type="reset"],
 [class*=" btn-"] input[type="reset"]{
-	background: url("../img1/empty.png") repeat;
+	background: url("../img/empty.png") repeat;
 	cursor: pointer;
 	display: block;
 	height: 100%;
