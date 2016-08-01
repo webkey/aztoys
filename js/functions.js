@@ -104,12 +104,30 @@ function tabs() {
 
 /*equal height elements*/
 function equalHeightInit(){
-	var $parent = $('.previews__list');
-	if ($parent.length) {
-		imagesLoaded($parent, function () {
-			$parent.find('.previews__inner').equalHeight({
+	/*previews*/
+	var $previewsList = $('.previews__list');
+	if ($previewsList.length) {
+		imagesLoaded($previewsList, function () {
+			$previewsList.find('.previews__inner').equalHeight({
 				useParent: true,
-				parent: $parent,
+				parent: $previewsList,
+				resize: true
+			});
+		});
+	}
+
+	/*products*/
+	var $products = $('.products');
+	if ($products.length) {
+		imagesLoaded($products, function () {
+			$products.find('.products__inner').equalHeight({
+				useParent: true,
+				parent: $products,
+				resize: true
+			});
+			$products.find('.products__img').equalHeight({
+				useParent: true,
+				parent: $products,
 				resize: true
 			});
 		});
@@ -226,6 +244,25 @@ function selectResize(){
 }
 /* multiselect init end */
 
+/*header fixed*/
+function headerFixed(){
+	var $page = $('html');
+	var $headerPanel = $('.main-nav');
+	var $headerPanelWrap = $('.main-nav-wrap');
+	if (!$headerPanel.length) {
+		return;
+	}
+
+	$(window).on('load scroll resizeByWidth', function () {
+		var scrollTop = $(window).scrollTop();
+
+		$page.toggleClass('header-fixed', scrollTop >= $headerPanelWrap.offset().top);
+
+		$page.toggleClass('header-hide', scrollTop >= $('.footer').offset().top - $headerPanel.outerHeight());
+	});
+}
+/*header fixed end*/
+
 /* footer at bottom */
 function footerBottom(){
 	var footer = $('.footer');
@@ -252,6 +289,7 @@ $(document).ready(function(){
 	tabs();
 	productsBehavior();
 	equalHeightInit();
+	headerFixed();
 	footerBottom();
 	if(DESKTOP){
 		// customSelect($('select.cselect'));
