@@ -33,6 +33,10 @@ h1{
 	padding: 0 0 60px;
 	overflow: hidden;
 }
+.page-title{
+	padding: 0 80px;
+	text-align: center;
+}
 h2{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 24px;
@@ -1237,7 +1241,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*screen end*/
 
 /*breadcrumbs*/
-.breadcrumbs{ padding: 0 0 50px 80px; }
+.breadcrumbs{ padding: 0 0 50px; }
+.user-content .breadcrumbs{
+	padding-left: 80px;
+}
 .breadcrumbs-list,
 .user-content .breadcrumbs-list{
 	overflow: hidden;
@@ -1255,6 +1262,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	float: left;
 	position: relative;
 }
+.breadcrumbs-list li:before,
 .user-content .breadcrumbs-list li:before{
 	content: '/';
 	position: absolute;
@@ -1450,13 +1458,13 @@ a.products__inner:hover{
 /*previews*/
 .section-title{
 	padding: 70px 80px 50px;
+	text-align: center;
 }
 .section-title h2{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 40px;
 	line-height: 50px;
 	color: #00abc7;
-	text-align: center;
 	padding: 0;
 }
 .previews{
@@ -1638,10 +1646,12 @@ a.products__inner:hover{
 	border-bottom: 1px solid #029db5;
 	overflow: hidden;
 }
-.logo a{
+.logo a,
+.logo > span{
 	display: block;
 	text-decoration: none;
 	height: 100%;
+	overflow: hidden;
 }
 .logo a:hover{ text-decoration: none; }
 .logo__img{
