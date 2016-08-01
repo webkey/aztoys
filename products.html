@@ -79,6 +79,98 @@
 </aside>
 <!--SIDEBAR-->
 
+<!--FILTERS-->
+<div class="filters">
+	<div class="filters__panel layout">
+		<div class="filters__panel-holder">
+			<div class="filters__group">
+				<div class="button-group filters-button-group">
+					<span class="filters__label">Age:</span>
+					<button class="button" data-filter=".younger">2-3</button>
+					<button class="button" data-filter=".middle">4-5</button>
+					<button class="button" data-filter=".senior">6+</button>
+				</div>
+			</div>
+			<div class="filters__group">
+				<div class="button-group filters-button-group filters-button-middle">
+					<button class="button" data-filter=".new">New</button>
+					<button class="button" data-filter=".popular">Popular</button>
+					<button class="button" data-filter=".exclusive">Exclusive</button>
+				</div>
+			</div>
+			<div class="filters__group has-drop">
+				<a href="#" class="filter-more-options filter-more-options-js"><span>More options</span><i class="depict-angle"></i></a>
+				<!--filters drop-->
+				<div class="filters-drop">
+					<div class="filters-drop__holder">
+						<div class="filters-drop__group">
+							<strong class="filters-drop__title">Category:</strong>
+							<ul class="filters-drop__list">
+								<li><a href="#"><span>Educational Toys</span></a></li>
+								<li><a href="#"><span>Sound and Music Toys</span></a></li>
+								<li><a href="#"><span>Art and Craft Kits</span></a></li>
+								<li><a href="#"><span>Toy Tablets</span></a></li>
+								<li><a href="#"><span>Tablets with Touch Screen</span></a></li>
+								<li><a href="#"><span>Toy Smartphones</span></a></li>
+								<li><a href="#"><span>Smart Watches</span></a></li>
+								<li><a href="#"><span>Microphones</span></a></li>
+								<li><a href="#"><span>Consoles</span></a></li>
+								<li><a href="#"><span>Sound Mats</span></a></li>
+								<li><a href="#"><span>Sound Models and Sets</span></a></li>
+								<li><a href="#"><span>Educational Cards</span></a></li>
+								<li><a href="#"><span>Puzzle Elements</span></a></li>
+								<li><a href="#"><span>Sticker Elements</span></a></li>
+							</ul>
+						</div>
+						<div class="filters-drop__group">
+							<strong class="filters-drop__title">Skills:</strong>
+							<ul class="filters-drop__list">
+								<li><a href="#"><i class="depict-skills-01"></i><span>Physical skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-02"></i><span>Cognitive skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-03"></i><span>Imagination develop.</span></a></li>
+								<li><a href="#"><i class="depict-skills-04"></i><span>Speech and language</span></a></li>
+								<li><a href="#"><i class="depict-skills-05"></i><span>Hand-eye coordination</span></a></li>
+								<li><a href="#"><i class="depict-skills-06"></i><span>Problem-solving skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-07"></i><span>Self-development skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-08"></i><span>Math skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-09"></i><span>Musical ability</span></a></li>
+								<li><a href="#"><i class="depict-skills-10"></i><span>Sensory abilities</span></a></li>
+								<li><a href="#"><i class="depict-skills-11"></i><span>Reading skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-12"></i><span>Social skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-13"></i><span>Visual memory develop.</span></a></li>
+								<li><a href="#"><i class="depict-skills-14"></i><span>Logical thinking skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-15"></i><span>Research skills</span></a></li>
+								<li><a href="#"><i class="depict-skills-16"></i><span>Writing skills</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--filters drop end-->
+			</div>
+			<div class="filters__group">
+				<div class="button-group filters-button-group">
+					<button class="button clear-filter" data-filter="*"><i class="depict-clear"></i><span>Clear filter</span></button>
+				</div>
+			</div>
+			<div class="filters__group">
+				<div class="search-form">
+					<form action="#" method="get">
+						<div class="input-wrap">
+							<input type="search" value="" placeholder="Search">
+							<div class="btn-search">
+								<i class="depict-search"></i>
+								<input type="submit" value="">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--FILTERS end-->
+
 <!--WRAPPER-->
 <div class="wrapper">
 	<!--MAIN-->
@@ -86,8 +178,8 @@
 		<!--CONTENT-->
 		<div class="content layout">
 			<div class="section-title"><h2>Products</h2></div>
-			<div class="products__list products">
-				<div class="products__item">
+			<div class="products__list products popular">
+				<div class="products__item younger">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-01.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -100,7 +192,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item middle new">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-02.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -113,7 +205,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item younger new">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-03.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -126,7 +218,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item senior popular">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-04.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -139,7 +231,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item middle">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-05.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -152,7 +244,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item senior new">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-06.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -165,7 +257,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item middle exclusive">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-01.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -178,7 +270,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item senior exclusive">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-02.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -191,7 +283,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item middle exclusive">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-03.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -204,7 +296,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item senior">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-04.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -217,7 +309,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item middle">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-05.jpg" alt="image description" /></div>
 						<div class="products__content">
@@ -230,7 +322,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item">
+				<div class="products__item senior">
 					<a href="#" class="products__inner">
 						<div class="products__img"><img src="img/img-products-06.jpg" alt="image description" /></div>
 						<div class="products__content">
