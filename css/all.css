@@ -1139,6 +1139,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	clear: both;
 	z-index: 4;
 }
+.products-page .main{
+	padding-top: 100px;
+}
 .layout{
 	margin-left: 240px;
 }
@@ -2016,7 +2019,8 @@ a.products__inner:hover{
 	min-height: 100px;
 	position: fixed;
 	top: 0;
-	width: 100%;
+	left: 240px;
+	right: 0;
 	z-index: 10;
 }
 .filters__panel{
@@ -2057,7 +2061,7 @@ a.products__inner:hover{
 	float: left;
 	padding: 10px 6px 0 10px;
 }
-.button-group button{
+.filters__group .button{
 	float: left;
 	background: #fff;
 	border: 1px solid #55c7da;
@@ -2070,23 +2074,27 @@ a.products__inner:hover{
 	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	line-height: 30px;
+	text-align: center;
+	text-decoration: none;
+	color: #4a4a4a;
 	text-transform: none;
 	-webkit-transition-property: box-shadow, background, color;
 	transition-property: box-shadow, background, color;
 	-webkit-transition-duration: 0.2s;
 	transition-duration: 0.2s;
 }
-.button-group button.is-checked{
+.filters__group .button.is-checked{
 	background: #55c7da;
 	color: #fff;
 }
-.button-group button:hover{
+.filters__group .button:hover{
 	box-shadow: inset 0 0 0 1px #55c7da;
 }
-.filters-button-middle button{
+.filters-button-middle .button{
 	min-width: 100px;
 }
-.button-group button.clear-filter{
+
+.filters__group .clear-filter{
 	color: #1a1a1a;
 	text-transform: uppercase;
 	font-size: 12px;
@@ -2096,34 +2104,60 @@ a.products__inner:hover{
 	background: #f7f7f7;
 	border-color: #dadada;
 }
-.button-group button.clear-filter:hover{
+.filters-tags-js{
+	position: relative;
+}
+.filters__group .clear-filter.disabled{
+	color: #dadada;
+	/*cursor: no-drop;*/
+	cursor: default;
+}
+.filters__group .clear-filter:hover{
 	box-shadow: inset 0 0 0 1px #dadada;
 }
-.button-group button.clear-filter > span{
+.filters__group .clear-filter.disabled:hover{
+	box-shadow: none;
+}
+.filters__group .clear-filter > span{
 	display: inline-block;
 	vertical-align: middle;
 	max-width: 50px;
 }
-.button-group button.clear-filter > i{
+.filters__group .clear-filter > i{
 	vertical-align: middle;
 	margin-right: 5px;
-	-webkit-transition-property: transform;
-	transition-property: transform;
+	-webkit-transition-property: -webkit-transform, opacity;
+	transition-property: transform, opacity;
 	-webkit-transition-duration: 0.2s;
 	transition-duration: 0.2s;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
-.button-group button.clear-filter:hover > i{
+.filters__group .clear-filter.disabled > i{
+	opacity: 0.2;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+}
+.filters__group .clear-filter:hover > i{
 	-webkit-transform: rotate(-35deg);
 	-ms-transform: rotate(-35deg);
 	transform: rotate(-35deg);
 }
-
-.button-group button.clear-filter:active > i{
+.filters__group .clear-filter:active > i{
 	-webkit-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
 	transform: rotate(90deg);
+}
+.filters__group .clear-filter.disabled:hover > i,
+.filters__group .clear-filter.disabled:active > i{
+	-webkit-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.filters__counter{
+	float: left;
+	line-height: 50px;
 }
 
 .filter-more-options{
@@ -2250,7 +2284,8 @@ a.products__inner:hover{
 	transition-duration: 0.2s;
 	overflow: hidden;
 }
-.filters-drop__list a:hover{
+.filters-drop__list a:hover,
+.filters-drop__list a.is-checked{
 	color: #00abc7;
 }
 .filters-drop__list a:before{
@@ -2268,7 +2303,8 @@ a.products__inner:hover{
 	-webkit-transition-duration: 0.2s;
 	transition-duration: 0.2s;
 }
-.filters-drop__list a:hover:before{
+.filters-drop__list a:hover:before,
+.filters-drop__list a.is-checked:before{
 	border-color: #00abc7;
 }
 .filters-drop__list a:after{

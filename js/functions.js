@@ -281,46 +281,92 @@ function footerBottom(){
 }
 /* footer at bottom end */
 
-/*filters*/
+/**! filters
+ * filter products for tags */
 function filtersInit() {
-	// external js: isotope.pkgd.js
+	// external js: Isotope PACKAGED v3.0.1 (widgets.js);
+	var $filtersWrapper = $('.products'),
+		$filtersTagsGroup = $('.filters-tags-js'),
+		tags = {};
 
 	// init Isotope
-	var $grid = $('.products').isotope({
+	var $grid = $filtersWrapper.isotope({
 		itemSelector: '.products__item',
-		// layoutMode: 'fitRows',
+		layoutMode: 'fitRows',
 		percentPosition: true
 	});
 
-	// filter functions
-	var filterFns = {
-		// show if number is greater than 50
-		numberGreaterThan50: function() {
-			var number = $(this).find('.number').text();
-			return parseInt( number, 10 ) > 50;
-		},
-		// show if name ends with -ium
-		ium: function() {
-			var name = $(this).find('.name').text();
-			return name.match( /ium$/ );
-		}
-	};
+	// bind filter tag click
 
-	// bind filter button click
-	$('.filters-button-group').on( 'click', 'button', function() {
-		var filterValue = $( this ).attr('data-filter');
-		// use filterFn if matches value
-		filterValue = filterFns[ filterValue ] || filterValue;
+	$filtersTagsGroup.on( 'click', 'a', function(e) {
+		e.preventDefault;
+		var $currentTag = $( this );
+		var dataTagsGroup = $currentTag.closest('.tags-group').attr('data-tags-group');
+		dataTagsGroup = (dataTagsGroup == undefined) ? $currentTag.attr('data-filter') : dataTagsGroup;
+		tags[ dataTagsGroup ] = $currentTag.hasClass('is-checked') ? '' : $currentTag.attr('data-filter');
+		var filterValue = concatValues( tags );
 		$grid.isotope({ filter: filterValue });
 	});
 
-	// change is-checked class on buttons
-	$('.button-group').each( function( i, buttonGroup ) {
-		var $buttonGroup = $( buttonGroup );
-		$buttonGroup.on( 'click', 'button', function() {
-			$buttonGroup.find('.is-checked').removeClass('is-checked');
-			$( this ).addClass('is-checked');
-		});
+	//concatenation values of tags
+	function concatValues(obj) {
+		var value = '';
+		for ( var prop in obj ) {
+			value += obj[ prop ];
+		}
+		return value;
+	}
+
+	//clear filter tags
+	$('.clear-filter').on('click', function () {
+		if($(this).hasClass('disabled')) return;
+
+		$filtersTagsGroup.find('.is-checked').removeClass('is-checked');
+		$grid.isotope({ filter: '*' });
+		tags = {};
+
+		clearBtnState();
+	});
+
+	// state clear button
+	function clearBtnState() {
+		$('.clear-filter').toggleClass('disabled', !$filtersTagsGroup.find('.is-checked').length);
+	}
+	clearBtnState();
+
+	// change is-checked class on button group
+	// $filtersTagsGroup.each( function( i, buttonGroup ) {
+	// 	var $buttonGroup = $( buttonGroup );
+	// 	$buttonGroup.on( 'click', 'a', function(e) {
+	// 		e.preventDefault;
+	// 		$buttonGroup.find('.is-checked').not(e.target).removeClass('is-checked');
+	// 		$( this ).toggleClass('is-checked');
+	//
+	// 		clearBtnState();
+	// 	});
+	// });
+
+	$filtersTagsGroup.on( 'click', 'a', function(e) {
+		e.preventDefault;
+		$( this ).closest('.button-group-js').find('.is-checked').not(e.target).removeClass('is-checked');
+		$( this ).toggleClass('is-checked');
+
+		clearBtnState();
+	});
+
+
+	// count items
+	var tempNoProducts = $('<h2 style="text-align: center;">No products</h2>');
+	$filtersWrapper.after(tempNoProducts.hide());
+
+	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
+		var lengthItems = filteredItems.length;
+		$('.filters-counter-js').html('Selected: <strong>' + lengthItems + '</strong>');
+		if (!lengthItems) {
+			tempNoProducts.show();
+		} else {
+			tempNoProducts.hide();
+		}
 	});
 }
 /*filters end*/
