@@ -16,6 +16,9 @@
 .depict-clear-h{ background-position: 0 -208px; width: 22px; height: 22px; }
 .depict-check{ background-position: 0 -250px; width: 16px; height: 14px; }
 .depict-check-disabled{ background-position: 0 -284px; width: 16px; height: 14px; }
+.depict-load{ background-position: 0 -318px; width: 45px; height: 45px; }
+.depict-load-h{ background-position: 0 -383px; width: 45px; height: 45px; }
+
 
 /*icons end*/
 
@@ -60,6 +63,9 @@
 .soc-depict-yt{ background-position: 0 -420px; width: 50px; height: 50px; }
 .soc-depict-yt-blue{ background-position: 0 -490px; width: 50px; height: 50px; }
 .soc-depict-yt-h{ background-position: 0 -560px; width: 50px; height: 50px; }
+.soc-depict-share{ background-position: 0 -630px; width: 50px; height: 50px; }
+.soc-depict-share-h{ background-position: 0 -700px; width: 50px; height: 50px; }
+.soc-depict-share-a{ background-position: 0 -770px; width: 50px; height: 50px; }
 /*social icons end*/
 
 /*stars*/

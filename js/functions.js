@@ -120,14 +120,14 @@ function equalHeightInit(){
 	var $products = $('.products');
 	if ($products.length) {
 		imagesLoaded($products, function () {
-			$products.find('.products__inner').equalHeight({
-				useParent: true,
-				parent: $products,
+			var $productsInner = $('.products__inner');
+			var elementLength = $productsInner.length;
+			$productsInner.equalHeight({
+				amount: elementLength,
 				resize: true
 			});
-			$products.find('.products__img').equalHeight({
-				useParent: true,
-				parent: $products,
+			$('.products__img').equalHeight({
+				amount: elementLength,
 				resize: true
 			});
 			filtersInit();
