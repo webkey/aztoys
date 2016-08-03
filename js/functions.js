@@ -29,14 +29,18 @@ function placeholderInit(){
 
 /*state form fields*/
 function stateFields(){
-	$('select').on('change', function() {
-		var _textDefault = $(this).find('option').first().text();
-		var _selectedText = $(this).find('option:selected').text();
-		$(this).toggleClass('input-complete', _selectedText !== _textDefault);
-		$(this).closest('.select').toggleClass('input-complete', _selectedText !== _textDefault);
+	$('.is-validate select').on('change', function(event) {
+		var $currentSelect = $(this);
+		var selectedOptionIndex = $currentSelect.find('option:selected').index();
+		var completeClass = 'input-complete';
+
+		$currentSelect
+			.toggleClass(completeClass, selectedOptionIndex != 0)
+			.closest('.select')
+			.toggleClass(completeClass, selectedOptionIndex != 0);
 	});
 
-	$( "input, textarea" ).on('change keyup', function() {
+	$( ".is-validate input, .is-validate textarea" ).on('change keyup', function() {
 		var _textDefault = $(this).val().length;
 		$(this).toggleClass('input-complete', !!_textDefault);
 	});
@@ -609,7 +613,8 @@ $(document).ready(function(){
 	tabs();
 	productsBehavior();
 	equalHeightInit();
-	headerFixed();
+	customSelect($('.cselect'));
+	//headerFixed();
 	shareEvents();
 	footerBottom();
 	hoverClassInit();

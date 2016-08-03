@@ -453,7 +453,7 @@ textarea{
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 	box-sizing: border-box;
-	margin: 0 0 28px;
+	margin: 0 0 20px;
 }
 .input-wrap input[type="text"],
 .input-wrap input[type="password"],
@@ -571,6 +571,15 @@ textarea.error:focus{
 	color: #333;
 }
 /*form field focus end*/
+/*form buttons*/
+.form-buttons{
+	padding-top: 10px;
+	text-align: center;
+}
+.form-buttons input[type="submit"]{
+	min-width: 200px;
+}
+/*form buttons end*/
 /*checkbox*/
 input[type="checkbox"]{ width: 16px; height: 16px; padding: 0; margin: 0; }
 input[type="checkbox"] {
@@ -789,11 +798,11 @@ input[type="radio"]:disabled + label>span:after{
 /*radio end*/
 /*form error end*/
 .form-row,
-.input-wrap{ padding: 0 0 28px; }
+.input-wrap{ padding: 0 0 20px; }
 .form-row{
 	margin: 0 -15px;
-	font-size: 0;
 
+	font-size: 0;
 	letter-spacing: -4px;
 }
 .form-row .input-wrap{
@@ -822,9 +831,10 @@ label{
 /*select overall*/
 .select{
 	position: relative;
-	margin: 0 0 28px;
+	margin: 0 0 20px;
 	width: 100%;
 }
+.input-wrap .select{ margin-bottom: 0; }
 .select .cselect{ width: 100%; }
 .select select,
 .select button.cselect .select-inner{
@@ -850,11 +860,6 @@ label{
 	box-sizing: border-box;
 	outline: none;
 }
-.select select.input-complete,
-.select select.input-complete + button.cselect .select-inner{
-	background: #54c7d9;
-	color: #fff;
-}
 .select select,
 .select button.cselect,
 .select button.cselect .select-inner{
@@ -876,7 +881,11 @@ label{
 	box-shadow: inset 0 0 0 1px #54c7d9;
 	color: #333;
 }
-.birth-fields .select-inner{ text-align: center; }
+.select select.input-complete,
+.select select.input-complete + button.cselect .select-inner{
+	background: #54c7d9;
+	color: #fff;
+}
 
 .select:before,
 .select:after,
@@ -963,7 +972,7 @@ div.cselect .ui-multiselect-checkboxes {
 	margin:0;
 	list-style-type:none;
 	height: auto !important;
-	max-height:300px;
+	max-height:320px;
 	overflow:auto;
 	background-color:#54c7d9;
 	border: 2px solid #54c7d9;
@@ -1074,6 +1083,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	color: #666;
 }
 /*files item end*/
+
 /*note*/
 .note{
 	font-family: 'helvetica-neue-cyr-light-italic', Arial, Helvetica, sans-serif;
@@ -1083,6 +1093,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin: 0 -80px 40px 0;
 }
 /*note end*/
+
 /*more*/
 .more{
 	border: solid #55c7da;
@@ -1694,7 +1705,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*products list*/
 .products__list{
-	padding: 1px 0 0 1px;
+	padding: 0;
+	margin-left: 1px;
 	font-size: 0;
 	letter-spacing: -4px;
 }
@@ -1702,13 +1714,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	background: #fff;
 	box-sizing: border-box;
-	border: solid #f7f7f7;
-	border-width: 0 1px 1px 0;
-	box-shadow: -1px -1px 0 #f7f7f7;
 	width: 16.66%;
-	/*width: 277px;*/
 
 	font-size: 16px;
 	letter-spacing: normal;
@@ -1718,6 +1725,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: block;
 	padding: 30px;
 	text-decoration: none;
+	background: #fff;
+	box-shadow: 0 0 0 1px #f7f7f7;
 	box-sizing: border-box;
 	-webkit-transition-property: -webkit-transform, box-shadow;
 	transition-property: transform, box-shadow;
@@ -1731,6 +1740,9 @@ a.products__inner:hover{
 .products__img{
 	overflow: hidden;
 	margin: 0 0 20px;
+}
+.products__img img{
+	width: 100%;
 }
 .products__title{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
@@ -2854,7 +2866,7 @@ a.news__inner:hover .news__title{
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
-	width: 49.98%;
+	width: 33.28%;
 	padding: 0 12px;
 	font-size: 16px;
 	line-height: 21px;
@@ -2864,12 +2876,10 @@ a.news__inner:hover .news__title{
 .footer-col_left{
 	text-align: left;
 	padding-left: 0;
-	width: 24.98%;
 }
 .footer-col_right{
 	text-align: right;
 	padding-right: 0;
-	width: 24.98%;
 }
 .site-developer a:hover{ text-decoration: none; }
 .site-developer a .text-inner{ text-decoration: none; }
