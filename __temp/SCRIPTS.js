@@ -883,6 +883,126 @@ bonusesList.find('.resources-item').equalHeight({
 });
 /*equalHeight end*/
 
+/*share events*/
+function shareEvents() {
+	var $btn = $('.open-share-js');
+	$btn.each(function () {
+		var $currentBtn = $(this),
+			$wrapper = $currentBtn.parent(),
+			$itemList = $wrapper.find('.soc-square'),
+			$item = $wrapper.find('.soc-square li'),
+			openedClass = 'opened';
+
+		var tw = new TimelineLite({paused:true});
+
+		tw.set($itemList, {perspective:500})
+			.set($item, {display: "block"})
+			.staggerFrom($item, 0.25, { autoAlpha: 0, rotationX: -90, transformOrigin:"50% 0"}, 0.15);
+
+		$currentBtn.on('click', function (e) {
+			e.preventDefault();
+
+			var $currentBtn = $(this);
+
+			if (tw.progress() != 1) {
+				tw.play();
+				$currentBtn.addClass(openedClass);
+			} else {
+				tw.reverse();
+				$currentBtn.removeClass(openedClass);
+			}
+		});
+	});
+}
+/*share events end*/
+
+/*social events*/
+/*html*/
+/*
+ <div class="news__share">
+ <a href="#" class="share open-share-js">Share</a>
+ <ul class="soc-square">
+ <li class="soc-facebook">
+ <a href="#">
+ facebook
+ <span class="soc-icons">
+ <i class="soc-depict-fb-blue"></i>
+ <i class="soc-depict-fb-h"></i>
+ </span>
+ <em class="soc-count">15</em>
+ </a>
+ </li>
+ <li class="soc-twitter">
+ <a href="#">
+ twitter
+ <span class="soc-icons">
+ <i class="soc-depict-tw-blue"></i>
+ <i class="soc-depict-tw-h"></i>
+ </span>
+ <em class="soc-count">112</em>
+ </a>
+ </li>
+ <li class="soc-youtube">
+ <a href="#">
+ vk
+ <span class="soc-icons">
+ <i class="soc-depict-yt-blue"></i>
+ <i class="soc-depict-yt-h"></i>
+ </span>
+ <em class="soc-count">7</em>
+ </a>
+ </li>
+ </ul>
+ </div>
+*/
+/*html end*/
+
+/*css*/
+/*
+.soc-square .soc-count{
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	line-height: 30px;
+	letter-spacing: normal;
+	visibility: hidden;
+}
+* */
+/*css end*/
+
+function socialEvents() {
+	$('.soc-square li')
+		.on('mouseenter', function() {
+			TweenMax.to($('.soc-count', $(this)), 0.3, {
+				autoAlpha: 1,
+				x: 9,
+				ease: Power2.easeInOut
+			});
+			TweenMax.to($('.soc-icons', $(this)), 0.4, {
+				autoAlpha: 0.35,
+				x: 10,
+				y: 10,
+				ease: Power2.easeInOut
+			});
+		})
+		.on('mouseleave', function() {
+			TweenMax.to($('.soc-count', $(this)), 0.3, {
+				autoAlpha: 0,
+				x: 0,
+				ease: Power2.easeInOut
+			});
+			TweenMax.to($('.soc-icons', $(this)), 0.4, {
+				autoAlpha: 1,
+				x: 0,
+				y: 0,
+				ease: Power2.easeInOut
+			});
+		});
+}
+/*social events end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -902,6 +1022,8 @@ $(document).ready(function(){
 	showContent();
 	equalHeightInit();
 	multiAccordionInit();
+	shareEvents(); // on click
+	socialEvents(); // показать счетчик лайков
 
 	//initial function "naveFunction" after loaded all images in "className"
 	$('.className').imagesLoaded( function() {
