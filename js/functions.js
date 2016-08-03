@@ -361,7 +361,7 @@ function filtersInit() {
 
 	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
 		var lengthItems = filteredItems.length;
-		$('.filters-counter-js').html('Selected: <strong>' + lengthItems + '</strong>');
+		$('.filters-counter-js').html('Found: <strong>' + lengthItems + '</strong>');
 		if (!lengthItems) {
 			tempNoProducts.show();
 		} else {
@@ -371,68 +371,234 @@ function filtersInit() {
 }
 /*filters end*/
 
-/*breadcrumbs add hover class*/
-function breadHover(){
-	var $breadcrumbsItemHasDrop = $('.breadcrumbs__item_has-drop');
-	if (md.mobile()) {
+/*share events*/
+function shareEvents() {
+	var $btn = $('.open-share-js');
+	$btn.each(function () {
+		var $currentBtn = $(this),
+			$wrapper = $currentBtn.parent(),
+			$itemList = $wrapper.find('.soc-square'),
+			$item = $wrapper.find('.soc-square li');
 
-		for(var i = 0; i < $breadcrumbsItemHasDrop.length;i++){
-			var $this = $breadcrumbsItemHasDrop.eq(i);
-			$this.attr('data-text', $this.children('a').children('span').text());
+		var tw = new TimelineLite({paused: true});
+
+		tw
+			.set($itemList, {perspective: 500})
+			.set($item, {display: "block"})
+			.staggerFrom($item, 0.25, {autoAlpha: 0, rotationX: -90, transformOrigin: "50% 0"}, 0.15);
+
+		$currentBtn
+			.on('click', function (e) {
+				e.preventDefault();
+			});
+
+		$wrapper
+			.on('mouseenter', function () {
+				tw.play();
+			}).on('mouseleave', function () {
+				tw.reverse();
+		});
+	});
+}
+/*share events end*/
+
+/*hover class*/
+(function ($) {
+	var HoverClass = function (settings) {
+		var options = $.extend({
+			container: 'ul',
+			item: 'li',
+			drop: 'ul'
+		},settings || {});
+
+		var self = this;
+		self.options = options;
+
+		var container = $(options.container);
+		self.$container = container;
+		self.$item = $(options.item, container);
+		self.$drop = $(options.drop, container);
+
+		self.modifiers = {
+			hover: 'hover'
+		};
+
+		// self.md = new MobileDetect(window.navigator.userAgent);
+		self.md = device;
+
+		self.addClassHover();
+
+		if (self.md.mobile()) {
+			$(window).on('debouncedresize', function () {
+				self.removeClassHover();
+			});
 		}
+	};
 
-		$breadcrumbsItemHasDrop
-			.not(':last-child')
-			.children('a')
-			.children('span')
-			.text('...');
+	HoverClass.prototype.addClassHover = function () {
+		var self = this,
+			_hover = this.modifiers.hover,
+			item = self.options.item,
+			$item = self.$item,
+			$container = self.$container;
 
-		$breadcrumbsItemHasDrop.on('click', function (e) {
-			var $breadcrumbsItemCurrent = $(this);
-			if ($breadcrumbsItemCurrent.hasClass('hover')){
-				return;
-			}
-			e.stopPropagation();
+		if (!self.md.desktop()) {
+			$container.on('click', ''+item+'', function (e) {
+				var $currentAnchor = $(this);
+				var currentItem = $currentAnchor.closest($item);
 
-			$breadcrumbsItemHasDrop
-				.removeClass('hover breadcrumbs__item_long')
-				.addClass('breadcrumbs__item_short');
+				if (!currentItem.has(self.$drop).length){ return; }
 
-			$breadcrumbsItemHasDrop.children('a').children('span').text('...');
+				e.stopPropagation();
 
-			$breadcrumbsItemCurrent
-				.addClass('hover breadcrumbs__item_long')
-				.removeClass('breadcrumbs__item_short');
+				if (currentItem.hasClass(_hover)){
+					currentItem.removeClass(_hover).find('.'+_hover+'').removeClass(_hover);
+					return;
+				}
 
-			$breadcrumbsItemCurrent.children('a').children('span').text($breadcrumbsItemCurrent.data('text'));
+				$('.'+_hover+'').not($currentAnchor.parents('.'+_hover+''))
+					.removeClass(_hover)
+					.find('.'+_hover+'')
+					.removeClass(_hover);
+				currentItem.addClass(_hover);
 
-			e.preventDefault();
-		});
+				e.preventDefault();
+			});
 
-		$('.breadcrumbs-drop').on('click', function (e) {
-			e.stopPropagation();
-		});
+			$container.on('click', ''+self.options.drop+'', function (e) {
+				e.stopPropagation();
+			});
 
-		$(document).on('click', function () {
-			$('.breadcrumbs__item_has-drop').removeClass('hover');
-		});
+			$(document).on('click', function () {
+				$item.removeClass(_hover);
+			});
+		} else {
+			$container.on('mouseenter', ''+item+'', function () {
+				var currentItem = $(this);
 
-	} else {
-		$breadcrumbsItemHasDrop.on('mouseenter', function () {
-			$breadcrumbsItemHasDrop
-				.removeClass('hover breadcrumbs__item_long')
-				.addClass('breadcrumbs__item_short');
+				if (currentItem.prop('hoverTimeout')) {
+					currentItem.prop('hoverTimeout',
+						clearTimeout(currentItem.prop('hoverTimeout')
+						)
+					);
+				}
 
-			$(this)
-				.addClass('hover breadcrumbs__item_long')
-				.removeClass('breadcrumbs__item_short');
+				currentItem.prop('hoverIntent', setTimeout(function () {
+					currentItem.addClass(_hover);
+				}, 50));
 
-		}).on('mouseleave', function () {
-			$(this).removeClass('hover');
+			});
+			$container.on('mouseleave', ''+ item+'', function () {
+				var currentItem = $(this);
+
+				if (currentItem.prop('hoverIntent')) {
+					currentItem.prop('hoverIntent',
+						clearTimeout(currentItem.prop('hoverIntent')
+						)
+					);
+				}
+
+				currentItem.prop('hoverTimeout', setTimeout(function () {
+					currentItem.removeClass(_hover);
+				}, 100));
+			});
+
+		}
+	};
+
+	HoverClass.prototype.removeClassHover = function () {
+		var self = this;
+		self.$item.removeClass(self.modifiers.hover );
+	};
+
+	window.HoverClass = HoverClass;
+
+}(jQuery));
+
+function hoverClassInit(){
+	var $navList = $('.nav');
+	if($navList.length){
+		new HoverClass({
+			container: $navList,
+			drop: '.js-nav-drop'
 		});
 	}
 }
-/*breadcrumbs add hover class end*/
+/*hover class end*/
+
+/*navigation drop behavior*/
+function navDropHeight() {
+	$(window).on('load resize', function () {
+		$('.js-nav-drop').css('height', $(window).outerHeight());
+		$('.nav-drop__group').css('min-height', $(window).outerHeight());
+	})
+}
+
+function navDropBehavior(){
+	var $navDrop = $('.nav-drop');
+	if($navDrop.length){
+		var $html = $('html'),
+			$item = $('.nav-list .has-drop'),
+			activeClass = 'show-nav-drop',
+			animateSpeed = 0.3,
+			$sidebarOverlay = $('<div class="overlay">');
+
+		$item.each(function () {
+			var $currentItem = $(this),
+				$currentNavDrop = $currentItem.find('.nav-drop');
+
+			function createOverlay(close) {
+				if(close == "close"){
+					TweenMax.to($sidebarOverlay, animateSpeed, {autoAlpha:0, onComplete:completeHandler});
+					function completeHandler() {
+						$sidebarOverlay.remove();
+					}
+				} else {
+					$sidebarOverlay.appendTo('body');
+					TweenMax.to($sidebarOverlay, animateSpeed, {autoAlpha:0.8});
+				}
+			}
+
+			if (DESKTOP) {
+				$currentItem.on('mouseenter', function () {
+
+					TweenMax.set($currentNavDrop, {display: 'block'});
+					TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha:1});
+
+					createOverlay();
+				}).on('mouseleave', function () {
+
+					TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha:0, onComplete: function () {
+						$currentNavDrop.hide();
+					}});
+
+					createOverlay('close');
+				});
+			}
+
+			if(!DESKTOP){
+				$currentItem.on('click', function (e) {
+					//e.preventDefault();
+
+					$html.addClass(activeClass);
+					if($sidebarOverlay.is(':hidden')){
+						createOverlay();
+					}
+				});
+			}
+
+			$(document).on('click', function () {
+				$html.removeClass(activeClass);
+				createOverlay('close');
+			});
+
+			$currentItem.on('click', function (e) {
+				e.stopPropagation();
+			});
+		})
+	}
+}
+/*navigation drop behavior end*/
 
 /** ready/load/resize document **/
 
@@ -445,8 +611,10 @@ $(document).ready(function(){
 	equalHeightInit();
 	headerFixed();
 	shareEvents();
-	// socialEvents();
 	footerBottom();
+	hoverClassInit();
+	navDropHeight();
+	navDropBehavior();
 	if(DESKTOP){
 		// customSelect($('select.cselect'));
 	}

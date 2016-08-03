@@ -1432,7 +1432,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	top: 0;
 	width: 240px;
 	height: 100%;
-	z-index: 6;
+	z-index: 90;
 }
 .footer{
 	margin: 0 auto;
@@ -1943,7 +1943,6 @@ a.products__inner:hover{
 /*video section end*/
 
 /*news*/
-.news{}
 .news__item{
 	margin-top: 30px;
 	position: relative;
@@ -2184,13 +2183,15 @@ a.news__inner:hover .news__title{
 /*logo end*/
 
 /*main navigation*/
+.nav{
+	position: relative;
+}
 .nav-list{
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 .nav-list > li{
-	position: relative;
 	margin-top: -1px;
 }
 .nav-list > li:first-child{
@@ -2211,9 +2212,9 @@ a.news__inner:hover .news__title{
 	-webkit-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
-.nav-list > li > a:hover{
-	-webkit-transition-duration: 0.2s;
-	transition-duration: 0.2s;
+.nav-list > li.hover > a{
+	-webkit-transition-duration: 0.1s;
+	transition-duration: 0.1s;
 	text-decoration: none;
 	background: #029db5;
 }
@@ -2228,7 +2229,94 @@ a.news__inner:hover .news__title{
 	border-top: 1px solid #029db5;
 }
 .nav-list > li:first-child > a:before{ display: none; }
+
+.nav-drop{
+	position: fixed;
+	left: 240px;
+	top: 0;
+	background: #fff;
+	overflow: auto;
+	z-index: 88;
+	display: none;
+	visibility: hidden;
+}
+.nav-drop__holder{
+	overflow: hidden;
+}
+.nav-drop__group{
+	float: left;
+	width: 360px;
+	max-width: 33.3%;
+	padding: 40px 50px;
+	border-left: 1px solid #f7f7f7;
+	box-sizing: border-box;
+}
+.nav-drop__group:first-child{
+	border-left: none;
+}
+.nav-drop__title{
+	display: block;
+	font-family: 'rotondac-regular', Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 30px;
+	color: #00abc7;
+	padding: 0 0 20px;
+}
+.nav-drop__list,
+.user-content .nav-drop__list{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.nav-drop__list li,
+.user-content .nav-drop__list li,
+.user-content .nav-drop__list li:first-child{
+	padding: 0 0 10px;
+}
+.user-content .nav-drop__list li:before,
+.user-content .nav-drop__list li:first-child:before{
+	content: none;
+}
+.nav-drop__list a{
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+	color: #4a4a4a;
+	-webkit-transition-property: color;
+	transition-property: color;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+}
+.desktop .nav-drop__list a:hover{
+	color: #00abc7;
+}
+.nav-drop__list a i{
+	float: left;
+	margin-right: 5px;
+	width: 30px;
+	height: 30px;
+}
+.nav-drop__list a span{
+	display: block;
+	overflow: hidden;
+}
 /*main navigation end*/
+
+/*overlay*/
+.overlay{
+	background: #000 url(../img/empty.png);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 87;
+	width: 100%;
+	height: 100%;
+	opacity: 0.75;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+}
+/*overlay end*/
 
 /*sidebar footer*/
 .sb__footer{
