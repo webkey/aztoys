@@ -2149,7 +2149,44 @@ a.news__inner:hover .news__title{
 	padding-top: 10px;
 }
 /*load more end*/
+
+/*contacts*/
+.contacts:before,
+.contacts:after { content: ""; display: table; }
+.contacts:after { clear: both; }
+.contacts__holder{
+	float: left;
+	width: 100%;
+}
+.contacts__frame{
+	margin-right: 640px;
+	min-height: 50px;
+}
+/*contacts end*/
+
+/*contacts form*/
+.contacts-form{
+	float: right;
+	margin: 0 0 0 -640px;
+	width: 640px;
+}
+/*contacts form end*/
 /*CONTENT*/
+
+/*overlay*/
+.overlay{
+	background: #000 url(../img/empty.png);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 87;
+	width: 100%;
+	height: 100%;
+	opacity: 0.75;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+}
+/*overlay end*/
 /*MAIN end*/
 
 /*SIDEBAR*/
@@ -2314,21 +2351,6 @@ a.news__inner:hover .news__title{
 	overflow: hidden;
 }
 /*main navigation end*/
-
-/*overlay*/
-.overlay{
-	background: #000 url(../img/empty.png);
-	position: fixed;
-	left: 0;
-	top: 0;
-	z-index: 87;
-	width: 100%;
-	height: 100%;
-	opacity: 0.75;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-}
-/*overlay end*/
 
 /*sidebar footer*/
 .sb__footer{
