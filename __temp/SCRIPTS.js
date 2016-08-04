@@ -848,14 +848,18 @@ function multiAccordionInit() {
 
 /* footer at bottom */
 function footerBottom(){
-	var footer = $('.footer');
-	var footerOuterHeight = footer.outerHeight();
-	footer.css({
-		'margin-top': -footerOuterHeight
-	});
-	$('.spacer').css({
-		'height': footerOuterHeight
-	});
+	var $footer = $('.footer');
+	if($footer.length){
+		$(window).on('load resizeByWidth', function () {
+			var footerOuterHeight = $footer.outerHeight();
+			$footer.css({
+				'margin-top': -footerOuterHeight
+			});
+			$('.spacer').css({
+				'height': footerOuterHeight
+			});
+		})
+	}
 }
 /*
  !!!!!!! <div class="spacer"></div> insert after <main></main> !!!!!!!
@@ -1024,18 +1028,12 @@ $(document).ready(function(){
 	multiAccordionInit();
 	shareEvents(); // on click
 	socialEvents(); // показать счетчик лайков
+	footerBottom();
 
 	//initial function "naveFunction" after loaded all images in "className"
 	$('.className').imagesLoaded( function() {
 		nameFunction();
 	});
 
-
 	$( ".datepicker-inline" ).datepicker();
-});
-$(window).load(function(){
-	footerBottom();
-})
-;$(window).resize(function(){
-	footerBottom();
 });

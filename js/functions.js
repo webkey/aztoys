@@ -270,11 +270,11 @@ function headerFixed(){
 
 /* footer at bottom */
 function footerBottom(){
-	var footer = $('.footer');
-	if(footer.length){
+	var $footer = $('.footer');
+	if($footer.length){
 		$(window).on('load resizeByWidth', function () {
-			var footerOuterHeight = footer.outerHeight();
-			footer.css({
+			var footerOuterHeight = $footer.outerHeight();
+			$footer.css({
 				'margin-top': -footerOuterHeight
 			});
 			$('.spacer').css({
@@ -604,6 +604,145 @@ function navDropBehavior(){
 }
 /*navigation drop behavior end*/
 
+/*map init*/
+var largePinMap = 'img/map-pin.png';
+
+var localObjects = [
+	[
+		{lat: 32.9122, lng: -96.7391}, //coordinates of marker
+		{latBias: 0.0020, lngBias: 0}, //bias coordinates for center map
+		largePinMap, //image pin
+		15,
+		{
+			title: 'USA & Canada',
+			address: '<b>Address:</b> <div>9330 LBJ Freeway, Suite 900 <br> Dallas, TX 75243 <br> PO Box 647, LIghtfoot, VA 23090</div>',
+			phone: '<b>Tel.:</b> <div><a href="tel:2145613922">(214) 561-3922</a></div>',
+			works: '<b>E-mail:</b> <div><a href="mailto:info@aztoys.com">info@aztoys.com</a></div>'
+		}
+	],[
+		{lat: 53.8984, lng: 27.5788}, //coordinates of marker
+		{latBias: 0.0020, lngBias: 0}, //bias coordinates for center map
+		largePinMap, //image pin
+		15,
+		{
+			title: 'USA & Canada',
+			address: '<b>Address:</b> <div>Toompuiestee 35, korrus 2, <br> Tallinn 10133, Estonia</div>',
+			phone: '<b>Tel.:</b> <div><a href="tel:003725183088"></div>',
+			works: '<b>E-mail:</b> <div><a href="mailto:info@aztoys.com">info@aztoys.com</a></div>'
+		}
+	]
+];
+
+var styleMap = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
+
+function mapMainInit(){
+	if (!$('[id*="-map"]').length) {return;}
+
+	function mapCenter(index){
+		var localObject = localObjects[index];
+
+		return{
+			lat: localObject[0].lat + localObject[1].latBias,
+			lng: localObject[0].lng + localObject[1].lngBias
+		};
+	}
+
+	var mapOptions = {
+		zoom: 15,
+		center: mapCenter(0),
+		styles: styleMap,
+		mapTypeControl: false,
+		scaleControl: false,
+		scrollwheel: false
+	};
+
+	var markers = [],
+		elementById = [
+			document.getElementById('local-01-map'),
+			document.getElementById('local-02-map')
+		];
+
+	if($(elementById[0]).length){
+		var map = new google.maps.Map(elementById[0], mapOptions);
+		addMarker(0,map);
+
+		/*aligned after resize*/
+		var resizeTimer1;
+		$(window).on('resize', function () {
+			clearTimeout(resizeTimer1);
+			resizeTimer1 = setTimeout(function () {
+				moveToLocation(0,map);
+			}, 500);
+		});
+	}
+
+	if($(elementById[1]).length){
+		var map2 = new google.maps.Map(elementById[1], mapOptions);
+		addMarker(0,map2);
+
+		/*aligned after resize*/
+		var resizeTimer2;
+		$(window).on('resize', function () {
+			clearTimeout(resizeTimer2);
+			resizeTimer2 = setTimeout(function () {
+				moveToLocation(0,map2);
+			}, 500);
+		});
+	}
+
+	/*move to location*/
+	function moveToLocation(index, map){
+		var object = localObjects[index];
+		var center = new google.maps.LatLng(mapCenter(index));
+		map.panTo(center);
+		map.setZoom(object[3]);
+	}
+
+	var infoWindow = new google.maps.InfoWindow({
+		maxWidth: 220
+	});
+
+	function addMarker(index,map) {
+		var object = localObjects[index];
+
+		var marker = new google.maps.Marker({
+			position: object[0],
+			//animation: google.maps.Animation.DROP,
+			map: map,
+			icon: object[2],
+			title: object[4].title
+		});
+
+		markers.push(marker);
+
+		function onMarkerClick() {
+			var marker = this;
+
+			infoWindow.setContent(
+				'<div class="map-popup">' +
+				'<h4>'+object[4].title+'</h4>' +
+				'<div class="map-popup__list">' +
+				'<div class="map-popup__row">'+object[4].address+'</div>' +
+				'<div class="map-popup__row">'+object[4].phone+'</div>' +
+				'<div class="map-popup__row">'+object[4].works+'</div>' +
+				'</div>' +
+				'</div>'
+			);
+
+			infoWindow.close();
+
+			infoWindow.open(map, marker);
+		}
+
+		map.addListener('click', function () {
+			infoWindow.close();
+		});
+
+		marker.addListener('click', onMarkerClick);
+	}
+}
+/*map init end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -620,7 +759,12 @@ $(document).ready(function(){
 	hoverClassInit();
 	navDropHeight();
 	navDropBehavior();
+	// mapMainInit();
 	if(DESKTOP){
-		// customSelect($('select.cselect'));
+		customSelect($('select.cselect'));
 	}
+});
+
+$(window).load(function () {
+	mapMainInit();
 });

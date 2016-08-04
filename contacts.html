@@ -21,7 +21,8 @@
 	<script src="js/vendor/modernizr-3.3.1.custom.min.js"></script>
 </head>
 <body>
-<!--[if lt IE 8]>
+<!--[if lte IE 8]>
+<style>body *{display:none;} body .browserupgrade{display:block;}body .browserupgrade *{display:inline;}</style>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
@@ -149,23 +150,48 @@
 					<div class="contacts__frame">
 						<!--locate-->
 						<div class="locate">
-							<ul class="locate-controls">
-								<li><a href="#"><span>New York</span></a></li>
-								<li><a href="#"><span></span>Estonia</a></li>
-							</ul>
-							<div class="see-on-map">
-								<a href="#">See on map <i class="depict-pin"></i></a>
-							</div>
-							<div class="locate-slider">
-								<div class="contacts-slide">
-									<div class="locate-slide__bg" style="background-image: url(img/img-contacts-01.jpg)"></div>
-									<div class="locate__address">
-										29 Grange Rd Cheltenham <br>
-										Melbourne VIC 3192 AUSTRALIA <br>
-										Facsimile (+61) 03 9579 7355
+							<div id="local-01-map" class="local-map active"></div>
+							<div id="local-02-map" class="local-map"></div>
+							<div class="locate-bg__item active" style="background-image: url(img/img-locate-01.jpg)"></div>
+							<div class="locate-bg__item" style="background-image: url(img/img-locate-02.jpg)"></div>
+							<div class="locate__holder">
+								<ul class="locate-controls">
+									<li class="active"><a href="#"><span>USA & Canada</span></a></li>
+									<li><a href="#"><span>Europe</span></a></li>
+								</ul>
+								<div class="see-on-map">
+									<a href="#">
+										<i class="depict-pin">
+											<!--<svg height="24px" version="1.1" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink">
+												<path d="M479.5,466 C479.5,466 487,456.127718 487,451.812818 C487,447.497918 484.518799,443.999999 479.5,444 C474.481201,444.000001 472,447.497918 472,451.812818 C472,456.127718 479.5,466 479.5,466 L479.5,466 Z M479.5,454.5 C481.709139,454.5 483.5,452.709139 483.5,450.5 C483.5,448.290861 481.709139,446.5 479.5,446.5 C477.290861,446.5 475.5,448.290861 475.5,450.5 C475.5,452.709139 477.290861,454.5 479.5,454.5 L479.5,454.5 Z" fill="#000000" />
+											</svg>-->
+										</i>
+									</a>
+								</div>
+								<div class="locate-adr">
+									<div class="locate-adr__item active">
+										9330 LBJ Freeway, Suite 900 <br>
+										Dallas, TX 75243 <br>
+										PO Box 647, LIghtfoot, VA 23090
 									</div>
-									<div class="locate__tel"><span>03 9579 7377</span></div>
-									<div class="locate__email"><a href="mailto:info@aztoys.com">info@aztoys.com</a></div>
+									<div class="locate-adr__item">
+										Toompuiestee 35, korrus 2, <br>
+										Tallinn 10133, Estonia
+									</div>
+								</div>
+								<div class="locate-cont">
+									<dl class="locate-cont__item active">
+										<dt class="locate__tel">Tel.:</dt>
+										<dd><a href="tel:2145613922">(214) 561-3922</a></dd>
+										<dt>E-mail:</dt>
+										<dd><a href="mailto:info@aztoys.com">info@aztoys.com</a></dd>
+									</dl>
+									<dl class="locate-cont__item">
+										<dt>Tel.:</dt>
+										<dd class="locate__tel"><a href="tel:003725183088">003725183088</a></dd>
+										<dt>E-mail:</dt>
+										<dd><a href="mailto:info@aztoys.com">info@aztoys.com</a></dd>
+									</dl>
 								</div>
 							</div>
 						</div>
@@ -173,52 +199,54 @@
 					</div>
 				</div>
 				<!--contacts form-->
-				<div class="contacts-form is-validate">
-					<h3>Enquiry form</h3>
-					<form action="#" method="get">
-						<input type="text" placeholder="First name">
-						<input type="text" placeholder="Last name">
-						<input type="email" placeholder="E-mail">
-						<input type="email" placeholder="Phone">
-						<div class="select">
-							<select class="cselect" name="country">
-								<option value="1">Country</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-							</select>
-						</div>
-						<div class="select">
-							<select class="cselect" name="subject-of-enquiry">
-								<option value="1">Subject of enquiry</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-								<option value="2">Option</option>
-								<option value="3">Option long</option>
-								<option value="4">Option very very very very very very very long</option>
-							</select>
-						</div>
-						<textarea placeholder="Your message"></textarea>
-						<div class="form-buttons">
-							<input type="submit" value="send">
-						</div>
-					</form>
+				<div class="contacts-aside">
+					<div class="contacts-form is-validate">
+						<h3>Enquiry form</h3>
+						<form action="#" method="get">
+							<input type="text" placeholder="First name">
+							<input type="text" placeholder="Last name">
+							<input type="email" placeholder="E-mail">
+							<input type="email" placeholder="Phone">
+							<div class="select">
+								<select class="cselect" name="country">
+									<option value="1">Country</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+								</select>
+							</div>
+							<div class="select">
+								<select class="cselect" name="subject-of-enquiry">
+									<option value="1">Subject of enquiry</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+									<option value="2">Option</option>
+									<option value="3">Option long</option>
+									<option value="4">Option very very very very very very very long</option>
+								</select>
+							</div>
+							<textarea placeholder="Your message"></textarea>
+							<div class="form-buttons">
+								<input type="submit" value="send">
+							</div>
+						</form>
+					</div>
 				</div>
 				<!--contacts form end-->
 			</div>
@@ -315,6 +343,8 @@
 <!--<![endif]-->
 <!--JQuery UI-->
 <script src="js/vendor/jquery-ui.min.js"></script>
+<!--Map-->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
 <!--Widgets-->
 <script src="js/widgets.js"></script>
 <!--Main functions-->
