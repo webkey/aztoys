@@ -759,12 +759,8 @@ $(document).ready(function(){
 	hoverClassInit();
 	navDropHeight();
 	navDropBehavior();
-	// mapMainInit();
+	mapMainInit();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
-});
-
-$(window).load(function () {
-	mapMainInit();
 });
