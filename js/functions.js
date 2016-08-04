@@ -620,7 +620,7 @@ var localObjects = [
 			works: '<b>E-mail:</b> <div><a href="mailto:info@aztoys.com">info@aztoys.com</a></div>'
 		}
 	],[
-		{lat: 53.8984, lng: 27.5788}, //coordinates of marker
+		{lat: 59.4384, lng: 24.7340}, //coordinates of marker
 		{latBias: 0.0020, lngBias: 0}, //bias coordinates for center map
 		largePinMap, //image pin
 		15,
@@ -647,14 +647,7 @@ function mapMainInit(){
 		};
 	}
 
-	var mapOptions = {
-		zoom: 15,
-		center: mapCenter(0),
-		styles: styleMap,
-		mapTypeControl: false,
-		scaleControl: false,
-		scrollwheel: false
-	};
+	var mapOptions = {};
 
 	var markers = [],
 		elementById = [
@@ -663,29 +656,47 @@ function mapMainInit(){
 		];
 
 	if($(elementById[0]).length){
-		var map = new google.maps.Map(elementById[0], mapOptions);
-		addMarker(0,map);
+		mapOptions = {
+			zoom: 15,
+			center: mapCenter(0),
+			styles: styleMap,
+			mapTypeControl: false,
+			scaleControl: false,
+			scrollwheel: false
+		};
+
+		var map0 = new google.maps.Map(elementById[0], mapOptions);
+		addMarker(0,map0);
+
+		/*aligned after resize*/
+		var resizeTimer0;
+		$(window).on('resize', function () {
+			clearTimeout(resizeTimer0);
+			resizeTimer0 = setTimeout(function () {
+				moveToLocation(0,map0);
+			}, 500);
+		});
+	}
+
+	if($(elementById[1]).length){
+		mapOptions = {
+			zoom: 15,
+			center: mapCenter(1),
+			styles: styleMap,
+			mapTypeControl: false,
+			scaleControl: false,
+			scrollwheel: false
+		};
+
+		var map1 = new google.maps.Map(elementById[1], mapOptions);
+		addMarker(1,map1);
 
 		/*aligned after resize*/
 		var resizeTimer1;
 		$(window).on('resize', function () {
 			clearTimeout(resizeTimer1);
 			resizeTimer1 = setTimeout(function () {
-				moveToLocation(0,map);
-			}, 500);
-		});
-	}
-
-	if($(elementById[1]).length){
-		var map2 = new google.maps.Map(elementById[1], mapOptions);
-		addMarker(0,map2);
-
-		/*aligned after resize*/
-		var resizeTimer2;
-		$(window).on('resize', function () {
-			clearTimeout(resizeTimer2);
-			resizeTimer2 = setTimeout(function () {
-				moveToLocation(0,map2);
+				moveToLocation(1,map1);
 			}, 500);
 		});
 	}
