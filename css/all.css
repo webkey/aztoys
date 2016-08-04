@@ -2169,7 +2169,7 @@ a.news__inner:hover .news__title{
 	position: relative;
 	overflow: hidden;
 	height: 100vh;
-	min-height: 955px;
+	min-height: 860px;
 	padding: 248px 120px 100px;
 	box-sizing: border-box;
 	background: #fff;
@@ -2229,6 +2229,7 @@ a.news__inner:hover .news__title{
 	bottom: 0;
 	left: 0;
 	right: 0;
+	-webkit-background-size: cover;
 	background-size: cover;
 	background: no-repeat center center;
 	-webkit-transform: scale(1.2);
@@ -2273,13 +2274,22 @@ a.news__inner:hover .news__title{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	line-height: 30px;
+	will-change: left, top;
+	-webkit-transition-property: left, top;
+	transition-property: left, top;
+	-webkit-transition-duration: 0.6s;
+	transition-duration: 0.6s;
+}
+.map-show .locate-controls{
+	left: 0;
+	top: 0;
 }
 .locate-controls a{
 	float: left;
 	text-decoration: none;
 	padding: 15px 40px;
 	background: #fff;
-	color: #00abc7;
+	color: #54c7d9;
 	-webkit-transition-property: color, background;
 	transition-property: color, background;
 	-webkit-transition-duration: 0.2s;
@@ -2288,7 +2298,7 @@ a.news__inner:hover .news__title{
 .locate-controls a > span{
 	display: inline-block;
 	line-height: 24px;
-	border-bottom: 1px dotted #00abc7;
+	border-bottom: 1px dotted #54c7d9;
 	-webkit-transition-property: border;
 	transition-property: border;
 	-webkit-transition-duration: 0.2s;
@@ -2298,7 +2308,7 @@ a.news__inner:hover .news__title{
 	border-bottom-color: transparent;
 }
 .locate-controls a.active{
-	background: #00abc7;
+	background: #54c7d9;
 	color: #fff;
 	cursor: default;
 }
@@ -2471,7 +2481,7 @@ a.news__inner:hover .news__title{
 .contacts-aside:before{
 	content: '';
 	display: inline-block;
-	height: 955px;
+	height: 860px;
 	vertical-align: middle;
 }
 .contacts-form{

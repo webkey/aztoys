@@ -303,7 +303,7 @@ function filtersInit() {
 	// bind filter tag click
 
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
-		e.preventDefault;
+		e.preventDefault();
 		var $currentTag = $( this );
 		var dataTagsGroup = $currentTag.closest('.tags-group').attr('data-tags-group');
 		dataTagsGroup = (dataTagsGroup == undefined) ? $currentTag.attr('data-filter') : dataTagsGroup;
@@ -342,7 +342,7 @@ function filtersInit() {
 	// $filtersTagsGroup.each( function( i, buttonGroup ) {
 	// 	var $buttonGroup = $( buttonGroup );
 	// 	$buttonGroup.on( 'click', 'a', function(e) {
-	// 		e.preventDefault;
+	// 		e.preventDefault();
 	// 		$buttonGroup.find('.is-checked').not(e.target).removeClass('is-checked');
 	// 		$( this ).toggleClass('is-checked');
 	//
@@ -351,7 +351,7 @@ function filtersInit() {
 	// });
 
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
-		e.preventDefault;
+		e.preventDefault();
 		$( this ).closest('.button-group-js').find('.is-checked').not(e.target).removeClass('is-checked');
 		$( this ).toggleClass('is-checked');
 
@@ -756,11 +756,23 @@ function mapMainInit(){
 
 /*locate events*/
 function locateEvents() {
+	'use strict';
+
 	var $locate = $('.locate-js');
 	if (!$locate.length) return false;
 
 	var activeClass = 'active',
-		hideClass = 'hide';
+		hideClass = 'hide',
+		tabEvent = true,
+		index = 0;
+
+	var $tab = [
+		'.locate-bg-js',
+		'.locate-adr-js',
+		'.locate-cont-js'
+	];
+
+	var $map = $('.local-map-js');
 
 	$('.locate-controls-js').on('click', 'a', function (e) {
 		e.preventDefault();
@@ -769,57 +781,70 @@ function locateEvents() {
 
 		if ($currentBtn.hasClass(activeClass)) return false;
 
-		var index = $currentBtn.index(),
-			$currentWrapper = $currentBtn.closest($locate);
-		
+		var $currentWrapper = $currentBtn.closest($locate);
+		index = $currentBtn.index();
+
 		$('.locate-controls-js a').removeClass(activeClass);
 		$currentBtn.addClass(activeClass);
 
-		if (!$('.see-map-js').hasClass(activeClass)){
-			$currentWrapper.find('.locate-bg-js, .locate-adr-js, .locate-cont-js').removeClass(activeClass);
-			$currentWrapper.find('.locate-bg-js').eq(index).addClass(activeClass);
-			$currentWrapper.find('.locate-adr-js').eq(index).addClass(activeClass);
-			$currentWrapper.find('.locate-cont-js').eq(index).addClass(activeClass);
+		if (tabEvent){
+			switchStateTab($currentWrapper,$tab);
+			switchStateTab($currentWrapper,$tab,index);
 		}
 
-		if ($('.see-map-js').hasClass(activeClass)){
-			$currentWrapper.find('.local-map-js').removeClass(activeClass);
-			$currentWrapper.find('.local-map-js').eq(index).addClass(activeClass);
+		if (!tabEvent){
+			switchStateTab($currentWrapper,$map);
+			switchStateTab($currentWrapper,$map,index);
 		}
+
+		return index;
 	});
 
 	$('.see-map-js').on('click', function (e) {
 		e.preventDefault();
 
-		var $currentBtn = $(this);
+		var $currentBtn = $(this),
+			$currentWrapper = $currentBtn.closest('.locate-js');
 
-		var $currentWrapper = $currentBtn.closest($locate),
-			$map = $currentWrapper.find('.local-map-js'),
-			$tabs = $currentWrapper.find('.locate-tabs-js'),
-			$bg = $currentWrapper.find('.locate-bg-js'),
-			index = $currentWrapper.find('.locate-controls-js a.active').index();
+		$currentBtn.toggleClass(activeClass, tabEvent);
+		$currentWrapper.toggleClass('map-show', tabEvent);
+		$currentWrapper.find('.locate-tabs-js').toggleClass(hideClass, tabEvent);
 
-		if ($currentBtn.hasClass(activeClass)) {
-			$currentBtn.removeClass(activeClass);
-			$map.removeClass(activeClass);
-			$tabs.removeClass(hideClass);
+		console.log('index: ', index);
 
-			$currentWrapper.find('.locate-bg-js, .locate-adr-js, .locate-cont-js').removeClass(activeClass);
-			$currentWrapper.find('.locate-bg-js').eq(index).addClass(activeClass);
-			$currentWrapper.find('.locate-adr-js').eq(index).addClass(activeClass);
-			$currentWrapper.find('.locate-cont-js').eq(index).addClass(activeClass);
+		if (!tabEvent) {
+			tabEvent = true;
 
-			return false;
+			switchStateTab($currentWrapper,$tab,index);
+			switchStateTab($currentWrapper,$map);
+
+		} else {
+			tabEvent = false;
+
+			switchStateTab($currentWrapper,$tab);
+			switchStateTab($currentWrapper,$map,index);
 		}
+	});
 
-		$currentBtn.addClass(activeClass);
-
-		$map.removeClass(activeClass);
-		$bg.removeClass(activeClass);
-		$tabs.addClass(hideClass);
-
-		$map.eq(index).addClass(activeClass);
-	})
+	function switchStateTab(content,tab,index) {
+		// if property "index" length class added
+		// else class removed
+		if (Array.isArray(tab)){
+			for(var i = 0; i < tab.length; i++) {
+				if (index !== undefined) {
+					content.find(tab[i]).eq(index).addClass(activeClass);
+				} else {
+					content.find(tab[i]).removeClass(activeClass);
+				}
+			}
+		} else {
+			if (index !== undefined) {
+				content.find(tab).eq(index).addClass(activeClass);
+			} else {
+				content.find(tab).removeClass(activeClass);
+			}
+		}
+	}
 }
 /*locate events end*/
 
