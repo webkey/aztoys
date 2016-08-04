@@ -743,6 +743,75 @@ function mapMainInit(){
 }
 /*map init end*/
 
+/*locate events*/
+function locateEvents() {
+	var $locate = $('.locate-js');
+	if (!$locate.length) return false;
+
+	var activeClass = 'active',
+		hideClass = 'hide';
+
+	$('.locate-controls-js').on('click', 'a', function (e) {
+		e.preventDefault();
+
+		var $currentBtn = $(this);
+
+		if ($currentBtn.hasClass(activeClass)) return false;
+
+		var index = $currentBtn.index(),
+			$currentWrapper = $currentBtn.closest($locate);
+		
+		$('.locate-controls-js a').removeClass(activeClass);
+		$currentBtn.addClass(activeClass);
+
+		if (!$('.see-map-js').hasClass(activeClass)){
+			$currentWrapper.find('.locate-bg-js, .locate-adr-js, .locate-cont-js').removeClass(activeClass);
+			$currentWrapper.find('.locate-bg-js').eq(index).addClass(activeClass);
+			$currentWrapper.find('.locate-adr-js').eq(index).addClass(activeClass);
+			$currentWrapper.find('.locate-cont-js').eq(index).addClass(activeClass);
+		}
+
+		if ($('.see-map-js').hasClass(activeClass)){
+			$currentWrapper.find('.local-map-js').removeClass(activeClass);
+			$currentWrapper.find('.local-map-js').eq(index).addClass(activeClass);
+		}
+	});
+
+	$('.see-map-js').on('click', function (e) {
+		e.preventDefault();
+
+		var $currentBtn = $(this);
+
+		var $currentWrapper = $currentBtn.closest($locate),
+			$map = $currentWrapper.find('.local-map-js'),
+			$tabs = $currentWrapper.find('.locate-tabs-js'),
+			$bg = $currentWrapper.find('.locate-bg-js'),
+			index = $currentWrapper.find('.locate-controls-js a.active').index();
+
+		if ($currentBtn.hasClass(activeClass)) {
+			$currentBtn.removeClass(activeClass);
+			$map.removeClass(activeClass);
+			$tabs.removeClass(hideClass);
+
+			$currentWrapper.find('.locate-bg-js, .locate-adr-js, .locate-cont-js').removeClass(activeClass);
+			$currentWrapper.find('.locate-bg-js').eq(index).addClass(activeClass);
+			$currentWrapper.find('.locate-adr-js').eq(index).addClass(activeClass);
+			$currentWrapper.find('.locate-cont-js').eq(index).addClass(activeClass);
+
+			return false;
+		}
+
+		$currentBtn.addClass(activeClass);
+
+		$map.removeClass(activeClass);
+		$bg.removeClass(activeClass);
+		$tabs.addClass(hideClass);
+
+		$map.eq(index).addClass(activeClass);
+	})
+}
+/*locate events end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -760,6 +829,7 @@ $(document).ready(function(){
 	navDropHeight();
 	navDropBehavior();
 	mapMainInit();
+	locateEvents();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
