@@ -902,6 +902,64 @@ function locateEvents() {
 }
 /*locate events end*/
 
+/*swiper slider initial*/
+function swiperSliderInit() {
+	var mySwiper = new Swiper ('.swiper-container', {
+		// Optional parameters
+		// direction: 'vertical',
+		loop: true,
+
+		// If we need pagination
+		// pagination: '.swiper-pagination',
+
+		// Navigation arrows
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+
+		// And if we need scrollbar
+		// scrollbar: '.swiper-scrollbar',
+		effect: 'coverflow',
+		grabCursor: false,
+		// loop: true,
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		speed: 600,
+		// autoplay: 7000,
+		parallax: false,
+		simulateTouch: true,
+		coverflow: {
+			rotate: 0,
+			modifier: 4,
+			stretch: 0,
+			slideShadows : true,
+			scale: 0.8
+		},
+		// nextButton: '.big-next',
+		// prevButton: '.big-prev',
+		slideNextClass: 'swiper-slide-next',
+		slidePrevClass: 'swiper-slide-prev',
+		// onInit: function(){
+		//
+		// 	$('.promo__preloader').remove();
+		//
+		// 	TweenMax.to($(BIGBOARD_SLIDER), 1.2, {
+		// 		opacity: 1,
+		// 		y: 0,
+		// 		delay: 1,
+		// 		ease: Power2.easeOut
+		// 	});
+		// },
+		// onSlideChangeEnd: function(){
+		// 	TweenMax.to($(BIGBOARD_SLIDER).find('.swiper-slide-active .slide-aside'), 0.5, {
+		// 		opacity: 1,
+		// 		x: 0,
+		// 		ease: Power2.easeOut
+		// 	});
+		// }
+	})
+}
+/*swiper slider initial end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -920,6 +978,7 @@ $(document).ready(function(){
 	navDropBehavior();
 	mapMainInit();
 	locateEvents();
+	swiperSliderInit();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
