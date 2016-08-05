@@ -960,6 +960,8 @@ function swiperSliderInit() {
 }
 /*swiper slider initial end*/
 
+
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -979,6 +981,7 @@ $(document).ready(function(){
 	mapMainInit();
 	locateEvents();
 	swiperSliderInit();
+	// videoEvent();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
