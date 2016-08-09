@@ -620,14 +620,16 @@ function hoverClassInit(){
 
 /*navigation drop behavior*/
 function navDropHeight() {
+	var $navDrop = $('.js-nav-drop');
+	if (!$navDrop.length) return false;
+
 	$(window).on('load resize', function () {
-		$('.js-nav-drop').css('height', $(window).outerHeight());
-		$('.nav-drop__group').css('min-height', $(window).outerHeight());
+		$navDrop.css('height', $(window).outerHeight());
 	})
 }
 
 function navDropBehavior(){
-	var $navDrop = $('.nav-drop');
+	var $navDrop = $('.js-nav-drop');
 	if($navDrop.length){
 		var $html = $('html'),
 			$item = $('.nav-list .has-drop'),
@@ -657,6 +659,7 @@ function navDropBehavior(){
 					TweenMax.set($currentNavDrop, {display: 'block'});
 					TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha:1});
 
+					equalHeightNavDropGroup();
 					createOverlay();
 				}).on('mouseleave', function () {
 
@@ -687,6 +690,15 @@ function navDropBehavior(){
 			$currentItem.on('click', function (e) {
 				e.stopPropagation();
 			});
+
+			function equalHeightNavDropGroup() {
+				var $navDropGroup = $navDrop.find('.nav-drop__group');
+
+				$navDropGroup.equalHeight({
+					resize: true,
+					amount: $navDropGroup.length
+				});
+			}
 		})
 	}
 }

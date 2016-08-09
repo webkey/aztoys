@@ -4,10 +4,14 @@
 .previews{
 	max-width: 560px;
 }
+.previews__list{
+	padding-left: 0;
+}
 .previews__item{
+	margin-left: 0;
 	display: inline-block;
 	vertical-align: top;
-	width: 49.98%;
+	width: 50%;
 }
 .previews__item_lg { width: auto; }
 .previews__item:nth-child(2) { display: inline-block; }

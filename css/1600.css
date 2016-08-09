@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1279px){}
+@media only screen and (max-width: 1599px){}
 /*tabs*/
 .tab-controls li, .user-content .tab-controls li, .user-content .tab-controls li:first-child {
 	font-size: 30px;
@@ -18,8 +18,16 @@
 .previews__item:nth-child(2) { display: none; }
 /*previews end*/
 
-/*main navigation*/
-.nav-drop__group{
-	padding: 25px 30px;
+/*footer*/
+/*footer nav*/
+.footer-nav__col{
+	width: 33.28%;
 }
-/*main navigation end*/
+.footer-nav__col.col-lg{
+	width: 66.56%;
+}
+.footer-nav__col.no-space {
+	padding-left: 30px;
+}
+/*footer nav end*/
+/*footer end*/
