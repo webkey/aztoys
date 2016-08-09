@@ -271,7 +271,10 @@ function filtersInit() {
 	// external js: Isotope PACKAGED v3.0.1 (widgets.js);
 	var $filtersWrapper = $('.products'),
 		$filtersTagsGroup = $('.filters-tags-js'),
-		tags = {};
+		tags = {},
+		isCheckedClass = 'is-checked',
+		isCheckedCounter = 0,
+		showButtonFind = false;
 
 	// init Isotope
 	var $grid = $filtersWrapper.isotope({
@@ -285,10 +288,19 @@ function filtersInit() {
 		e.preventDefault();
 		var $currentTag = $( this );
 		var dataTagsGroup = $currentTag.closest('.tags-group').attr('data-tags-group');
-		dataTagsGroup = (dataTagsGroup == undefined) ? $currentTag.attr('data-filter') : dataTagsGroup;
-		tags[ dataTagsGroup ] = $currentTag.hasClass('is-checked') ? '' : $currentTag.attr('data-filter');
+
+		dataTagsGroup = (dataTagsGroup == undefined) ?
+			$currentTag.attr('data-filter') :
+			dataTagsGroup;
+
+		tags[ dataTagsGroup ] = ($currentTag.hasClass(isCheckedClass)) ?
+			'' :
+			$currentTag.attr('data-filter');
+
 		var filterValue = concatValues( tags );
 		$grid.isotope({ filter: filterValue });
+
+		showButtonFind = true;
 	});
 
 	//concatenation values of tags
@@ -300,14 +312,14 @@ function filtersInit() {
 		return value;
 	}
 
-	//clear filter tags
-	$('.clear-filter').on('click', function () {
-		if($(this).hasClass('disabled')) return;
+	$filtersTagsGroup.on( 'click', 'a', function(e) {
+		e.preventDefault();
+		var $this = $( this );
+		$this.closest('.button-group-js').find('.is-checked').not(e.target).removeClass('is-checked');
 
-		$filtersTagsGroup.find('.is-checked').removeClass('is-checked');
-		$grid.isotope({ filter: '*' });
-		tags = {};
+		$this.toggleClass('is-checked');
 
+		console.log('isCheckedCounter: ', isCheckedCounter);
 		clearBtnState();
 	});
 
@@ -317,35 +329,9 @@ function filtersInit() {
 	}
 	clearBtnState();
 
-	$filtersTagsGroup.on( 'click', 'a', function(e) {
-		e.preventDefault();
-		$( this ).closest('.button-group-js').find('.is-checked').not(e.target).removeClass('is-checked');
-		$( this ).toggleClass('is-checked');
-
-		clearBtnState();
-	});
-
-
-	// count items
-	var tempNoProducts = $('<h2 style="text-align: center;">No products</h2>');
-	$filtersWrapper.after(tempNoProducts.hide());
-
-	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
-		var lengthItems = filteredItems.length;
-		$('.filters-counter-js').html('Found: <strong>' + lengthItems + '</strong>');
-		if (!lengthItems) {
-			tempNoProducts.show();
-		} else {
-			tempNoProducts.hide();
-		}
-	});
-}
-/*filters end*/
-
-/*more options drop*/
-// external js:
-// 2) TweetMax VERSION: 1.19.0 (widgets.js);
-function moreOptionsDropEvents(){
+	// more options drop
+	// external js:
+	// 2) TweetMax VERSION: 1.19.0 (widgets.js);
 	var $jsDropContent = $('.filters-content-js'),
 		jsDrop = '.filters-drop-js',
 		$jsDrop = $(jsDrop),
@@ -372,6 +358,17 @@ function moreOptionsDropEvents(){
 
 		return false;
 	});
+
+	if (DESKTOP) {
+		$jsDrop.on('mouseleave', function () {
+			switchClass($jsDropContent);
+			switchClass($jsDropOpener);
+			switchClass($jsDrop);
+			eventDrop($jsDrop);
+
+			return false;
+		});
+	}
 
 	function switchClass(remove,add,condition) {
 		// remove - element with remove class
@@ -406,13 +403,6 @@ function moreOptionsDropEvents(){
 		document.location.href = $(this).attr('href');
 	});
 
-	// $(document).click(function () {
-	// 	switchClass($jsDropContent);
-	// 	switchClass($jsDropOpener);
-	// 	switchClass($jsDrop);
-	// 	eventDrop($jsDrop);
-	// });
-
 	//recalculate height of phone drop
 	$(window).on('resize scroll', function () {
 		recalcPhonesDrop.call();
@@ -424,8 +414,57 @@ function moreOptionsDropEvents(){
 
 		$jsDrop.css('height', windowHeight);
 	}
+
+	// no product show / hide
+	var tempNoProducts = $('<h2 style="text-align: center;">Items not found</h2>');
+	$filtersWrapper.after(tempNoProducts.hide());
+
+	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
+		var lengthItems = filteredItems.length;
+
+		if (!lengthItems) {
+			tempNoProducts.show();
+		} else {
+			tempNoProducts.hide();
+		}
+	});
+
+	// search counter
+	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
+		var lengthItems = filteredItems.length,
+			filterCounterContent = 'Items <br /> not found';
+
+		if( lengthItems > 0 ) {
+			var items = (filteredItems.length > 1) ? 'items' : 'item';
+			filterCounterContent = 'Find <br /> <strong>' + lengthItems + '</strong> ' + items
+		}
+
+		$('.filters-counter-js')
+			.html(filterCounterContent)
+			.closest('.button')
+			.toggleClass('btn-show', showButtonFind);
+	});
+
+	// clear filter tags
+	$('.clear-filter').on('click', function (e) {
+		e.preventDefault();
+		if($(this).hasClass('disabled')) return;
+
+		$filtersTagsGroup.find('.is-checked').removeClass('is-checked');
+		$grid.isotope({ filter: '*' });
+		tags = {};
+
+		switchClass($jsDropContent);
+		switchClass($jsDropOpener);
+		switchClass($jsDrop);
+		eventDrop($jsDrop);
+
+		clearBtnState();
+
+		showButtonFind = false;
+	});
 }
-/*more options drop end*/
+/*filters end*/
 
 /*share events*/
 function shareEvents() {
@@ -1086,18 +1125,18 @@ function shareFixed(){
 
 	if(!$fixedBox.length) return false;
 
-	var $barrier = $('.main-img-js'),
+	var fixedBoxTopPosition = $fixedBox.offset().top,
+		$barrier = $('.main-img-js'),
 		$bottom = $('.footer'),
-		barrierTopPosition = $barrier.offset().top,
-		barrierHeight = $barrier.outerHeight(),
-		fixedBoxTopPosition = $fixedBox.offset().top,
-		fixedBoxHeight = $fixedBox.outerHeight(),
-		bottomTopPosition = $bottom.offset().top,
 		topSpace = 50;
 
 	$(window).on('load scroll resizeByWidth', function () {
 
-		var currentScrollTop = $(window).scrollTop();
+		var barrierTopPosition = $barrier.offset().top,
+			barrierHeight = $barrier.outerHeight(),
+			fixedBoxHeight = $fixedBox.outerHeight(),
+			bottomTopPosition = $bottom.offset().top,
+			currentScrollTop = $(window).scrollTop();
 
 		if (currentScrollTop >= (fixedBoxTopPosition - topSpace)) {
 			$fixedBox
@@ -1115,13 +1154,12 @@ function shareFixed(){
 				});
 		}
 
-		if (currentScrollTop >= barrierTopPosition - fixedBoxHeight - topSpace
+		if (currentScrollTop >= barrierTopPosition - fixedBoxHeight - topSpace*2
 			&& currentScrollTop < barrierTopPosition + barrierHeight
-			|| currentScrollTop >= bottomTopPosition - fixedBoxHeight - topSpace) {
-
-			TweenMax.to($fixedBox, 0.1, {autoAlpha: 0, ease: Power2.easeInOut});
+			|| currentScrollTop >= bottomTopPosition - fixedBoxHeight - topSpace*2) {
+			var tl = TweenMax.to($fixedBox, 0.1, {autoAlpha: 0, ease: Power2.easeInOut});
+			console.log('progressVal: ', tl.progress());
 		} else {
-
 			TweenMax.to($fixedBox, 0.1, {autoAlpha: 1, ease: Power2.easeInOut});
 		}
 	});
@@ -1136,7 +1174,9 @@ function parallaxBg() {
 		var currentScrollTop = $(window).scrollTop();
 
 		$page.css({
-			'background-position-y': Math.round(currentScrollTop/1.2)
+			// 'background-position-y': Math.round(currentScrollTop/1.2)
+			'background-position-y': currentScrollTop/1.2,
+			// 'background-position-x': -currentScrollTop/3
 		})
 	});
 }
@@ -1172,7 +1212,6 @@ $(document).ready(function(){
 		customSelect($('select.cselect'));
 	}
 	//filtersInit();
-	moreOptionsDropEvents();
 	shareEvents();
 	hoverClassInit();
 	navDropHeight();
@@ -1181,7 +1220,7 @@ $(document).ready(function(){
 	locateEvents();
 	swiperSliderInit();
 	shareFixed();
-	parallaxBg();
+	// parallaxBg();
 
 	footerBottom();
 });
