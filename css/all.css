@@ -170,11 +170,11 @@ button{
 	position: relative;
 	box-sizing: border-box;
 }
-.btn-default:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover,
-input[type="reset"]:hover,
-button:hover{
+.desktop .btn-default:hover,
+.desktop input[type="submit"]:hover,
+.desktop input[type="button"]:hover,
+.desktop input[type="reset"]:hover,
+.desktop button:hover{
 	color: #00abc7;
 }
 .btn-default:active{
@@ -394,10 +394,10 @@ table th{
 	display: inline-block;
 }
 .user-content blockquote q:before{
-	content: '“';
+	content: '"';
 }
 .user-content blockquote q:after{
-	content: '”';
+	content: '"';
 }
 .user-content blockquote cite{
 	text-align: right;
@@ -1449,6 +1449,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 100%;
 	background: #00abc7;
 	z-index: 90;
+	overflow: hidden;
 }
 .footer{
 	margin: 0 auto;
@@ -1638,6 +1639,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .tab-controls li,
 .user-content .tab-controls li,
 .user-content .tab-controls li:first-child{
+	display: inline-block;
+	vertical-align: top;
 	padding: 0 6px;
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 40px;
@@ -1656,10 +1659,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-radius: 30px;
 	color: #00abc7;
 	text-decoration: none;
-	/*-webkit-transition-property: background, color;*/
-	/*transition-property: background, color;*/
-	/*-webkit-transition-duration: 0.2s;*/
-	/*transition-duration: 0.2s;*/
 }
 .tab-controls .r-tabs-state-active a{
 	text-decoration: none;
@@ -1808,6 +1807,9 @@ a.products__inner:hover{
 }
 .previews__list{
 	padding: 0 0 0 1px;
+
+	font-size: 0;
+	letter-spacing: -4px;
 }
 .previews__list:before,
 .previews__list:after { content: ""; display: table; }
@@ -1819,6 +1821,9 @@ a.products__inner:hover{
 	box-sizing: border-box;
 	width: 16.7%;
 	margin-left: -1px;
+
+	font-size: 16px;
+	letter-spacing: normal;
 }
 .previews__item:before{
 	content: '';
@@ -2787,6 +2792,13 @@ a.news__inner:hover .news__title{
 /*SIDEBAR*/
 .sidebar__holder{
 	margin-left: 6px;
+	margin-right: -100px;
+	padding-right: 100px;
+	height: 100%;
+	overflow: auto;
+}
+.sidebar__frame{
+	width: 234px;
 }
 /*logo*/
 .logo{
@@ -2954,8 +2966,6 @@ a.news__inner:hover .news__title{
 	bottom: 0;
 	left: 0;
 	border-top: 1px solid #029db5;
-
-	display: none;
 }
 /*sidebar footer end*/
 
@@ -3368,7 +3378,7 @@ a.news__inner:hover .news__title{
 /*footer nav*/
 .footer-nav{
 	background: #f2f2f2;
-	padding: 60px 0;
+	padding: 60px 0 30px;
 
 	font-size: 0;
 	letter-spacing: -4px;
@@ -3378,15 +3388,15 @@ a.news__inner:hover .news__title{
 	display: inline-block;
 	vertical-align: top;
 	box-sizing: border-box;
-	padding: 0 30px;
+	padding: 0 30px 30px;
 	width: 16.66%;
 
 	font-size: 16px;
 	letter-spacing: normal;
 }
 .footer-nav__col.no-space{
-	padding: 0;
-	margin: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
 .footer-nav__col.col-lg{
 	width: 33.32%;
@@ -3636,3 +3646,56 @@ a.news__inner:hover .news__title{
 		width: auto;
 	}
 }
+
+/* ==========================================================================
+   Media Queries on height
+   ========================================================================== */
+@media only screen and (max-height: 949px){
+	/*logo*/
+	.logo{
+		height: 168px;
+	}
+	.logo__slogan{
+		display: none;
+	}
+	/*logo end*/
+	.slogan{
+		display: none;
+	}
+}
+@media only screen and (max-height: 739px){
+	/*logo*/
+	.logo{ height: 104px; }
+	.logo__img{
+		width: 150px;
+		height: 65px;
+		margin: 20px auto 0;
+	}
+	/*logo end*/
+	/*social networks*/
+	.social-networks, .social-networks .list{
+		padding: 8px 0;
+	}
+	/*social networks end*/
+	/*main navigation*/
+	.nav-list > li > a{
+		padding: 18px 5px;
+	}
+	/*main navigation end*/
+}
+@media only screen and (max-height: 599px){
+	/*main navigation*/
+	.nav-list > li > a{
+		padding: 12px 5px;
+		font-size: 20px;
+	}
+	/*main navigation end*/
+}
+@media only screen and (max-height: 539px){
+	/*sidebar footer*/
+	.sb__footer{
+		display: none;
+	}
+	/*sidebar footer end*/
+}
+

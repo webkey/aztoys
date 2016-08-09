@@ -1,0 +1,30 @@
+@media only screen and (max-width: 1899px){}
+/*previews*/
+.previews{
+	max-width: 1120px;
+	margin: 0 auto;
+}
+.previews__item {
+	width: 25%;
+}
+.previews__item:nth-child(3) {
+	display: none;
+}
+.previews__item_lg{
+	width: auto;
+}
+/*previews end*/
+
+/*footer*/
+/*footer nav*/
+.footer-nav__col{
+	width: 33.28%;
+}
+.footer-nav__col.col-lg{
+	width: 66.56%;
+}
+.footer-nav__col.no-space {
+	padding-left: 30px;
+}
+/*footer nav end*/
+/*footer end*/

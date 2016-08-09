@@ -1,1 +1,14 @@
 @media only screen and (max-width: 979px){}
+
+/*previews*/
+.previews{
+	max-width: 560px;
+}
+.previews__item{
+	display: inline-block;
+	vertical-align: top;
+	width: 49.98%;
+}
+.previews__item_lg { width: auto; }
+.previews__item:nth-child(2) { display: inline-block; }
+/*previews end*/
