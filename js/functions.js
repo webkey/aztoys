@@ -110,15 +110,16 @@ function equalHeightInit(){
 	/*previews*/
 	var $previewsList = $('.previews__list');
 	if ($previewsList.length) {
-		imagesLoaded($previewsList, function () {
-			var previewsInner = $previewsList.find('.previews__inner');
-			console.log('previewsInner.length: ', previewsInner.length);
-			previewsInner.equalHeight({
-				// useParent: true,
-				// parent: $previewsList,
-				resize: true,
-				amount: previewsInner.length
-			});
+		// imagesLoaded($previewsList, function () {
+		//
+		// });
+		// var previewsInner = $previewsList.find('.previews__inner');
+		var $previewsInner = $('.previews__inner');
+		$previewsInner.equalHeight({
+			// useParent: true,
+			// parent: $previewsList,
+			resize: true,
+			amount: $previewsInner.length
 		});
 	}
 
@@ -673,7 +674,7 @@ function navDropBehavior(){
 
 			if(!DESKTOP){
 				$currentItem.on('click', function (e) {
-					//e.preventDefault();
+					e.preventDefault();
 
 					$html.addClass(activeClass);
 					if($sidebarOverlay.is(':hidden')){
@@ -698,7 +699,9 @@ function navDropBehavior(){
 					resize: true,
 					amount: $navDropGroup.length
 				});
-			}
+
+				$navDropGroup.css('min-height', $(window).outerHeight());
+			};
 		})
 	}
 }
@@ -1191,6 +1194,291 @@ function parallaxBg() {
 }
 /*parallax background page end*/
 
+/*main navigation*/
+(function ($) {
+	// external js:
+	// 1) TweetMax VERSION: 1.19.0 (widgets.js);
+	// 2) device.js 0.2.7 (widgets.js);
+	// 3) debouncedresize (widgets.js);
+	var MainNavigation = function (settings) {
+		var options = $.extend({
+			navContainer: null,
+			navMenu: '.nav-list',
+			btnMenu: '.btn-menu',
+			btnClose: '.btn-nav-close',
+			navMenuItem: '.nav-list > li',
+			navMenuAnchor: 'a',
+			navDropMenu: '.js-nav-drop',
+			overlayClass: '.nav-overlay',
+			overlayAppend: 'body',
+			classNoClickDrop: '.no-click', // Класс, при наличии которого дроп не буте открываться по клику
+			classReturn: null,
+			overlayBoolean: false,
+			animationSpeed: 300,
+			minWidthItem: 100
+		},settings || {});
+
+		var self = this;
+		self.options = options;
+
+		var container = $(options.navContainer);
+		self.$navContainer = container;
+		self.$navMenu = $(options.navMenu);
+		self.$btnMenu = $(options.btnMenu);                        // Кнопка открытия/закрытия меню для моб. верси.
+		self.$btnClose = $(options.btnClose);                      // Кнопка закрытия меню для моб. верси.
+		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
+		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
+		self.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
+		self.overlayAppend = options.overlayAppend;                // Элемент ДОМ, вконец которого добавится оверлей, по умолчанию <body></body>
+		self._animateSpeed = options.animationSpeed;
+		self._classNoClick = options.classNoClickDrop;
+
+		self._overlayClass = options.overlayClass;                // Класс оверлея.
+		self._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации.
+		self._minWidthItem = options.minWidthItem;
+
+		self.modifiers = {
+			active: 'active',
+			hover: 'hover',
+			opened: 'nav-opened',
+			position: 'position',
+			current: 'current',
+			alignRight: 'align-right'
+		};
+
+		self.desktop = device.desktop();
+
+		self.openCurrentNavItem();
+		self.mainNavigationAccordion();
+		self.addAlignDropClass();
+		self.removeAlignDropClass();
+		self.navSwitch();
+	};
+
+	// Добавляет оверлей в выбраный элемент ДОМ
+	// По умолчанию, в <body></body>
+	MainNavigation.prototype.showOverlay = function (close) {
+		var self = this;
+		if (!self._overlayBoolean) return false;
+
+		var _overlayClass = self._overlayClass,
+			$overlay = $(_overlayClass),
+			_animationSpeed = self._animateSpeed;
+
+		if(close === false){
+			TweenMax.to($overlay, _animationSpeed/1000, {autoAlpha:0});
+			return false;
+		}
+
+		if (!$overlay.length) {
+			var tplNavOverlay = '<div class="' + _overlayClass.substring(1) + '"></div>';
+			var $sidebarOverlay = $(tplNavOverlay);
+			$sidebarOverlay
+				.appendTo(self.overlayAppend);
+			TweenMax.set($overlay, {autoAlpha:0});
+		}
+
+		TweenMax.to($overlay, _animationSpeed/1000, {autoAlpha:0.8});
+	};
+
+	MainNavigation.prototype.openCurrentNavItem = function () {
+		// Открываем активный аккордеон
+		// Скриптом. Чтобы можно было плавно закрыть
+		var self = this;
+		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
+		$.each($currentElements, function () {
+			$(this).firstChildElement(self.options.navDropMenu).slideDown(0, function () {
+				$(window).trigger('openedCurrentNavItem');
+			});
+		});
+	};
+
+	MainNavigation.prototype.mainNavigationAccordion = function () {
+
+		var self = this,
+			modifiers = this.modifiers,
+			animateSpeed = this._animateSpeed,
+			anyAccordionItem = this.$navMenuItem,
+			collapsibleElement = this.$navDropMenu,
+			noClick = self._classNoClick.substring(1);
+
+		self.$navContainer.on('click', ''+self.options.navMenuAnchor+'', function (e) {
+			var current = $(this);
+			var currentAccordionItem = current.closest(anyAccordionItem);
+
+			if (!currentAccordionItem.has(collapsibleElement).length){ return; }
+
+			e.preventDefault();
+
+			if (self.$navContainer.hasClass(noClick) && self.$btnMenu.is(':hidden')){ return; }
+
+			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
+				current = current.parent();
+			}
+
+			if (current.siblings(collapsibleElement).is(':visible')){
+
+				//var changeAccordingTimeOut1;
+
+				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
+
+					// Запускаем событые пересчета позиционирования главной навигации navPosition()
+					//clearTimeout(changeAccordingTimeOut1);
+					//changeAccordingTimeOut1 = setTimeout(function () {
+					//	$(window).trigger('openedCurrentNavItem');
+					//}, 100);
+				});
+				currentAccordionItem.removeClass(modifiers.current);
+				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
+				return;
+			}
+
+			currentAccordionItem.siblings().removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
+			currentAccordionItem.siblings().removeClass(modifiers.current);
+			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
+
+			currentAccordionItem.addClass(modifiers.active);
+			//var changeAccordingTimeOut2;
+
+			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
+				// Запускаем событые пересчета позиционирования главной навигации navPosition()
+				//clearTimeout(changeAccordingTimeOut2);
+				//changeAccordingTimeOut2 = setTimeout(function () {
+				//	$(window).trigger('openedCurrentNavItem');
+				//}, 100);
+			});
+		})
+	};
+
+	MainNavigation.prototype.createAlignDropClass = function (item, drop) {
+		var self = this,
+			alightRight = self.modifiers.alignRight,
+			$navContainer = self.$navContainer;
+
+		if(!drop.length){
+			return;
+		}
+
+		var navContainerPosRight = $navContainer.offset().left + $navContainer.outerWidth();
+		var navDropPosRight = drop.offset().left + drop.outerWidth();
+
+		if(item.hasClass(alightRight)){
+			return;
+		}
+
+		if(navContainerPosRight < navDropPosRight){
+			item.addClass(alightRight);
+		}
+	};
+
+	MainNavigation.prototype.addAlignDropClass = function () {
+		var self = this,
+			$navContainer = self.$navContainer,
+			navMenuItem = self.options.navMenuItem;
+
+		if (!self.desktop) {
+			$navContainer.on('click', ''+navMenuItem+'', function () {
+				var currentItem = $(this);
+				var $currentDrop = currentItem.find(self.$navDropMenu);
+
+				self.createAlignDropClass(currentItem, $currentDrop);
+			});
+			return;
+		}
+
+		$navContainer.on('mouseenter', ''+ navMenuItem+'', function () {
+			var $currentItem = $(this);
+
+			var $currentDrop = $currentItem.find(self.$navDropMenu);
+
+			self.createAlignDropClass($currentItem, $currentDrop)
+		});
+	};
+
+	MainNavigation.prototype.removeAlignDropClass = function () {
+		var self = this;
+		$(window).on('debouncedresize', function () {
+			self.$navMenuItem.removeClass(self.modifiers.alignRight );
+		});
+	};
+
+	MainNavigation.prototype.navSwitch = function () {
+		var self = this,
+			$html = $('html'),
+			$buttonMenu = self.$btnMenu,
+			modifiers = self.modifiers,
+			_activeClass = modifiers.active,
+			$navContainer = self.$navContainer;
+
+		$buttonMenu.on('click', function (e) {
+			var thisBtnMenu = $(this);
+
+			if (thisBtnMenu.hasClass(_activeClass)) {
+				self.closeNav($html,$buttonMenu);
+			} else {
+				self.openNav($html,$buttonMenu);
+			}
+
+			e.preventDefault();
+		});
+
+		// По клику на область вне меню, закрываем меню
+		$(document).on('click', self._overlayClass, function () {
+			self.closeNav($html,$buttonMenu);
+		});
+
+		// скрываем меню при ресайзе на десктопе
+		if(self.desktop){
+			$(window).on('debouncedresize', function () {
+				self.closeNav($html,$buttonMenu);
+			});
+		}
+	};
+
+	MainNavigation.prototype.openNav = function(content,btn) {
+		var self = this,
+			_animationSpeed = self._animateSpeed,
+			$navContainer = self.$navContainer;
+
+		content.addClass(self.modifiers.opened);
+		btn.addClass(self.modifiers.active);
+		TweenMax.to($navContainer, _animationSpeed/1000, {x:0});
+		TweenMax.staggerFrom(self.$navMenu.children(), _animationSpeed/1000, {opacity:0, x:-20}, 0.1);
+		self.showOverlay();
+	};
+
+	MainNavigation.prototype.closeNav = function(content,btn) {
+		var self = this,
+			_animationSpeed = self._animateSpeed,
+			$navContainer = self.$navContainer,
+			$buttonMenu = self.$btnMenu,
+			navContainerWidth = $navContainer.outerWidth();
+
+		content.removeClass(self.modifiers.opened);
+		btn.removeClass(self.modifiers.active);
+		self.showOverlay(false);
+		if ($buttonMenu.is(':hidden')) {
+			$navContainer.attr('style','');
+			return false;
+		}
+		TweenMax.to($navContainer, _animationSpeed/1000, {x:-navContainerWidth});
+	};
+
+	window.MainNavigation = MainNavigation;
+
+}(jQuery));
+
+function mainNavigationInit(){
+	var $container = $('.sidebar');
+	if(!$container.length){ return; }
+	new MainNavigation({
+		navContainer: $container,
+		animationSpeed: 300,
+		overlayBoolean: true
+	});
+}
+/*main navigation end*/
+
 /*footer at bottom*/
 function footerBottom(){
 	var $footer = $('.footer');
@@ -1230,6 +1518,7 @@ $(document).ready(function(){
 	swiperSliderInit();
 	shareFixed();
 	// parallaxBg();
+	mainNavigationInit();
 
 	footerBottom();
 });

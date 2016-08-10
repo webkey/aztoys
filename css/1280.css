@@ -13,9 +13,25 @@
 .previews{
 	max-width: 840px;
 }
-.previews__item { width: 33.3%; }
-.previews__item_lg { width: auto; }
-.previews__item:nth-child(2) { display: none; }
+.previews__list{
+	padding-left: 0;
+}
+.previews__item{
+	float: none;
+	margin-left: 0;
+	display: inline-block;
+	vertical-align: top;
+	max-width: 33.33%;
+}
+.previews__item:before{
+	border-left-color: #fff;
+	border-bottom-color: transparent;
+}
+.previews__item:first-child:before{
+	border-left-color: #d8d8d8;
+}
+.previews__item_lg{ max-width: none; }
+.previews__item:nth-child(3){ display: inline-block; }
 /*previews end*/
 
 /*main navigation*/

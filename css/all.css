@@ -107,6 +107,7 @@ a[href^="tel"]:hover{
 	text-decoration: none !important;
 	color: inherit;
 }
+a[href^="javascript:"]{ cursor: default; }
 img{
 	border: none;
 	vertical-align: top;
@@ -1448,6 +1449,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	width: 240px;
 	height: 100%;
 	background: #00abc7;
+	box-sizing: border-box;
 	z-index: 90;
 }
 .footer{
@@ -1469,6 +1471,160 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin-right: -80px;
 }
 /*MAIN BLOCKS end*/
+
+/*HEADER*/
+.header{
+	position: fixed;
+	width: 100%;
+	background: #00abc7;
+	z-index: 98;
+	box-sizing: border-box;
+	padding: 18px 60px 18px 30px;
+	height: 86px;
+	display: none;
+}
+/*logo*/
+.header .logo{
+	float: left;
+	overflow: hidden;
+	border: none;
+	-webkit-transition-property: -webkit-transform;
+	transition-property: transform;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+.header .logo a{
+	float: left;
+	text-decoration: none;
+	height: 100%;
+	overflow: hidden;
+}
+.header .logo a:hover{ text-decoration: none; }
+.header .logo__img{
+	float: left;
+	position: relative;
+	width: 110px;
+	background: url(../img/logo.png) no-repeat;
+	-webkit-background-size: contain;
+	background-size: contain;
+	text-indent: -9999px;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0;
+	letter-spacing: -4px;
+}
+.header .logo__img:before{
+	content: '';
+	display: block;
+	height: 0;
+	width: 100%;
+	padding-top: 43%;
+}
+.header .logo__slogan{
+	display: block;
+	overflow: hidden;
+	text-align: center;
+	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 24px;
+	color: #fff;
+	padding: 12px 12px 0;
+}
+.logo__print{ display: none; }
+/*logo end*/
+
+/*button menu*/
+.btn-menu{
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	height: 30px;
+	width: 30px;
+	margin-top: -15px;
+	text-indent: -9999px;
+	overflow: hidden;
+	/*background: coral;*/
+}
+.btn-menu:active{
+	-webkit-transform: scale(0.9, 0.9);
+	-ms-transform: scale(0.9, 0.9);
+	transform: scale(0.9, 0.9);
+}
+.btn-lines{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 0;
+}
+/*for all line menu*/
+.btn-lines > span,
+.btn-lines:before,
+.btn-lines:after{
+	display: block;
+	width: 30px;
+	height: 4px;
+	background: #fff;
+	border-radius: 2px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	will-change: transform, opacity;
+	-webkit-transition-property: -webkit-transform, opacity;
+	transition-property: transform, opacity;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(1, 0, 0, 1);
+	transition-timing-function: cubic-bezier(1, 0, 0, 1);
+	-webkit-transform: translateZ(0) scale(1, 1);
+	-ms-transform: translateZ(0) scale(1, 1);
+	transform: translateZ(0) scale(1, 1);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.btn-lines:before,
+.btn-lines:after{
+	content: '';
+	position: absolute;
+	top: -2px;
+	opacity: 0;
+	z-index: 2;
+}
+/*for all line menu end*/
+/*close view*/
+.btn-menu.active .btn-lines:before{
+	opacity: 1;
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.btn-menu.active .btn-lines:after{
+	opacity: 1;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+/*close view end*/
+/*first line menu*/
+.btn-lines > span:nth-child(1){ top: -12px; }
+.btn-menu.active .btn-lines > span:nth-child(1){
+	opacity: 0;
+}
+/*first line menu end*/
+/*second line menu*/
+.btn-lines > span:nth-child(2){ top: -2px; }
+.btn-menu.active .btn-lines > span:nth-child(2){
+	opacity: 0;
+}
+/*second line menu end*/
+/*third line menu*/
+.btn-lines > span:nth-child(3){ top: 8px; }
+.btn-menu.active .btn-lines > span:nth-child(3){
+	opacity: 0;
+}
+/*third line menu end*/
+/*button menu end*/
+/*HEADER end*/
 
 /*MAIN*/
 /*CONTENT*/
@@ -1806,6 +1962,9 @@ a.products__inner:hover{
 }
 .previews__list{
 	padding: 0 0 0 1px;
+	max-width: 1680px;
+	margin: 0 auto;
+	box-sizing: border-box;
 
 	font-size: 0;
 	letter-spacing: -4px;
@@ -1818,7 +1977,8 @@ a.products__inner:hover{
 	float: left;
 	background: #fff;
 	box-sizing: border-box;
-	width: 16.7%;
+	/*width: 16.7%;*/
+	width: 280px;
 	margin-left: -1px;
 
 	font-size: 16px;
@@ -2773,7 +2933,8 @@ a.news__inner:hover .news__title{
 /*CONTENT*/
 
 /*overlay*/
-.overlay{
+.overlay,
+.nav-overlay{
 	background: #000 url(../img/empty.png);
 	position: fixed;
 	left: 0;
@@ -2795,21 +2956,20 @@ a.news__inner:hover .news__title{
 	overflow: auto;
 }
 /*logo*/
-.logo{
+.sidebar .logo{
 	display: block;
 	height: 240px;
 	border-bottom: 1px solid #029db5;
 	overflow: hidden;
 }
-.logo a,
-.logo > span{
+.sidebar .logo a{
 	display: block;
 	text-decoration: none;
 	height: 100%;
 	overflow: hidden;
 }
-.logo a:hover{ text-decoration: none; }
-.logo__img{
+.sidebar .logo a:hover{ text-decoration: none; }
+.sidebar .logo__img{
 	display: block;
 	background: url(../img/logo.png) no-repeat;
 	-webkit-background-size: contain;
@@ -2820,7 +2980,7 @@ a.news__inner:hover .news__title{
 	text-indent: -9999px;
 	overflow: hidden;
 }
-.logo__slogan{
+.sidebar .logo__slogan{
 	display: block;
 	margin: 0 auto;
 	width: 160px;
@@ -2862,12 +3022,14 @@ a.news__inner:hover .news__title{
 	-webkit-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
-.nav-list > li.hover > a{
+.nav-list > li.hover > a,
+.nav-list > li.active > a{
 	-webkit-transition-duration: 0.1s;
 	transition-duration: 0.1s;
 	text-decoration: none;
 	background: #029db5;
 }
+.nav-list > li.active > a{ cursor: default; }
 .nav-list > li > a:before{
 	content: '';
 	position: absolute;
@@ -3647,7 +3809,7 @@ a.news__inner:hover .news__title{
 /* ==========================================================================
    Media Queries on height
    ========================================================================== */
-@media only screen and (max-height: 949px){
+@media only screen and (max-height: 919px){
 	/*logo*/
 	.logo{
 		height: 168px;

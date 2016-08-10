@@ -1,11 +1,8 @@
 @media only screen and (max-width: 1899px){}
 /*previews*/
 .previews{
-	max-width: 1120px;
+	max-width: 1400px;
 	margin: 0 auto;
-}
-.previews__item {
-	width: 25%;
 }
 .previews__item:nth-child(3) {
 	display: none;

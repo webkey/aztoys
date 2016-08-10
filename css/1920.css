@@ -1,0 +1,10 @@
+@media only screen and (max-width: 1279px){}
+/*tabs*/
+.tab-controls li, .user-content .tab-controls li, .user-content .tab-controls li:first-child {
+	font-size: 30px;
+	line-height: 36px;
+}
+.tab-controls a {
+	padding: 5px 22px;
+}
+/*tabs end*/
