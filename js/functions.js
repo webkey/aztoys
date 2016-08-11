@@ -69,10 +69,11 @@ function eventsMainScreen() {
 	$(window).on('load scroll resizeByWidth', function () {
 
 		var currentScrollTop = $(window).scrollTop(),
-			hideScreen = currentScrollTop > _minScrollTop;
+			_hideScreen = currentScrollTop > _minScrollTop;
 
-		$page.toggleClass('hide-screen', hideScreen);
-		// if ( hideScreen ) {
+		// $page.toggleClass('hide-screen', _hideScreen && _flagPositionCorrection); // uncomment if need show $screen
+		if ( _hideScreen && _flagPositionCorrection ) $page.addClass('hide-screen'); // comment if need show $screen
+		// if ( _hideScreen ) {
 		// 	var tlHide = new TimelineMax();
 		// 	tlHide
 		// 		.to($screen, _animationSpeed/1000, {scale: 0.8, autoAlpha: 0, ease: Power2.easeInOut})
@@ -88,10 +89,11 @@ function eventsMainScreen() {
 		var currentScrollTop = $(window).scrollTop(),
 			hideScreen = currentScrollTop > _minScrollTop;
 
-		if ( !hideScreen ) _flagPositionCorrection = true;
+		// if ( !hideScreen ) _flagPositionCorrection = true; // uncomment if need show $screen
 		if ( $('body').hasClass(page.substring(1)) && hideScreen && !$html.is(':animated') && _flagPositionCorrection ) {
 			$html.stop().animate({
-				scrollTop: _minScrollTop + 1}, {
+				// scrollTop: _minScrollTop + 1}, { // uncomment if need show $screen
+				scrollTop: 0}, { // comment if need show $screen
 				duration: 300,
 				complete: function(){
 					_flagPositionCorrection = false;
@@ -687,6 +689,71 @@ function navDropBehavior(){
 			var $currentItem = $(this),
 				$currentNavDrop = $currentItem.find('.nav-drop');
 
+			if (DESKTOP) {
+				$currentItem.on('mouseenter', function () {
+
+					openNavDrop();
+
+				}).on('mouseleave', function () {
+
+					closeNavDrop();
+
+				});
+
+				$currentItem.on('click', function (e) {
+					e.stopPropagation();
+				});
+			}
+
+			if(!DESKTOP){
+				$currentItem.on('click', function (e) {
+					openNavDrop();
+
+					equalHeightNavDropGroup();
+					createOverlay();
+				});
+			}
+
+			$(document).on('click', function () {
+				closeNavDrop()
+			});
+
+			$('.close-nav-drop-js').on('click', function (e) {
+				e.preventDefault();
+
+				closeNavDrop();
+			});
+
+			function openNavDrop() {
+				// $html.addClass(activeClass);
+				TweenMax.set($currentNavDrop, {display: 'block'});
+				TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha: 1});
+
+				equalHeightNavDropGroup();
+				createOverlay();
+			}
+
+			function closeNavDrop() {
+				// $html.removeClass(activeClass);
+				TweenMax.to($currentNavDrop, animateSpeed, {
+					autoAlpha: 0, onComplete: function () {
+						$currentNavDrop.hide();
+					}
+				});
+				createOverlay('close');
+			}
+
+			function equalHeightNavDropGroup() {
+				var $navDropGroup = $navDrop.find('.nav-drop__group');
+
+				$navDropGroup.equalHeight({
+					resize: true,
+					amount: $navDropGroup.length
+				});
+
+				$navDropGroup.css('min-height', $(window).outerHeight());
+			}
+
 			function createOverlay(close) {
 				if(close == "close"){
 					TweenMax.to($sidebarOverlay, animateSpeed, {autoAlpha:0, onComplete:completeHandler});
@@ -698,55 +765,6 @@ function navDropBehavior(){
 					TweenMax.to($sidebarOverlay, animateSpeed, {autoAlpha:0.8});
 				}
 			}
-
-			if (DESKTOP) {
-				$currentItem.on('mouseenter', function () {
-
-					TweenMax.set($currentNavDrop, {display: 'block'});
-					TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha:1});
-
-					equalHeightNavDropGroup();
-					createOverlay();
-				}).on('mouseleave', function () {
-
-					TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha:0, onComplete: function () {
-						$currentNavDrop.hide();
-					}});
-
-					createOverlay('close');
-				});
-			}
-
-			if(!DESKTOP){
-				$currentItem.on('click', function (e) {
-					e.preventDefault();
-
-					$html.addClass(activeClass);
-					if($sidebarOverlay.is(':hidden')){
-						createOverlay();
-					}
-				});
-			}
-
-			$(document).on('click', function () {
-				$html.removeClass(activeClass);
-				createOverlay('close');
-			});
-
-			$currentItem.on('click', function (e) {
-				e.stopPropagation();
-			});
-
-			function equalHeightNavDropGroup() {
-				var $navDropGroup = $navDrop.find('.nav-drop__group');
-
-				$navDropGroup.equalHeight({
-					resize: true,
-					amount: $navDropGroup.length
-				});
-
-				$navDropGroup.css('min-height', $(window).outerHeight());
-			};
 		})
 	}
 }
@@ -1062,7 +1080,7 @@ function swiperSliderInit() {
 		classVideoPlayed = 'video-played',
 		animateSpeed = 0.3;
 
-	var mySwiper = new Swiper ($slider, {
+	new Swiper ($slider, {
 		// Optional parameters
 		// direction: 'vertical',
 		loop: true,
@@ -1127,6 +1145,8 @@ function swiperSliderInit() {
 				$img = $container.find($sliderBg),
 				$title = $container.find($sliderTitle),
 				$iframe = $container.find('iframe'),
+				$slidePrev = $playBtn.closest($slider).find('.swiper-button-prev'),
+				$slideNext = $playBtn.closest($slider).find('.swiper-button-next'),
 				$closeVideoBtn = $container.find(closeVideoBtn);
 
 			$container.addClass(classVideoPlayed);
@@ -1134,6 +1154,9 @@ function swiperSliderInit() {
 			TweenMax.to($playBtn, animateSpeed, {autoAlpha:0});
 			TweenMax.to($img, animateSpeed, {autoAlpha:0});
 			TweenMax.to($title, animateSpeed, {autoAlpha:0});
+			TweenMax.to($title, animateSpeed, {autoAlpha:0});
+			TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0});
+			TweenMax.to($slideNext, animateSpeed, {autoAlpha:0});
 
 			var src = $playBtn.attr('href');
 
@@ -1147,12 +1170,20 @@ function swiperSliderInit() {
 	}
 
 	function closeSwiperVideo(content) {
-		var $img = content.find($sliderBg), $title = content.find($sliderTitle), $iframe = content.find('iframe'), $playVideoBtn = content.find(playVideoBtn), $closeVideoBtn = content.find(closeVideoBtn);
+		var $img = content.find($sliderBg),
+			$title = content.find($sliderTitle),
+			$iframe = content.find('iframe'),
+			$playVideoBtn = content.find(playVideoBtn),
+			$slidePrev = $('.swiper-button-prev'),
+			$slideNext = $('.swiper-button-next'),
+			$closeVideoBtn = content.find(closeVideoBtn);
 
 		TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha: 0});
 		TweenMax.to($img, animateSpeed, {autoAlpha: 1});
 		TweenMax.to($title, animateSpeed, {autoAlpha: 1});
 		TweenMax.to($playVideoBtn, animateSpeed, {autoAlpha: 1});
+		TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0.75});
+		TweenMax.to($slideNext, animateSpeed, {autoAlpha:0.75});
 
 		$iframe.attr("src", 'about:blank');
 
@@ -1224,17 +1255,35 @@ function shareFixed(){
 function parallaxBg() {
 	var $page = $('body');
 
+	if (DESKTOP) return false;
+
 	$(window).on('load scroll', function () {
 		var currentScrollTop = $(window).scrollTop();
 
 		$page.css({
-			// 'background-position-y': Math.round(currentScrollTop/1.2)
 			'background-position-y': currentScrollTop/1.2,
-			// 'background-position-x': -currentScrollTop/3
 		})
 	});
 }
 /*parallax background page end*/
+
+/*header fixed*/
+
+function headerFixed(){
+	var $page = $('body'),
+		minScrollTop = $('.header').outerHeight(),
+		previousScrollTop = $(window).scrollTop();
+
+	$(window).on('load scroll resizeByWidth', function () {
+		var currentScrollTop = $(window).scrollTop(),
+			showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+
+		$page.toggleClass('header-show', showHeaderPanel);
+
+		previousScrollTop = currentScrollTop;
+	});
+}
+/*header fixed end*/
 
 /*main navigation*/
 (function ($) {
@@ -1490,7 +1539,7 @@ function parallaxBg() {
 		});
 
 		var $staggerItems = self.$navMenu.children('li').children('a').children('span'),
-			$sbFooter = $navContainer.find('.sb__footer');
+			$sbFooter = $navContainer.find('.sidebar-footer__holder');
 		var tl = new TimelineMax();
 		tl.to($navContainer, _animationSpeed/1000, {x:0})
 			.staggerFrom($staggerItems, _animationSpeed/1000*2, {opacity:0, x:-40, ease:Elastic.easeOut}, 0.05)
@@ -1571,6 +1620,7 @@ $(document).ready(function(){
 	swiperSliderInit();
 	shareFixed();
 	// parallaxBg();
+	headerFixed();
 	mainNavigationInit();
 
 	footerBottom();

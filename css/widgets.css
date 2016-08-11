@@ -15,12 +15,12 @@
 	padding: 0;
 }
 .r-tabs .r-tabs-tab{
-	display: inline-block;
-	margin: 0;
-	list-style: none;
+	/*display: inline-block;*/
+	/*margin: 0;*/
+	/*list-style: none;*/
 }
 .r-tabs .r-tabs-panel{
-	padding: 15px;
+	/*padding: 15px;*/
 	display: none;
 }
 .r-tabs .r-tabs-accordion-title{

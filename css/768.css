@@ -1,1 +1,12 @@
 @media only screen and (max-width: 767px){}
+
+/*previews*/
+.previews{
+	max-width: 560px;
+}
+.previews__item{
+	max-width: 50%;
+}
+.previews__item:nth-child(3){ display: none; }
+.previews__item_lg{ max-width: none; }
+/*previews end*/
