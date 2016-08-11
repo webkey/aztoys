@@ -40,25 +40,20 @@
 }
 
 /*previews*/
-.previews{
-	max-width: 280px;
-}
+.previews{ max-width: 280px; }
 .previews__item{
 	display: block;
 	max-width: none;
 }
 .previews__item:nth-child(3){ display: block; }
 .previews__item_lg{ max-width: none; }
+.previews__item_lg .previews__img{ min-height: 434px; }
 .previews__item:before { border-left-color: #d8d8d8; }
-.previews__inner{
-	height: auto !important;
-}
+.previews__inner{ height: auto !important; }
 /*previews end*/
 
 /*SIDEBAR*/
-.sidebar{
-	width: 100%;
-}
+.sidebar{ width: 100%; }
 /*main navigation*/
 .nav-drop{
 	position: relative;
