@@ -4,6 +4,14 @@
 .header{
 	padding: 10px 60px 10px 30px;
 	height: 68px;
+	-webkit-transform: translate(0, -68px);
+	-ms-transform: translate(0, -68px);
+	transform: translate(0, -68px);
+}
+.home-page.header-show .header{
+	-webkit-transform: translate(0, -68px);
+	-ms-transform: translate(0, -68px);
+	transform: translate(0, -68px);
 }
 .main,
 .sidebar,

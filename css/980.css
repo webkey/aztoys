@@ -4,10 +4,19 @@
 .sidebar,
 .hide-screen .sidebar,
 .nav-drop__holder{ padding-top: 86px; }
+.products-page .main {
+	padding-top: 231px;
+}
 .color-tape-horizontal{
 	-webkit-background-size: 100%;
 	background-size: 100%;
 }
+
+/*buttons*/
+.buttons { padding: 35px 30px 55px; }
+/*buttons end*/
+.load-more{ padding: 35px 30px 55px; }
+.section-title{ padding: 55px 30px 35px; }
 
 /*HEADER*/
 .header{
@@ -58,4 +67,17 @@
 	line-height: 24px;
 }
 /*main navigation end*/
+
+/*FILTERS*/
+.filters {
+	top: 0;
+	left: 0;
+	border-top: 1px solid #f7f7f7;
+}
+.header-show .filters {
+	-webkit-transform: translate(0, 86px);
+	-ms-transform: translate(0, 86px);
+	transform: translate(0, 86px);
+}
+/*FILTERS end*/
 /*SIDEBAR end*/

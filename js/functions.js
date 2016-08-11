@@ -481,7 +481,7 @@ function filtersInit() {
 
 		if( lengthItems > 0 ) {
 			var items = (filteredItems.length > 1) ? 'items' : 'item';
-			filterCounterContent = 'Find <br /> <strong>' + lengthItems + '</strong> ' + items
+			filterCounterContent = 'Found <br /> <strong>' + lengthItems + '</strong> ' + items
 		}
 
 		$('.filters-counter-js')
