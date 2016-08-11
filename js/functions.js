@@ -56,6 +56,52 @@ function printShow() {
 }
 /*print end*/
 
+/*events main screen*/
+function eventsMainScreen() {
+	var $html = $('html, body'),
+		page = '.home-page',
+		$page = $(page),
+		$screen = $('.screen'),
+		_minScrollTop = 20,
+		_animationSpeed = 400,
+		_flagPositionCorrection = true;
+
+	$(window).on('load scroll resizeByWidth', function () {
+
+		var currentScrollTop = $(window).scrollTop(),
+			hideScreen = currentScrollTop > _minScrollTop;
+
+		$page.toggleClass('hide-screen', hideScreen);
+		// if ( hideScreen ) {
+		// 	var tlHide = new TimelineMax();
+		// 	tlHide
+		// 		.to($screen, _animationSpeed/1000, {scale: 0.8, autoAlpha: 0, ease: Power2.easeInOut})
+		// } else {
+		// 	var tlShow = new TimelineMax();
+		// 	tlShow
+		// 		.to($screen, _animationSpeed/1000, {scale: 1, autoAlpha: 1, ease: Power2.easeInOut});
+		// }
+	});
+
+	$(window).on('load scroll resizeByWidth', function () {
+
+		var currentScrollTop = $(window).scrollTop(),
+			hideScreen = currentScrollTop > _minScrollTop;
+
+		if ( !hideScreen ) _flagPositionCorrection = true;
+		if ( $('body').hasClass(page.substring(1)) && hideScreen && !$html.is(':animated') && _flagPositionCorrection ) {
+			$html.stop().animate({
+				scrollTop: _minScrollTop + 1}, {
+				duration: 300,
+				complete: function(){
+					_flagPositionCorrection = false;
+				}
+			});
+		};
+	});
+}
+/*events main screen end*/
+
 /* tabs */
 function tabs() {
 	var $helpfulTabs = $('.tabs-wrap');
@@ -317,7 +363,6 @@ function filtersInit() {
 
 		$this.toggleClass('is-checked');
 
-		console.log('isCheckedCounter: ', isCheckedCounter);
 		clearBtnState();
 	});
 
@@ -967,8 +1012,6 @@ function locateEvents() {
 		$currentWrapper.toggleClass('map-show', tabEvent);
 		$currentWrapper.find('.locate-tabs-js').toggleClass(hideClass, tabEvent);
 
-		console.log('index: ', index);
-
 		if (!tabEvent) {
 			tabEvent = true;
 
@@ -1170,7 +1213,6 @@ function shareFixed(){
 			&& currentScrollTop < barrierTopPosition + barrierHeight
 			|| currentScrollTop >= bottomTopPosition - fixedBoxHeight - topSpace*2) {
 			var tl = TweenMax.to($fixedBox, 0.1, {autoAlpha: 0, ease: Power2.easeInOut});
-			console.log('progressVal: ', tl.progress());
 		} else {
 			TweenMax.to($fixedBox, 0.1, {autoAlpha: 1, ease: Power2.easeInOut});
 		}
@@ -1442,8 +1484,18 @@ function parallaxBg() {
 
 		content.addClass(self.modifiers.opened);
 		btn.addClass(self.modifiers.active);
-		TweenMax.to($navContainer, _animationSpeed/1000, {x:0});
-		TweenMax.staggerFrom(self.$navMenu.children(), _animationSpeed/1000, {opacity:0, x:-20}, 0.1);
+		$navContainer.css({
+			'-webkit-transition-duration': '0s',
+			'transition-duration': '0s'
+		});
+
+		var $staggerItems = self.$navMenu.children('li').children('a').children('span'),
+			$sbFooter = $navContainer.find('.sb__footer');
+		var tl = new TimelineMax();
+		tl.to($navContainer, _animationSpeed/1000, {x:0})
+			.staggerFrom($staggerItems, _animationSpeed/1000*2, {opacity:0, x:-40, ease:Elastic.easeOut}, 0.05)
+			.from($sbFooter, _animationSpeed/1000, {opacity:0, yPercent: 100}, '-=0.2');
+
 		self.showOverlay();
 	};
 
@@ -1502,6 +1554,7 @@ $(document).ready(function(){
 	placeholderInit();
 	stateFields();
 	printShow();
+	eventsMainScreen();
 	tabs();
 	productsBehavior();
 	equalHeightInit();

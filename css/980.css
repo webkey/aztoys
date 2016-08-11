@@ -14,7 +14,8 @@
 /*HEADER end*/
 
 /*SIDEBAR*/
-.sidebar{
+.sidebar,
+.hide-screen .sidebar{
 	-webkit-transform: translate(-100%, 0);
 	-ms-transform: translate(-100%, 0);
 	transform: translate(-100%, 0);
@@ -22,6 +23,20 @@
 }
 .sidebar .logo{
 	display: none;
+}
+.color-tape-vertical,
+.home-page .color-tape-vertical,
+.home-page.hide-screen .color-tape-vertical{
+	-webkit-transform: translate(-100%, 0);
+	-ms-transform: translate(-100%, 0);
+	transform: translate(-100%, 0);
+}
+.nav-opened .color-tape-vertical,
+.nav-opened .home-page .color-tape-vertical,
+.nav-opened .home-page.hide-screen .color-tape-vertical{
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
 }
 /*SIDEBAR end*/
 /*previews*/
