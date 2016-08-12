@@ -39,10 +39,15 @@
 	float: none;
 	overflow: hidden;
 }
-.filters__group:last-child{
+.filters__group.filters__search{
 	overflow: visible;
 	float: left;
 	min-width: 280px;
+}
+.filters-drop__list li,
+.user-content .filters-drop__list li,
+.user-content .filters-drop__list li:first-child {
+	width: 49.98%;
 }
 /*FILTERS end*/
 

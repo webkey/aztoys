@@ -10,3 +10,9 @@
 .previews__item:nth-child(3){ display: none; }
 .previews__item_lg{ max-width: none; }
 /*previews end*/
+
+/*FILTERS*/
+.filters-button-middle .button {
+	min-width: 60px;
+}
+/*FILTERS end*/

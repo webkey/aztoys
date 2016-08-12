@@ -185,7 +185,7 @@ function equalHeightInit(){
 				amount: elementLength,
 				resize: true
 			});
-			filtersInit();
+			filtersEvents();
 		});
 	}
 }
@@ -313,13 +313,19 @@ function selectResize(){
 
 /**! filters
  * filter products for tags */
-function filtersInit() {
+// external js:
+// 1) TweetMax VERSION: 1.19.0 (widgets.js);
+function filtersEvents() {
 	// external js: Isotope PACKAGED v3.0.1 (widgets.js);
-	var $filtersWrapper = $('.products'),
+	var $body = $('body'),
+		$filtersWrapper = $('.products'),
+		$filters = $('.filters-js'),
 		$filtersTagsGroup = $('.filters-tags-js'),
 		tags = {},
 		isCheckedClass = 'is-checked',
 		isCheckedCounter = 0,
+		animationSpeed = 200,
+		animationSpeedTween = animationSpeed/1000,
 		showButtonFind = false;
 
 	// init Isotope
@@ -327,6 +333,30 @@ function filtersInit() {
 		itemSelector: '.products__item',
 		layoutMode: 'fitRows',
 		percentPosition: true
+	});
+
+	var filtersTLL = new TimelineLite();
+	$body.on('click', '.btn-filter-opener-js', function () {
+		filtersTLL
+			.set($filters, {autoAlpha:1, transitionDuration: 0})
+			.to($filters, animationSpeedTween, {x: 0, ease: Power2.easeInOut});
+
+		return false;
+	});
+
+	$body.on('click', '.btn-filter-close-js', function () {
+		var filtersWidth = $('.filters-js').outerWidth();
+		filtersTLL.to($filters, animationSpeedTween, {x: -filtersWidth, ease: Power2.easeInOut});
+
+		return false;
+	});
+
+	// clear on horizontal resize
+	$(window).on('resizeByWidth', function () {
+		if ( $filters.attr('style') ) {
+			console.log(1);
+			$filters.attr('style','');
+		}
 	});
 
 	// bind filter tag click
@@ -375,15 +405,12 @@ function filtersInit() {
 	clearBtnState();
 
 	// more options drop
-	// external js:
-	// 2) TweetMax VERSION: 1.19.0 (widgets.js);
 	var $jsDropContent = $('.filters-content-js'),
 		jsDrop = '.filters-drop-js',
 		$jsDrop = $(jsDrop),
 		jsDropOpener = '.filter-more-options-js',
 		$jsDropOpener = $(jsDropOpener),
-		classShowDrop = 'show-drop',
-		animationSpeed = 0.2;
+		classShowDrop = 'show-drop';
 
 	if (!$jsDropContent.length) return false;
 
@@ -404,16 +431,16 @@ function filtersInit() {
 		return false;
 	});
 
-	if (DESKTOP) {
-		$jsDrop.on('mouseleave', function () {
-			switchClass($jsDropContent);
-			switchClass($jsDropOpener);
-			switchClass($jsDrop);
-			eventDrop($jsDrop);
-
-			return false;
-		});
-	}
+	// if (DESKTOP) {
+	// 	$jsDrop.on('mouseleave', function () {
+	// 		switchClass($jsDropContent);
+	// 		switchClass($jsDropOpener);
+	// 		switchClass($jsDrop);
+	// 		eventDrop($jsDrop);
+	//
+	// 		return false;
+	// 	});
+	// }
 
 	function switchClass(remove,add,condition) {
 		// remove - element with remove class
@@ -428,13 +455,13 @@ function filtersInit() {
 
 	function eventDrop(drops,currentDrop,condition) {
 
-		TweenMax.to(drops, animationSpeed, {autoAlpha: 0, ease: Power2.easeInOut});
+		TweenMax.to(drops, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
 
 		if(currentDrop === undefined) return false;
 		if(condition){
-			TweenMax.to(currentDrop, animationSpeed, {autoAlpha: 1, ease: Power2.easeInOut});
+			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 1, ease: Power2.easeInOut});
 		} else {
-			TweenMax.to(currentDrop, animationSpeed, {autoAlpha: 0, ease: Power2.easeInOut});
+			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
 		}
 
 	}
@@ -1344,6 +1371,7 @@ function headerFixed(){
 		self.addAlignDropClass();
 		self.removeAlignDropClass();
 		self.navSwitch();
+		self.clearing();
 	};
 
 	// Добавляет оверлей в выбраный элемент ДОМ
@@ -1565,6 +1593,22 @@ function headerFixed(){
 		TweenMax.to($navContainer, _animationSpeed/1000, {x:-navContainerWidth});
 	};
 
+	// clearing
+	MainNavigation.prototype.clearing = function() {
+		var self = this,
+			$navContainer = self.$navContainer;
+
+		//clear on horizontal resize
+		$(window).on('resizeByWidth', function () {
+			if($navContainer.attr('style') && !self.$btnMenu.hasClass(self.modifiers.active)){
+				$navContainer.attr('style','');
+			}
+		});
+	};
+
+
+
+
 	window.MainNavigation = MainNavigation;
 
 }(jQuery));
@@ -1610,7 +1654,7 @@ $(document).ready(function(){
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
-	//filtersInit();
+	//filtersEvents();
 	shareEvents();
 	hoverClassInit();
 	navDropHeight();
