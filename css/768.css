@@ -1,5 +1,17 @@
 @media only screen and (max-width: 767px){}
 
+/*breadcrumbs*/
+.breadcrumbs {
+	padding-bottom: 30px;
+}
+/*breadcrumbs end*/
+
+/*datetime*/
+.datetime{
+	padding-bottom: 30px;
+}
+/*datetime end*/
+
 /*previews*/
 .previews{
 	max-width: 560px;

@@ -27,6 +27,14 @@
 }
 /*HEADER end*/
 
+/*social*/
+.header-show .soc.fixed {
+	-webkit-transform: translate(0, 70px);
+	-ms-transform: translate(0, 70px);
+	transform: translate(0, 70px);
+}
+/*social end*/
+
 /*SIDEBAR*/
 .sidebar,
 .hide-screen .sidebar{

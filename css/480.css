@@ -1,9 +1,62 @@
 @media only screen and (max-width: 479px){}
 
+h1 {
+	padding-bottom: 45px;
+}
+
 .main,
 .sidebar,
 .hide-screen .sidebar{ padding-top: 68px; }
 .products-page .main { padding-top: 140px; }
+
+.text-page .max-wrap {
+	padding: 30px 20px;
+}
+.form-row .input-wrap {
+	display: block;
+	width: auto;
+}
+.form-row .input-wrap{ padding-top: 20px; }
+.form-row .input-wrap:first-child{ padding-top: 0; }
+
+/*social*/
+.soc {
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
+.soc-list li,
+.user-content .soc-list li,
+.user-content .soc-list li:first-child { padding: 0 15px 10px 0; }
+.soc-list .soc-icons{ margin-right: 6px; }
+/*social end*/
+
+/*datetime*/
+.datetime { padding-bottom: 20px; }
+/*datetime end*/
+
+/*note*/
+.note,
+.more{
+	padding-right: 20px;
+	margin-right: -20px;
+}
+/*note end*/
+
+/*blockquote*/
+.blockquote { padding: 35px 0 30px; }
+.user-content blockquote {
+	padding-right: 20px;
+	padding-top: 60px;
+	padding-bottom: 70px;
+	margin-right: -20px;
+}
+.user-content blockquote:after {
+	width: 54px;
+	height: 42px;
+	left: 0;
+	top: -10px;
+}
+/*blockquote end*/
 
 .buttons,
 .load-more{ padding: 25px 20px 45px; }
@@ -51,8 +104,10 @@
 }
 /*tabs end*/
 
+h1,
 .section-title h2,
-.section-title h1{
+.section-title h1,
+.video-section h2{
 	font-size: 30px;
 	line-height: 40px;
 }

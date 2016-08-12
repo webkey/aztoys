@@ -208,9 +208,8 @@ button{
 .user-content ul,
 .user-content ol{
 	margin: 0;
-	padding: 0 0 20px 20px;
+	padding: 0 0 20px;
 	list-style: none;
-	line-height: 18px;
 }
 .user-content ol{
 	counter-reset: section;
@@ -234,7 +233,7 @@ button{
 	content: '';
 	position: absolute;
 	left: 0;
-	top: 19px;
+	top: 24px;
 	height: 0;
 	width: 0;
 	border: 3px solid #00abc7;
@@ -242,7 +241,7 @@ button{
 	box-sizing: border-box;
 }
 .user-content ul > li:first-child:before{
-	top: 7px;
+	top: 12px;
 }
 .user-content ol > li:before{
 	display: inline-block;
@@ -255,10 +254,10 @@ button{
 .user-content ul ul,
 .user-content ul ol{
 	padding-bottom: 0;
-	padding-left: 20px;
+	padding-left: 0;
 }
 .user-content ol > li > ul{
-	padding-left: 40px;
+	padding-left: 23px;
 }
 .user-content ul ul > li:before,
 .user-content ul ul > li:first-child:before,
@@ -268,7 +267,7 @@ button{
 	width: 8px;
 	border-width: 1px 0;
 	border-radius: 0;
-	top: 21px;
+	top: 26px;
 }
 .user-content ul ul li:first-child,
 .user-content ul ol li:first-child,
@@ -282,7 +281,7 @@ button{
 .user-content ul ol ul > li:first-child:before{
 	height: 6px;
 	width: 6px;
-	top: 19px;
+	top: 24px;
 	border-width: 2px;
 	border-radius: 50%;
 }
@@ -297,7 +296,7 @@ table{
 table td,
 table th{
 	padding: 8px;
-	border: 1px solid #99bddb;
+	border: 1px solid #e4e4e4;
 	font-size: 14px;
 	line-height: 1.4;
 }
@@ -312,7 +311,7 @@ table th{
 }
 .user-content .tbl{
 	table-layout: fixed;
-	border: 1px solid #99bddb;
+	border: 1px solid #e4e4e4;
 	margin-bottom: 20px;
 }
 .table_auto .tbl{
@@ -323,12 +322,12 @@ table th{
 	font: 14px/20px Arial, Helvetica, sans-serif;
 	color: #333;
 	background-color: #fff;
-	border: solid #99bddb;
+	border: solid #e4e4e4;
 	border-width: 0 0 0 1px;
 	padding: 13px 12px;
 }
 .user-content .tbl tbody tr:nth-child(even) td{
-	background: #e5eef6;
+	background: #f2f2f2;
 }
 .user-content .tbl td:first-child{
 	text-align: left;
@@ -341,12 +340,11 @@ table th{
 .user-content .tbl thead td{
 	line-height: 17px;
 	color: #fff;
-	background: #0059a6;
+	background: #00abc7;
+	border-color: #0491a9;
 	padding: 16px 12px 17px;
 }
-.user-content .tbl tfoot td{
-	background: #e5eef6;
-}
+.user-content .tbl tfoot td{ background: #f2f2f2; }
 /*table styling end*/
 
 /*blockquote*/
@@ -374,6 +372,8 @@ table th{
 }
 .user-content blockquote:after{
 	background: url(../img/depict-quote.png) no-repeat;
+	-webkit-background-size: contain;
+	background-size: contain;
 	width: 64px;
 	height: 48px;
 	left: 22px;
@@ -634,7 +634,7 @@ input[type="checkbox"] + label:before{
 	height: 24px;
 	width: 24px;
 	border-radius: 3px;
-	background: #cf2f09;
+	background: #54c7d9;
 }
 input[type="checkbox"] + label:after{
 	content: '';
@@ -645,7 +645,7 @@ input[type="checkbox"] + label:after{
 	width: 20px;
 	border-radius: 2px;
 	background: #fff;
-	box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.25);
+	box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.15);
 	-webkit-transition-property: opacity;
 	transition-property: opacity;
 	-webkit-transition-duration: 0.2s;
@@ -676,14 +676,14 @@ input[type="checkbox"] + label>span:after{
 input[type="checkbox"] + label>span:before{
 	transform: rotate(45deg);
 	transform-origin: 0 0.6em;
-	left: -2px;
+	left: 0px;
 	top: 8px;
 }
 input[type="checkbox"] + label>span:after{
 	transform: rotate(-50deg);
 	transform-origin: 0 1.0em;
-	left: 21px;
-	top: 12px;
+	left: 20px;
+	top: 11px;
 }
 input[type="checkbox"]:checked + label>span:before{
 	width: 0.6em;
@@ -724,7 +724,7 @@ input[type="radio"] + label:before{
 	height: 24px;
 	width: 24px;
 	border-radius: 50px;
-	background: #cf2f09;
+	background: #54c7d9;
 }
 input[type="radio"] + label:after{
 	content: '';
@@ -735,7 +735,7 @@ input[type="radio"] + label:after{
 	width: 20px;
 	border-radius: 50px;
 	background: #fff;
-	box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.25);
+	box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.15);
 	-webkit-transition-property: opacity;
 	transition-property: opacity;
 	-webkit-transition-duration: 0.2s;
@@ -750,7 +750,7 @@ input[type="radio"] + label>span:after {
 	left: 6px;
 	border-radius: 50%;
 	overflow: hidden;
-	background: #cf2f09;
+	background: #54c7d9;
 
 	-webkit-animation:bounceout 0.3s;
 	-webkit-animation-iteration-count:1;

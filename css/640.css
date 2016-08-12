@@ -13,6 +13,19 @@
 	padding-left: 30px;
 	top: 138px;
 }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+textarea{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.select select,
+.select button.cselect .select-inner{
+	padding-left: 20px;
+}
 /*HEADER*/
 .nav-opened .header .logo {
 	-webkit-transform: translate(0, 0);
@@ -20,6 +33,51 @@
 	transform: translate(0, 0);
 }
 /*HEADER end*/
+
+.text-page .max-wrap {
+	padding: 30px;
+}
+.text-page .max-wrap .full-width { margin-left: -30px; }
+
+/*files*/
+.files{
+	margin-left: 0;
+	padding-left: 20px;
+}
+.files .files-item {
+	display: block;
+	width: auto;
+	padding: 0 0 30px;
+}
+/*files*/
+
+/*social*/
+.soc {
+	float: none;
+	width: auto;
+	position: relative !important;
+	top: auto !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+.header-show .soc.fixed {
+	-webkit-transform: translate(0, 0) !important;
+	-ms-transform: translate(0, 0) !important;
+	transform: translate(0, 0) !important;
+}
+.soc-list, .user-content .soc-list {
+	overflow: hidden;
+}
+.soc-list li, .user-content .soc-list li, .user-content .soc-list li:first-child {
+	float: left;
+	padding: 0 25px 10px 0;
+}
+/*social end*/
+
+/*note*/
+.note, .more { margin-bottom: 20px; }
+/*note end*/
+
 /*tabs*/
 .tabs-wrap .tab-controls,
 .user-content .tab-controls{
