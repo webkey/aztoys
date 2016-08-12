@@ -1114,13 +1114,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin: 0;
 	font-family: 'helvetica-neue-cyr-bold', Arial, Helvetica, sans-serif;
 	font-size: 14px;
-	line-height: 36px;
+	line-height: 30px;
 	text-transform: uppercase;
 }
 .more-list li,
 .user-content .more-list li,
 .user-content .more-list li:first-child{
-	padding: 0;
+	padding: 0 0 6px;
 }
 .user-content .more-list li:before,
 .user-content .more-list li:first-child:before{
@@ -1129,6 +1129,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .more-list a{
 	text-decoration: underline;
 	color: #00abc7;
+	padding-top: 14px;
 }
 .desktop .more-list a:hover{
 	text-decoration: none;
@@ -1191,8 +1192,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .desktop .social-networks a:hover:before{
 	opacity: 1;
-	width: 40px;
-	height: 40px;
+	width: 46px;
+	height: 46px;
 }
 .social-networks a:after{
 	content: '';
@@ -2720,7 +2721,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	width: 100%;
 }
 .contacts__frame{
-	margin-right: 640px;
+	margin-right: 40%;
 	min-height: 50px;
 }
 /*contacts end*/
@@ -2823,8 +2824,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	/*background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0.75) 49%,rgba(255,255,255,0) 100%);*/
 	/*background: radial-gradient(ellipse at center,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0.75) 49%,rgba(255,255,255,0) 100%);*/
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC44NSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0OSUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC43NSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.75) 49%, rgba(255,255,255,0) 100%);
-	background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.75) 49%,rgba(255,255,255,0) 100%);
+	/*background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.75) 49%, rgba(255,255,255,0) 100%);*/
+	/*background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.75) 49%,rgba(255,255,255,0) 100%);*/
 	background: radial-gradient(ellipse at center,  rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.75) 49%,rgba(255,255,255,0) 100%);
 }
 .no-cssgradients .locate-bg__item:after{
@@ -3036,8 +3037,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*contacts form*/
 .contacts-aside{
 	float: right;
-	margin: 0 0 0 -640px;
-	width: 640px;
+	margin: 0 0 0 -40%;
+	width: 40%;
 	text-align: center;
 
 	font-size: 0;
