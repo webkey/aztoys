@@ -559,12 +559,22 @@ function shareEvents() {
 				e.preventDefault();
 			});
 
-		$wrapper
-			.on('mouseenter', function () {
+		if (DESKTOP) {
+			$wrapper.on('mouseenter', function () {
+					tw.play();
+				}).on('mouseleave', function () {
+					tw.reverse();
+				});
+		} else {
+			$wrapper.on('click', function () {
+				if (tw.progress() != 0) {
+					tw.reverse();
+
+					return false;
+				}
 				tw.play();
-			}).on('mouseleave', function () {
-				tw.reverse();
-		});
+			})
+		}
 	});
 }
 /*share events end*/

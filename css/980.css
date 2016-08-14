@@ -74,6 +74,7 @@
 	line-height: 24px;
 }
 /*main navigation end*/
+/*SIDEBAR end*/
 
 /*FILTERS*/
 .filters {
@@ -87,4 +88,7 @@
 	transform: translate(0, 86px);
 }
 /*FILTERS end*/
-/*SIDEBAR end*/
+
+/*FOOTER*/
+.footer-holder{ padding: 0 30px; }
+/*FOOTER end*/

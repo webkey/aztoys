@@ -2519,6 +2519,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*video section end*/
 
 /*news*/
+.news{
+	padding: 0 30px;
+	box-sizing: border-box;
+}
 .news__item{
 	margin-top: 30px;
 	position: relative;
@@ -2573,6 +2577,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	color: #ccc;
 	font-size: 16px;
 	line-height: 30px;
+	overflow: hidden;
+	max-height: 30px;
 }
 .news__title{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
