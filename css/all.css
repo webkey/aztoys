@@ -469,7 +469,9 @@ textarea{
 	margin: 0;
 }
 textarea{
-	padding: 15px 30px;
+	line-height: 20px;
+	padding-top: 19px;
+	padding-bottom: 19px;
 	min-height: 140px;
 	height: 140px;
 	resize: vertical;
@@ -2738,7 +2740,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .locate-tabs{
 	position: relative;
-	padding-right: 80px;
 	box-sizing: border-box;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
@@ -3054,9 +3055,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: inline-block;
 	width: 440px;
 	text-align: left;
-	max-width: 98%;
+	max-width: 86%;
 	margin: 0 auto;
 	vertical-align: middle;
+	box-sizing: border-box;
 
 	font-size: 16px;
 	letter-spacing: normal;
@@ -3069,6 +3071,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	text-align: center;
 	text-transform: none;
 	padding: 0 0 36px;
+}
+.contacts-form textarea{
+	resize: none;
+	min-height: 140px;
+	max-height: 140px;
+	height: 140px;
 }
 /*contacts form end*/
 /*CONTENT*/

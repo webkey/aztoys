@@ -24,6 +24,20 @@
 .previews__item:nth-child(1) { display: inline-block; }
 /*previews end*/
 
+/*locate*/
+.locate {
+	padding: 230px 60px 100px;
+}
+.locate-controls{
+	left: 60px;
+	top: 60px;
+}
+.see-map {
+	right: 60px;
+	top: 60px;
+}
+/*locate end*/
+
 /*FILTERS*/
 .filters__group {
 	min-height: 72px;

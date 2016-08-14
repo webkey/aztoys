@@ -69,6 +69,34 @@
 .previews__item:nth-child(3){ display: inline-block; }
 /*previews end*/
 
+/*locate*/
+.locate { padding: 250px 40px 100px; }
+.locate-controls{
+	left: 40px;
+	top: 40px;
+	font-size: 22px;
+}
+.locate-controls a{
+	float: none;
+	display: block;
+	text-align: center;
+}
+.locate-adr__item,
+.locate-cont__item{
+	font-size: 22px;
+	line-height: 36px;
+}
+.locate-cont__item .locate__tel + dd {
+	font-size: 32px;
+	line-height: 36px;
+	position: relative;
+}
+.see-map {
+	right: 40px;
+	top: 40px;
+}
+/*locate*/
+
 /*FILTERS*/
 .filters__group:nth-child(2){
 	float: none;

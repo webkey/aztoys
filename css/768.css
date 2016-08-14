@@ -23,6 +23,45 @@
 .previews__item_lg{ max-width: none; }
 /*previews end*/
 
+/*contacts*/
+.contacts__holder { float: none; }
+.contacts__frame {
+	margin-right: 0;
+}
+.contacts-aside {
+	float: none;
+	margin: 0;
+	width: auto;
+}
+/*contacts end*/
+
+/*locate*/
+.locate {
+	padding: 190px 30px 40px;
+	min-height: 590px;
+}
+.locate-controls{ left: 30px; }
+.locate-controls a{
+	float: left;
+	text-align: left;
+	padding: 15px 30px;
+}
+.see-map {
+	right: 10px;
+	top: 38px;
+}
+/*locate*/
+
+/*contacts form*/
+.contacts-aside:before{ content: none; }
+.contacts-form{
+	max-width: 440px;
+	display: block;
+	width: auto;
+	padding: 30px;
+}
+/*contacts form end*/
+
 /*FILTERS*/
 .filters-button-middle .button {
 	min-width: 60px;
