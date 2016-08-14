@@ -3097,9 +3097,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	z-index: 87;
 	width: 100%;
 	height: 100%;
-	opacity: 0.75;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	visibility: hidden;
 }
 /*overlay end*/
 /*MAIN end*/
