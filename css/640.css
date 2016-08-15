@@ -135,6 +135,12 @@ textarea{
 .news__img img{ min-height: 100%; }
 /*news end*/
 
+/*SIDEBAR*/
+.nav-drop__group {
+	width: 240px;
+}
+/*SIDEBAR end*/
+
 /*FILTERS*/
 .filters-opener{
 	display: block;

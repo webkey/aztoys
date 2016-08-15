@@ -4,9 +4,8 @@
 .sidebar,
 .hide-screen .sidebar,
 .nav-drop__holder{ padding-top: 86px; }
-.products-page .main {
-	padding-top: 231px;
-}
+.products-page .main { padding-top: 231px; }
+.mobile .nav-drop .btn-close{ margin-top: 86px; }
 .color-tape-horizontal{
 	-webkit-background-size: 100%;
 	background-size: 100%;

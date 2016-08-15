@@ -8,7 +8,7 @@ h1 {
 .sidebar,
 .hide-screen .sidebar{ padding-top: 68px; }
 .products-page .main { padding-top: 140px; }
-
+.mobile .nav-drop .btn-close{ margin-top: 0; }
 .text-page .max-wrap {
 	padding: 30px 20px;
 }

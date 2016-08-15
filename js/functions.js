@@ -581,6 +581,10 @@ function shareEvents() {
 
 /*hover class*/
 (function ($) {
+	// external js:
+	// 1) device.js 0.2.7 (widgets.js);
+	// 2) debouncedresize (widgets.js);
+
 	var HoverClass = function (settings) {
 		var options = $.extend({
 			container: 'ul',
@@ -588,24 +592,22 @@ function shareEvents() {
 			drop: 'ul'
 		},settings || {});
 
-		var self = this;
-		self.options = options;
+		var self = this,
+			container = $(options.container);
 
-		var container = $(options.container);
+		self.options = options;
 		self.$container = container;
 		self.$item = $(options.item, container);
 		self.$drop = $(options.drop, container);
+		self.desktop = device.desktop();
 
 		self.modifiers = {
 			hover: 'hover'
 		};
 
-		// self.md = new MobileDetect(window.navigator.userAgent);
-		self.md = device;
-
 		self.addClassHover();
 
-		if (self.md.mobile()) {
+		if (!self.desktop) {
 			$(window).on('debouncedresize', function () {
 				self.removeClassHover();
 			});
@@ -614,41 +616,43 @@ function shareEvents() {
 
 	HoverClass.prototype.addClassHover = function () {
 		var self = this,
-			_hover = this.modifiers.hover,
+			$container = self.$container,
 			item = self.options.item,
 			$item = self.$item,
-			$container = self.$container;
+			$drop = self.$drop,
+			_hover = this.modifiers.hover;
 
-		if (!self.md.desktop()) {
+		if (!self.desktop) {
 			$container.on('click', ''+item+'', function (e) {
-				var $currentAnchor = $(this);
-				var currentItem = $currentAnchor.closest($item);
+				var $currentItem = $(this);
 
-				if (!currentItem.has(self.$drop).length){ return; }
-
-				e.stopPropagation();
-
-				if (currentItem.hasClass(_hover)){
-					currentItem.removeClass(_hover).find('.'+_hover+'').removeClass(_hover);
+				if (!$currentItem.has($drop).length){
 					return;
 				}
 
-				$('.'+_hover+'').not($currentAnchor.parents('.'+_hover+''))
-					.removeClass(_hover)
-					.find('.'+_hover+'')
-					.removeClass(_hover);
-				currentItem.addClass(_hover);
+				if ($currentItem.hasClass(_hover)){
+					$currentItem
+						.removeClass(_hover)
+						.find('.'+_hover+'')
+						.removeClass(_hover);
 
-				e.preventDefault();
+					return;
+				}
+
+				$item.removeClass(_hover);
+				$currentItem.addClass(_hover);
+
+				return false;
 			});
 
-			$container.on('click', ''+self.options.drop+'', function (e) {
+			$drop.children().not('.close-nav-drop-js').on('click', function (e) {
 				e.stopPropagation();
 			});
 
 			$(document).on('click', function () {
 				$item.removeClass(_hover);
 			});
+
 		} else {
 			$container.on('mouseenter', ''+item+'', function () {
 				var currentItem = $(this);
@@ -761,6 +765,10 @@ function navDropBehavior(){
 				closeNavDrop();
 			});
 
+			$(window).on('resizeByWidth', function () {
+				closeNavDrop();
+			});
+
 			function openNavDrop() {
 				// $html.addClass(activeClass);
 				TweenMax.set($currentNavDrop, {display: 'block'});
@@ -834,34 +842,6 @@ var localObjects = [
 			works: '<b>E-mail:</b> <div><a href="mailto:info@aztoys.com">info@aztoys.com</a></div>'
 		}
 	]
-];
-
-var styleMap = [
-	{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {
-	"featureType": "all",
-	"elementType": "labels.text.stroke",
-	"stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]
-}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {
-	"featureType": "administrative",
-	"elementType": "geometry.fill",
-	"stylers": [{"color": "#000000"}, {"lightness": 20}]
-}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {
-	"featureType": "landscape",
-	"elementType": "geometry",
-	"stylers": [{"color": "#000000"}, {"lightness": 20}]
-}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {
-	"featureType": "road.highway",
-	"elementType": "geometry.fill",
-	"stylers": [{"color": "#000000"}, {"lightness": 17}]
-}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {
-	"featureType": "road.arterial",
-	"elementType": "geometry",
-	"stylers": [{"color": "#000000"}, {"lightness": 18}]
-}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {
-	"featureType": "transit",
-	"elementType": "geometry",
-	"stylers": [{"color": "#000000"}, {"lightness": 19}]
-}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}
 ];
 
 var styleMap = [
@@ -1288,25 +1268,11 @@ function shareFixed(){
 }
 /*share fixed end*/
 
-/*parallax background page*/
-function parallaxBg() {
-	var $page = $('body');
-
-	if (DESKTOP) return false;
-
-	$(window).on('load scroll', function () {
-		var currentScrollTop = $(window).scrollTop();
-
-		$page.css({
-			'background-position-y': currentScrollTop/1.2,
-		})
-	});
-}
-/*parallax background page end*/
-
 /*header fixed*/
-
 function headerFixed(){
+	// external js:
+	// 1) resizeByWidth (resize only width);
+
 	var $page = $('body'),
 		minScrollTop = $('.header').outerHeight(),
 		previousScrollTop = $(window).scrollTop();
@@ -1327,7 +1293,7 @@ function headerFixed(){
 	// external js:
 	// 1) TweetMax VERSION: 1.19.0 (widgets.js);
 	// 2) device.js 0.2.7 (widgets.js);
-	// 3) debouncedresize (widgets.js);
+	// 3) resizeByWidth (resize only width);
 	var MainNavigation = function (settings) {
 		var options = $.extend({
 			navContainer: null,
@@ -1384,54 +1350,61 @@ function headerFixed(){
 			alignRight: 'align-right'
 		};
 
-		self.navSwitch();
 		self.createOverlay();
 		self.initNavTween();
-		self.clearing();
+		self.switchNav();
+		self.clearStyles();
 	};
 
 	// init tween animation
-	MainNavigation.prototype.showOverlayTween = new TimelineMax({paused: true});
+	MainNavigation.prototype.overlayTween = new TimelineMax({paused: true});
+	MainNavigation.prototype.navTween = new TimelineMax({paused: true});
 
-	// create overlay
-	// and append to "overlayAppend"
+	// overlay append to "overlayAppend"
 	MainNavigation.prototype.createOverlay = function () {
 		var self = this;
 		if (!self._overlayBoolean) return false;
 
 		var $overlay = self.$overlay;
 		$overlay.appendTo(self.overlayAppend);
+
 		TweenMax.set($overlay, {autoAlpha: 0});
 
-		self.showOverlayTween.to($overlay, self._animateSpeedOverlay / 1000, {autoAlpha: self._overlayAlpha});
+		self.overlayTween.to($overlay, self._animateSpeedOverlay / 1000, {autoAlpha: self._overlayAlpha});
 	};
 
 	// show/hide overlay
-	MainNavigation.prototype.showOverlay = function () {
+	MainNavigation.prototype.showOverlay = function (close) {
 		var self = this;
 		if (!self._overlayBoolean) return false;
 
-		var showOverlayTween = self.showOverlayTween;
+		var overlayTween = self.overlayTween;
 
-		if (showOverlayTween.progress() != 0 && !showOverlayTween.reversed()) {
-			showOverlayTween.reverse();
+		if (close === false) {
+			overlayTween.reverse();
 			return false;
 		}
-		showOverlayTween.play();
+
+		if (overlayTween.progress() != 0 && !overlayTween.reversed()) {
+			overlayTween.reverse();
+			return false;
+		}
+
+		overlayTween.play();
 	};
 
-	MainNavigation.prototype.navTween = new TimelineMax({paused: true});
-
+	// init nav tween
 	MainNavigation.prototype.initNavTween = function () {
 		var self = this,
 			_animationSpeed = self._animateSpeedOverlay,
 			$navContainer = self.$navContainer;
 
-		this.navTween
+		self.navTween
 			.to($navContainer, _animationSpeed/1000, {x:0});
 	};
 
-	MainNavigation.prototype.navSwitch = function () {
+	// switch nav
+	MainNavigation.prototype.switchNav = function () {
 		var self = this,
 			$html = $('html'),
 			$buttonMenu = self.$btnMenu,
@@ -1454,78 +1427,82 @@ function headerFixed(){
 			self.closeNav($html,$buttonMenu);
 		});
 
-		if(self.desktop){
-			$(window).on('debouncedresize', function () {
-				self.closeNav($html,$buttonMenu);
-			});
-		}
+		$(window).on('resizeByWidth', function () {
+			self.closeNav($html,$buttonMenu);
+		});
 	};
 
-	MainNavigation.prototype.openNav = function(content,btn) {
+	// open nav
+	MainNavigation.prototype.openNav = function(content, btn) {
 		var self = this,
-			_animationSpeed = self._animateSpeed,
 			$navContainer = self.$navContainer,
+			_animationSpeed = self._animateSpeedOverlay,
 			$staggerItems = self.$navMenu.children('li').children('a').children('span'),
 			$sbFooter = $navContainer.find('.sidebar-footer__holder');
 
 		content.addClass(self.modifiers.opened);
 		btn.addClass(self.modifiers.active);
+
 		$navContainer.css({
 			'-webkit-transition-duration': '0s',
 			'transition-duration': '0s'
 		});
 
-		var itemsTween = TweenMax.staggerFrom($staggerItems, _animationSpeed/1000*2, {opacity:0, x:-40, ease:Elastic.easeOut}, 0.05);
-		var footerTween = TweenMax.from($sbFooter, _animationSpeed/1000, {opacity:0, yPercent: 100});
+		var navTween = self.navTween,
+			insideElementsTween = new TimelineMax();
 
-		var navTween = self.navTween;
+		insideElementsTween
+			.set($staggerItems, {autoAlpha:0, x:-40}, 0.05)
+			.set($sbFooter, {autoAlpha:0, y: $sbFooter.outerHeight()});
 
 		if (navTween.progress() != 0 && !navTween.reversed()) {
 			navTween.reverse();
-			return false;
+		} else {
+			navTween
+				.play()
+				.eventCallback('onComplete', function () {
+					insideElementsTween
+						.staggerTo($staggerItems, _animationSpeed/1000*2, {autoAlpha:1, x:0, ease:Elastic.easeOut}, 0.05)
+						.to($sbFooter, _animationSpeed/1000, {autoAlpha:1, y: 0}, "-=0.4");
+				});
 		}
-		navTween.play();
-		var tlmAdd = new TimelineMax();
-		tlmAdd
-			.add(itemsTween)
-			.add(footerTween, "-=0.4");
+
 		self.showOverlay();
 	};
 
-	MainNavigation.prototype.closeNav = function(content,btn) {
+	// close nav
+	MainNavigation.prototype.closeNav = function(content, btn) {
 		var self = this,
-			_animationSpeed = self._animateSpeed,
 			$navContainer = self.$navContainer,
-			$buttonMenu = self.$btnMenu,
-			navContainerWidth = $navContainer.outerWidth();
+			$buttonMenu = self.$btnMenu;
 
 		content.removeClass(self.modifiers.opened);
 		btn.removeClass(self.modifiers.active);
-		self.showOverlay();
+		self.showOverlay(false);
+
 		if ($buttonMenu.is(':hidden')) {
 			$navContainer.attr('style','');
 			return false;
 		}
-		//TweenMax.to($navContainer, _animationSpeed/1000, {x:-navContainerWidth});
+
 		var navTween = self.navTween;
 
-		if (navTween.progress() != 0 && !navTween.reversed()) {
-			navTween.reverse();
-			return false;
-		}
-		navTween.play();
+		navTween.reverse();
 	};
 
 	// clearing inline styles
-	MainNavigation.prototype.clearing = function() {
+	MainNavigation.prototype.clearStyles = function() {
 		var self = this,
 			$navContainer = self.$navContainer;
 
 		//clear on horizontal resize
 		$(window).on('resizeByWidth', function () {
-			if($navContainer.attr('style') && !self.$btnMenu.hasClass(self.modifiers.active)){
+			if($navContainer.attr('style')){
 				$navContainer.attr('style','');
 			}
+			// if($navContainer.attr('style') && !self.$btnMenu.hasClass(self.modifiers.active)){
+			// 	$navContainer.attr('style','');
+			// }
 		});
 	};
 
@@ -1562,6 +1539,22 @@ function footerBottom(){
 }
 /*footer at bottom end*/
 
+/*parallax background page*/
+function parallaxBg() {
+	var $page = $('body');
+
+	if (DESKTOP) return false;
+
+	$(window).on('load scroll', function () {
+		var currentScrollTop = $(window).scrollTop();
+
+		$page.css({
+			'background-position-y': currentScrollTop/1.2
+		})
+	});
+}
+/*parallax background page end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -1584,9 +1577,9 @@ $(document).ready(function(){
 	locateEvents();
 	swiperSliderInit();
 	shareFixed();
-	// parallaxBg();
 	headerFixed();
 	mainNavigationInit();
 
 	footerBottom();
+	// parallaxBg();
 });

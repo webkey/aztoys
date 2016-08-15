@@ -3224,6 +3224,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .mobile .nav-drop .btn-close{
 	right: 20px;
 	top: 20px;
+	opacity: 1;
+	visibility: visible;
 }
 .nav-drop__group{
 	display: inline-block;
