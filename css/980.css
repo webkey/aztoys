@@ -37,9 +37,10 @@
 /*SIDEBAR*/
 .sidebar,
 .hide-screen .sidebar{
-	-webkit-transform: translate(-100%, 0);
-	-ms-transform: translate(-100%, 0);
-	transform: translate(-100%, 0);
+	/*-webkit-transform: translate(-100%, 0);*/
+	/*-ms-transform: translate(-100%, 0);*/
+	/*transform: translate(-100%, 0);*/
+	display: none;
 }
 .sidebar .logo{
 	display: none;

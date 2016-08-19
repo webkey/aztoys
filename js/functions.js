@@ -1296,13 +1296,15 @@ function headerFixed(){
 	// 3) resizeByWidth (resize only width);
 	var MainNavigation = function (settings) {
 		var options = $.extend({
+			mainContainer: 'html',
 			navContainer: null,
 			navMenu: '.nav-list',
 			btnMenu: '.btn-menu',
-			btnClose: '.btn-nav-close',
 			navMenuItem: '.nav-list > li',
 			navMenuAnchor: 'a',
 			navDropMenu: '.js-nav-drop',
+			staggerItems: null,
+			navFooter: '.sidebar-footer__holder',
 			overlayClass: '.nav-overlay',
 			overlayAppend: 'body',
 			overlayAlpha: 0.8,
@@ -1319,24 +1321,27 @@ function headerFixed(){
 			_animateSpeed = options.animationSpeed;
 
 		self.options = options;
-		self.$navContainer = container;
+		self.$mainContainer = $(options.mainContainer);            // Основной контейнер дом дерева. по умолчанию <html></html>
 		self.$navMenu = $(options.navMenu);
 		self.$btnMenu = $(options.btnMenu);                        // Кнопка открытия/закрытия меню для моб. верси;
-		self.$btnClose = $(options.btnClose);                      // Кнопка закрытия меню для моб. верси;
+		self.$navContainer = container;
 		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации;
 		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик);
 		self.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней;
+		self.$staggerItems = options.staggerItems || self.$navMenuItem;  //Элементы в стеке, к которым применяется анимация.
+																				 // По умолчанию navMenuItem;
+		self.$navFooter = $(options.navFooter);
+
 		self._animateSpeed = _animateSpeed;
 		self._classNoClick = options.classNoClickDrop;
 
 		// overlay
 		self._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации;
 		self._overlayClass = options.overlayClass;                // Класс оверлея;
-		self.overlayAppend = options.overlayAppend;                // Элемент ДОМ, вконец которого добавится оверлей, по умолчанию <body></body>;
+		self.overlayAppend = options.overlayAppend;               // Элемент ДОМ, вконец которого добавится оверлей, по умолчанию <body></body>;
 		self.$overlay = $('<div class="' + self._overlayClass.substring(1) + '"></div>'); // Темплейт оверлея;
 		self._overlayAlpha = options.overlayAlpha;
 		self._animateSpeedOverlay = options.animationSpeedOverlay || _animateSpeed;
-
 		self._minWidthItem = options.minWidthItem;
 
 		self.desktop = device.desktop();
@@ -1351,14 +1356,14 @@ function headerFixed(){
 		};
 
 		self.createOverlay();
-		self.initNavTween();
 		self.switchNav();
 		self.clearStyles();
 	};
 
+	MainNavigation.prototype.navIsOpened = false;
+
 	// init tween animation
 	MainNavigation.prototype.overlayTween = new TimelineMax({paused: true});
-	MainNavigation.prototype.navTween = new TimelineMax({paused: true});
 
 	// overlay append to "overlayAppend"
 	MainNavigation.prototype.createOverlay = function () {
@@ -1393,116 +1398,113 @@ function headerFixed(){
 		overlayTween.play();
 	};
 
-	// init nav tween
-	MainNavigation.prototype.initNavTween = function () {
-		var self = this,
-			_animationSpeed = self._animateSpeedOverlay,
-			$navContainer = self.$navContainer;
-
-		self.navTween
-			.to($navContainer, _animationSpeed/1000, {x:0});
-	};
-
 	// switch nav
 	MainNavigation.prototype.switchNav = function () {
 		var self = this,
-			$html = $('html'),
 			$buttonMenu = self.$btnMenu,
-			modifiers = self.modifiers,
-			_activeClass = modifiers.active;
+			$navContainer = self.$navContainer;
+
+		self.preparationAnimation();
 
 		$buttonMenu.on('click', function (e) {
-			var thisBtnMenu = $(this);
-
-			if (thisBtnMenu.hasClass(_activeClass)) {
-				self.closeNav($html,$buttonMenu);
+			if (self.navIsOpened) {
+				self.closeNav();
 			} else {
-				self.openNav($html,$buttonMenu);
+				self.openNav();
 			}
 
 			e.preventDefault();
 		});
 
 		$(document).on('click', self._overlayClass, function () {
-			self.closeNav($html,$buttonMenu);
-		});
-
-		$(window).on('resizeByWidth', function () {
-			self.closeNav($html,$buttonMenu);
+			self.closeNav();
 		});
 	};
 
 	// open nav
-	MainNavigation.prototype.openNav = function(content, btn) {
+	MainNavigation.prototype.openNav = function() {
 		var self = this,
+			$html = self.$mainContainer,
 			$navContainer = self.$navContainer,
+			$buttonMenu = self.$btnMenu,
 			_animationSpeed = self._animateSpeedOverlay,
-			$staggerItems = self.$navMenu.children('li').children('a').children('span'),
-			$sbFooter = $navContainer.find('.sidebar-footer__holder');
+			$staggerItems = self.$staggerItems,
+			$sbFooter = self.$navFooter;
 
-		content.addClass(self.modifiers.opened);
-		btn.addClass(self.modifiers.active);
+		$html.addClass(self.modifiers.opened);
+		$buttonMenu.addClass(self.modifiers.active);
 
 		$navContainer.css({
 			'-webkit-transition-duration': '0s',
 			'transition-duration': '0s'
 		});
 
-		var navTween = self.navTween,
-			insideElementsTween = new TimelineMax();
+		var navTween = new TimelineMax();
+		var navInnerTween = new TimelineMax();
 
-		insideElementsTween
-			.set($staggerItems, {autoAlpha:0, x:-40}, 0.05)
-			.set($sbFooter, {autoAlpha:0, y: $sbFooter.outerHeight()});
-
-		if (navTween.progress() != 0 && !navTween.reversed()) {
-			navTween.reverse();
-		} else {
-			navTween
-				.play()
-				.eventCallback('onComplete', function () {
-					insideElementsTween
-						.staggerTo($staggerItems, _animationSpeed/1000*2, {autoAlpha:1, x:0, ease:Elastic.easeOut}, 0.05)
-						.to($sbFooter, _animationSpeed/1000, {autoAlpha:1, y: 0}, "-=0.4");
-				});
-		}
+		navTween
+			.to($navContainer, _animationSpeed / 1000, {
+				xPercent: 0, onComplete: function () {
+					navInnerTween
+						.staggerTo($staggerItems, _animationSpeed / 1000 * 2, {
+							autoAlpha: 1, x: 0, ease: Elastic.easeOut
+						}, 0.05)
+						.to($sbFooter, _animationSpeed / 1000, {
+							autoAlpha: 1, yPercent: 0
+						}, "-=0.4");
+				}
+			});
 
 		self.showOverlay();
+
+		self.navIsOpened = true;
 	};
 
 	// close nav
-	MainNavigation.prototype.closeNav = function(content, btn) {
+	MainNavigation.prototype.closeNav = function() {
 		var self = this,
+			$html = self.$mainContainer,
 			$navContainer = self.$navContainer,
-			$buttonMenu = self.$btnMenu;
+			$buttonMenu = self.$btnMenu,
+			_animationSpeed = self._animateSpeedOverlay;
 
-		content.removeClass(self.modifiers.opened);
-		btn.removeClass(self.modifiers.active);
+		$html.removeClass(self.modifiers.opened);
+		$buttonMenu.removeClass(self.modifiers.active);
+
 		self.showOverlay(false);
 
-		if ($buttonMenu.is(':hidden')) {
-			$navContainer.attr('style','');
-			return false;
-		}
+		TweenMax.to($navContainer, _animationSpeed / 1000, {
+			xPercent: -100, onComplete: function () {
+				self.preparationAnimation();
+			}
+		});
 
-		var navTween = self.navTween;
+		self.navIsOpened = false;
+	};
 
-		navTween.reverse();
+	// preparation element before animation
+	MainNavigation.prototype.preparationAnimation = function() {
+		var self = this,
+			$navContainer = self.$navContainer,
+			$staggerItems = self.$staggerItems,
+			$sbFooter = self.$navFooter;
+
+		TweenMax.set($navContainer, {xPercent: -100, onComplete: function () {
+			$navContainer.show(0);
+		}});
+		TweenMax.set($staggerItems, {autoAlpha: 0, x: -40});
+		TweenMax.set($sbFooter, {autoAlpha: 0, yPercent: 100});
 	};
 
 	// clearing inline styles
 	MainNavigation.prototype.clearStyles = function() {
-		var self = this,
-			$navContainer = self.$navContainer;
+		var self = this;
 
 		//clear on horizontal resize
 		$(window).on('resizeByWidth', function () {
-			if($navContainer.attr('style')){
-				$navContainer.attr('style','');
+			if (self.navIsOpened) {
+				self.closeNav();
 			}
-			// if($navContainer.attr('style') && !self.$btnMenu.hasClass(self.modifiers.active)){
-			// 	$navContainer.attr('style','');
-			// }
 		});
 	};
 
@@ -1515,6 +1517,7 @@ function mainNavigationInit(){
 	if(!$container.length){ return; }
 	new MainNavigation({
 		navContainer: $container,
+		staggerItems: $('.nav-list > li > a > span'),
 		animationSpeed: 300,
 		overlayBoolean: true,
 		overlayAlpha: 0.75
