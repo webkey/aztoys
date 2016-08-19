@@ -1348,11 +1348,7 @@ function headerFixed(){
 
 		self.modifiers = {
 			active: 'active',
-			hover: 'hover',
-			opened: 'nav-opened',
-			position: 'position',
-			current: 'current',
-			alignRight: 'align-right'
+			opened: 'nav-opened'
 		};
 
 		self.createOverlay();
@@ -1401,8 +1397,7 @@ function headerFixed(){
 	// switch nav
 	MainNavigation.prototype.switchNav = function () {
 		var self = this,
-			$buttonMenu = self.$btnMenu,
-			$navContainer = self.$navContainer;
+			$buttonMenu = self.$btnMenu;
 
 		self.preparationAnimation();
 
@@ -1487,22 +1482,34 @@ function headerFixed(){
 		var self = this,
 			$navContainer = self.$navContainer,
 			$staggerItems = self.$staggerItems,
-			$sbFooter = self.$navFooter;
+			$sbFooter = self.$navFooter,
+			$btnMenu = self.$btnMenu;
 
-		TweenMax.set($navContainer, {xPercent: -100, onComplete: function () {
-			$navContainer.show(0);
-		}});
-		TweenMax.set($staggerItems, {autoAlpha: 0, x: -40});
-		TweenMax.set($sbFooter, {autoAlpha: 0, yPercent: 100});
+
+		if ($btnMenu.is(':visible')) {
+			TweenMax.set($navContainer, {xPercent: -100, onComplete: function () {
+				$navContainer.show(0);
+			}});
+			TweenMax.set($staggerItems, {autoAlpha: 0, x: -40});
+			TweenMax.set($sbFooter, {autoAlpha: 0, yPercent: 100});
+		}
 	};
 
 	// clearing inline styles
 	MainNavigation.prototype.clearStyles = function() {
-		var self = this;
+		var self = this,
+			$btnMenu = self.$btnMenu,
+			$navContainer = self.$navContainer,
+			$staggerItems = self.$staggerItems,
+			$sbFooter = self.$navFooter;
 
 		//clear on horizontal resize
 		$(window).on('resizeByWidth', function () {
-			if (self.navIsOpened) {
+			if (!$btnMenu.is(':visible')) {
+				$navContainer.attr('style', '');
+				$staggerItems.attr('style', '');
+				$sbFooter.attr('style', '');
+			} else {
 				self.closeNav();
 			}
 		});
