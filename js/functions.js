@@ -354,7 +354,6 @@ function filtersEvents() {
 	// clear on horizontal resize
 	$(window).on('resizeByWidth', function () {
 		if ( $filters.attr('style') ) {
-			console.log(1);
 			$filters.attr('style','');
 		}
 	});
@@ -1399,7 +1398,9 @@ function headerFixed(){
 		var self = this,
 			$buttonMenu = self.$btnMenu;
 
-		self.preparationAnimation();
+		if ($buttonMenu.is(':visible')) {
+			self.preparationAnimation();
+		}
 
 		$buttonMenu.on('click', function (e) {
 			if (self.navIsOpened) {
@@ -1471,10 +1472,9 @@ function headerFixed(){
 		TweenMax.to($navContainer, _animationSpeed / 1000, {
 			xPercent: -100, onComplete: function () {
 				self.preparationAnimation();
+				self.navIsOpened = false;
 			}
 		});
-
-		self.navIsOpened = false;
 	};
 
 	// preparation element before animation
@@ -1482,36 +1482,39 @@ function headerFixed(){
 		var self = this,
 			$navContainer = self.$navContainer,
 			$staggerItems = self.$staggerItems,
-			$sbFooter = self.$navFooter,
-			$btnMenu = self.$btnMenu;
+			$sbFooter = self.$navFooter;
 
-
-		if ($btnMenu.is(':visible')) {
-			TweenMax.set($navContainer, {xPercent: -100, onComplete: function () {
-				$navContainer.show(0);
-			}});
-			TweenMax.set($staggerItems, {autoAlpha: 0, x: -40});
-			TweenMax.set($sbFooter, {autoAlpha: 0, yPercent: 100});
-		}
+		TweenMax.set($navContainer, {xPercent: -100, onComplete: function () {
+			$navContainer.show(0);
+		}});
+		TweenMax.set($staggerItems, {autoAlpha: 0, x: -40});
+		TweenMax.set($sbFooter, {autoAlpha: 0, yPercent: 100});
 	};
 
 	// clearing inline styles
 	MainNavigation.prototype.clearStyles = function() {
 		var self = this,
-			$btnMenu = self.$btnMenu,
+			$buttonMenu = self.$btnMenu,
 			$navContainer = self.$navContainer,
 			$staggerItems = self.$staggerItems,
 			$sbFooter = self.$navFooter;
 
 		//clear on horizontal resize
 		$(window).on('resizeByWidth', function () {
-			if (!$btnMenu.is(':visible')) {
-				$navContainer.attr('style', '');
-				$staggerItems.attr('style', '');
-				$sbFooter.attr('style', '');
+			self.$mainContainer.removeClass(self.modifiers.opened);
+			$buttonMenu.removeClass(self.modifiers.active);
+			self.showOverlay(false);
+
+			if ($buttonMenu.is(':hidden')) {
+				$navContainer.show(0);
+				TweenMax.set($navContainer, {xPercent: 0});
+				TweenMax.set($staggerItems, {autoAlpha: 1, x: 0});
+				TweenMax.set($sbFooter, {autoAlpha: 1, yPercent: 0});
 			} else {
-				self.closeNav();
+				self.preparationAnimation();
 			}
+
+			self.navIsOpened = false;
 		});
 	};
 
