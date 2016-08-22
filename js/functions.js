@@ -373,6 +373,16 @@ function filtersEvents() {
 		return value;
 	}
 
+	// search field
+	$( ".filters-search-js input" ).on('change keyup', function() {
+		var text = $(this).val();
+
+		$grid.isotope({ filter: function() {
+			var name = $(this).find('.products__title').text();
+			return name.match( new RegExp('(' + text + ')', 'gi') );
+		} });
+	});
+
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
 		e.preventDefault();
 		var $this = $( this );
@@ -1550,6 +1560,25 @@ function mainNavigationInit(){
 }
 /*main navigation end*/
 
+/*fotorama init*/
+function fotoramaInit() {
+	// product card gallery
+	$('.product-card__gallery').fotorama({
+		// width: 700,
+		// maxwidth: '100%',
+		// ratio: 16/9,
+		// allowfullscreen: true,
+		nav: 'thumbs',
+		allowfullscreen: true,
+		thumbmargin: 20,
+		thumbwidth: 82,
+		thumbheight: 82,
+		thumbborderwidth: 2,
+		ratio: 1/1
+	});
+}
+/*fotorama init end*/
+
 /*footer at bottom*/
 function footerBottom(){
 	var $footer = $('.footer');
@@ -1607,7 +1636,9 @@ $(document).ready(function(){
 	shareFixed();
 	headerFixed();
 	mainNavigationInit();
+	fotoramaInit();
 
 	footerBottom();
 	// parallaxBg();
+
 });
