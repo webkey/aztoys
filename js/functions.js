@@ -1579,6 +1579,57 @@ function fotoramaInit() {
 }
 /*fotorama init end*/
 
+/*text slide events*/
+function textSlide() {
+	var $textSlide = $('.text-slide-js'),
+		$textSlideSwitcher = $('.text-slide-switcher-js'),
+		$tplWrapInner = $('<div class="text-slide-inner-js" />'),
+		$tplShadow = $('<div class="text-slide-shadow-js" >'),
+		textSlideHeight = $textSlide.outerHeight(),
+		isTextFull = false;
+
+	if (!$textSlide.length) return false;
+
+	$textSlide
+		.wrapInner($tplWrapInner)
+		.append($tplShadow);
+
+	$textSlideSwitcher.on('click', function (e) {
+		e.preventDefault();
+
+		var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+
+		if ( isTextFull ) {
+			TweenMax.to($textSlide, 0.5, {height: textSlideHeight, ease: Power3.easeInOut});
+			TweenMax.to($tplShadow, 0.5, {autoAlpha: 1});
+
+			$(this).removeClass('active');
+
+			isTextFull = false;
+		} else {
+			TweenMax.to($textSlide, 0.5, {height: wrapInnerHeight, ease: Power3.easeInOut, onComplete: function () {
+				TweenMax.set($textSlide, {height: 'auto'});
+				isTextFull = true;
+			}});
+
+			TweenMax.to($tplShadow, 0.5, {autoAlpha: 0});
+			$(this).addClass('active');
+		}
+	});
+
+	//$(window).on('resize', function () {
+	//	wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+	//	if (tm.progress() != 0) {
+	//		tm.to($textSlide, 0.5, {maxHeight: wrapInnerHeight});
+	//	}
+	//});
+
+
+
+
+}
+/*text slide events end*/
+
 /*footer at bottom*/
 function footerBottom(){
 	var $footer = $('.footer');
@@ -1637,6 +1688,7 @@ $(document).ready(function(){
 	headerFixed();
 	mainNavigationInit();
 	fotoramaInit();
+	textSlide();
 
 	footerBottom();
 	// parallaxBg();

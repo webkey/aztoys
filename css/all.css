@@ -3112,19 +3112,16 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	max-height: 100%;
 	overflow: auto;
 }
-.popup-layout{
-	display: table;
-	width: 100%;
-}
 .popup-align{
-	display: table-cell;
-	vertical-align: middle;
-	padding: 50px 0;
+	padding: 45px 0 50px;
+	box-sizing: border-box;
 }
 /*popup end*/
 
 /*product card*/
-.product-card{}
+.product-card{
+	padding: 0 50px;
+}
 .product-card:before,
 .product-card:after { content: ""; display: table; }
 .product-card:after { clear: both; }
@@ -3133,6 +3130,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	float: left;
 	width: 50%;
 	box-sizing: border-box;
+	padding-top: 5px;
 }
 .product-card__gallery .fotorama__stage,
 .product-card__gallery .fotorama__thumb{
@@ -3167,7 +3165,132 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 30px;
 	line-height: 36px;
 	color: #00abc7;
+	padding: 0 0 15px;
+}
+
+.product-card__widget{ padding: 0 0 35px; }
+
+.product-card__description{
+	margin: 0 0 15px;
+	font-size: 16px;
+	line-height: 30px;
+	height: 120px;
+	overflow: hidden;
+	position: relative;
+}
+.product-card__description .text-slide-shadow-js{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	pointer-events: none;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI1JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjUiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 25%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 25%,rgba(255,255,255,1) 100%);
+}
+
+.text-full{
+	text-align: left;
+	letter-spacing: 0.025em;
+}
+.text-full a{
+	color: #b2b2b2;
+	text-decoration: none;
+}
+.text-full a > span{
+	line-height: 1;
+	border-bottom: 1px dotted #b2b2b2;
+	-webkit-transition-property: border;
+	transition-property: border;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+}
+.desktop .text-full a:hover > span{ border-bottom-color: transparent; }
+.text-full a > [class*="depict-"]{
+	margin: 1px 0 0 2px;
+	vertical-align: middle;
+	-webkit-transition-property: -webkit-transform;
+	transition-property: transform;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+}
+.text-full a.active > [class*="depict-"]{
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.product-card__dl{
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+.product-card__dl dt{
+	padding: 0 5px 0 0;
+	margin: 0;
+	color: #00abc7;
+	float: left;
+	width: 110px;
+	max-width: 50%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.product-card__dl dd{
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+.product-card__dl ul,
+.user-content .product-card__dl ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.product-card__dl dd ul li,
+.user-content .product-card__dl ul li,
+.user-content .product-card__dl ul li:first-child{
+	padding: 0;
+}
+.user-content .product-card__dl ul li:before,
+.user-content .product-card__dl ul li:first-child:before{
+	content: none;
+}
+
+.product-card__subtitle{
+	display: block;
+	font-family: 'rotondac-regular', Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	line-height: 28px;
+	color: #00abc7;
 	padding: 0 0 20px;
+}
+
+.skills-list,
+.user-content .skills-list{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.skills-list li,
+.user-content .skills-list li,
+.user-content .skills-list li:first-child{
+	padding: 0 0 10px;
+}
+.user-content .skills-list li:before,
+.user-content .skills-list li:first-child:before{
+	content: none;
+}
+.skills-list [class*="depict-"]{
+	float: left;
+	margin-right: 5px;
+	width: 30px;
+	height: 30px;
+}
+.skills-list li span{
+	display: block;
+	overflow: hidden;
 }
 /*product card end*/
 /*CONTENT*/
