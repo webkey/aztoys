@@ -1595,6 +1595,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	clear: both;
 	z-index: 4;
+	box-sizing: border-box;
 }
 .home-page .main{
 	will-change: transform;
@@ -1614,6 +1615,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .products-page .main{
 	padding-top: 100px;
 }
+.content{ box-sizing: border-box; }
 .layout{
 	padding-left: 240px;
 	box-sizing: border-box;
@@ -2020,6 +2022,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin-left: 1px;
 	font-size: 0;
 	letter-spacing: -4px;
+	box-sizing: border-box;
 }
 .products__item{
 	position: relative;

@@ -198,6 +198,8 @@ function productsBehavior() {
 		zIndexMain = $main.css('z-index'),
 		zIndexFilters = $filters.css('z-index');
 
+	if(!DESKTOP) return false;
+
 	$(window).load(function () {
 		$('.products__item, .previews__item').mouseenter(function () {
 			$main.css('z-index', '91');
@@ -315,15 +317,22 @@ function selectResize(){
  * filter products for tags */
 // external js:
 // 1) TweetMax VERSION: 1.19.0 (widgets.js);
+// 1) resizeByWidth (this file);
 function filtersEvents() {
 	// external js: Isotope PACKAGED v3.0.1 (widgets.js);
 	var $body = $('body'),
 		$filtersWrapper = $('.products'),
 		$filters = $('.filters-js'),
 		$filtersTagsGroup = $('.filters-tags-js'),
+		$productsContainer = $('.filters-container-js'),
+		$jsDropContent = $('.filters-content-js'),
+		jsDrop = '.filters-drop-js',
+		$jsDrop = $(jsDrop),
+		jsDropOpener = '.filter-more-options-js',
+		$jsDropOpener = $(jsDropOpener),
 		tags = {},
+		classShowDrop = 'show-drop',
 		isCheckedClass = 'is-checked',
-		isCheckedCounter = 0,
 		animationSpeed = 200,
 		animationSpeedTween = animationSpeed/1000,
 		showButtonFind = false;
@@ -333,29 +342,6 @@ function filtersEvents() {
 		itemSelector: '.products__item',
 		layoutMode: 'fitRows',
 		percentPosition: true
-	});
-
-	var filtersTLL = new TimelineLite();
-	$body.on('click', '.btn-filter-opener-js', function () {
-		filtersTLL
-			.set($filters, {autoAlpha:1, transitionDuration: 0})
-			.to($filters, animationSpeedTween, {x: 0, ease: Power2.easeInOut});
-
-		return false;
-	});
-
-	$body.on('click', '.btn-filter-close-js', function () {
-		var filtersWidth = $('.filters-js').outerWidth();
-		filtersTLL.to($filters, animationSpeedTween, {x: -filtersWidth, ease: Power2.easeInOut});
-
-		return false;
-	});
-
-	// clear on horizontal resize
-	$(window).on('resizeByWidth', function () {
-		if ( $filters.attr('style') ) {
-			$filters.attr('style','');
-		}
 	});
 
 	// bind filter tag click
@@ -397,73 +383,25 @@ function filtersEvents() {
 		clearBtnState();
 	});
 
-	// state clear button
-	function clearBtnState() {
-		$('.clear-filter').toggleClass('disabled', !$filtersTagsGroup.find('.is-checked').length);
-	}
-	clearBtnState();
-
 	// more options drop
-	var $jsDropContent = $('.filters-content-js'),
-		jsDrop = '.filters-drop-js',
-		$jsDrop = $(jsDrop),
-		jsDropOpener = '.filter-more-options-js',
-		$jsDropOpener = $(jsDropOpener),
-		classShowDrop = 'show-drop';
-
 	if (!$jsDropContent.length) return false;
 
 	$jsDropContent.on('click', jsDropOpener, function () {
 		var $currentJsDropContent = $(this).closest($jsDropContent),
-			ifOpened = $currentJsDropContent.hasClass(classShowDrop),
-			$currentDrop = $currentJsDropContent.find($jsDrop);
+			$currentDrop = $currentJsDropContent.find($jsDrop),
+			ifOpened = $currentDrop.hasClass(classShowDrop);
+
+		switchDrop($jsDrop,$currentDrop,!ifOpened);
 
 		// switch classes
 		switchClass($jsDropContent,$currentJsDropContent,!ifOpened);
 		switchClass($jsDropOpener,$(this),!ifOpened);
 		switchClass($jsDrop,$currentDrop,!ifOpened);
 
-		eventDrop($jsDrop,$currentDrop,!ifOpened);
-
-		recalcPhonesDrop.call();
+		phonesDropHeight.call();
 
 		return false;
 	});
-
-	// if (DESKTOP) {
-	// 	$jsDrop.on('mouseleave', function () {
-	// 		switchClass($jsDropContent);
-	// 		switchClass($jsDropOpener);
-	// 		switchClass($jsDrop);
-	// 		eventDrop($jsDrop);
-	//
-	// 		return false;
-	// 	});
-	// }
-
-	function switchClass(remove,add,condition) {
-		// remove - element with remove class
-		// add - element with add class
-		// condition - condition add class
-
-		remove.removeClass(classShowDrop);
-
-		if(add === undefined) return false;
-		add.toggleClass(classShowDrop, condition)
-	}
-
-	function eventDrop(drops,currentDrop,condition) {
-
-		TweenMax.to(drops, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
-
-		if(currentDrop === undefined) return false;
-		if(condition){
-			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 1, ease: Power2.easeInOut});
-		} else {
-			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
-		}
-
-	}
 
 	$jsDropContent.on('click', jsDrop, function (e) {
 		e.stopPropagation();
@@ -476,35 +414,27 @@ function filtersEvents() {
 
 	//recalculate height of phone drop
 	$(window).on('resize scroll', function () {
-		recalcPhonesDrop.call();
+		phonesDropHeight.call();
 	});
 
-	function recalcPhonesDrop() {
+	function phonesDropHeight() {
 		var topSpace = $('.filters').outerHeight();
 		var windowHeight = $(window).height() - topSpace;
 
 		$jsDrop.css('height', windowHeight);
 	}
 
-	// no product show / hide
+	// add "no product" template
 	var tempNoProducts = $('<h2 style="text-align: center;">Items not found</h2>');
-	$filtersWrapper.after(tempNoProducts.hide());
+	tempNoProducts
+		.hide()
+		.insertAfter($filtersWrapper);
 
-	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
-		var lengthItems = filteredItems.length;
-
-		if (!lengthItems) {
-			tempNoProducts.show();
-		} else {
-			tempNoProducts.hide();
-		}
-	});
-
-	// search counter
 	$grid.on( 'arrangeComplete', function( event, filteredItems ) {
 		var lengthItems = filteredItems.length,
 			filterCounterContent = 'Items <br /> not found';
 
+		// search counter
 		if( lengthItems > 0 ) {
 			var items = (filteredItems.length > 1) ? 'items' : 'item';
 			filterCounterContent = 'Found <br /> <strong>' + lengthItems + '</strong> ' + items
@@ -514,12 +444,20 @@ function filtersEvents() {
 			.html(filterCounterContent)
 			.closest('.button')
 			.toggleClass('btn-show', showButtonFind);
+
+		// "no product" show / hide
+		if (!lengthItems) {
+			tempNoProducts.show();
+		} else {
+			tempNoProducts.hide();
+		}
 	});
 
 	// clear filter tags
 	$('.clear-filter').on('click', function (e) {
 		e.preventDefault();
-		if($(this).hasClass('disabled')) return;
+
+		if ($(this).hasClass('disabled')) return;
 
 		$filtersTagsGroup.find('.is-checked').removeClass('is-checked');
 		$grid.isotope({ filter: '*' });
@@ -528,12 +466,89 @@ function filtersEvents() {
 		switchClass($jsDropContent);
 		switchClass($jsDropOpener);
 		switchClass($jsDrop);
-		eventDrop($jsDrop);
+		switchDrop($jsDrop);
 
 		clearBtnState();
 
 		showButtonFind = false;
 	});
+
+	// clear on horizontal resize
+	$(window).on('resizeByWidth', function () {
+		if ( $filters.attr('style') ) {
+			$filters.attr('style','');
+		}
+	});
+
+	// open filters on mobile
+	var filtersTLL = new TimelineLite();
+	$body.on('click', '.btn-filter-opener-js', function () {
+		filtersTLL
+			.set($filters, {autoAlpha:1, transitionDuration: 0})
+			.to($filters, animationSpeedTween, {x: 0, ease: Power2.easeInOut});
+
+		return false;
+	});
+
+	// close filters on mobile
+	$body.on('click', '.btn-filter-close-js', function () {
+		var filtersWidth = $('.filters-js').outerWidth();
+		filtersTLL.to($filters, animationSpeedTween, {x: -filtersWidth, ease: Power2.easeInOut});
+
+		return false;
+	});
+
+	// switch class
+	function switchClass(remove,add,condition) {
+		// remove - element with remove class
+		// add - element with add class
+		// condition - condition add class
+
+		remove.removeClass(classShowDrop);
+
+		if(add === undefined) return false;
+		add.toggleClass(classShowDrop, condition)
+	}
+
+	// state clear button
+	function clearBtnState() {
+		$('.clear-filter').toggleClass('disabled', !$filtersTagsGroup.find('.is-checked').length);
+	}
+	clearBtnState();
+
+	// show / hide "other filters" drop
+	function switchDrop(drops,currentDrop,condition) {
+
+		TweenMax.to(drops, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
+		fixedContainerHeight(false);
+
+		if(currentDrop === undefined) return false;
+
+		if(condition){
+			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 1, ease: Power2.easeInOut});
+			fixedContainerHeight();
+		} else {
+			TweenMax.to(currentDrop, animationSpeedTween, {autoAlpha: 0, ease: Power2.easeInOut});
+		}
+
+	}
+
+	// fixed height of container products
+	function fixedContainerHeight(fixed) {
+		var productsContainerHeight = $productsContainer.outerHeight();
+
+		if (fixed == false) {
+			$productsContainer.css({
+				'min-height': 0,
+				'max-height': 'none'
+			});
+		} else {
+			$productsContainer.css({
+				'min-height': productsContainerHeight,
+				'max-height': productsContainerHeight
+			});
+		}
+	}
 }
 /*filters end*/
 
