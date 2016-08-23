@@ -1581,29 +1581,61 @@ function fotoramaInit() {
 
 /*text slide events*/
 function textSlide() {
-	var $textSlide = $('.text-slide-js'),
-		$textSlideSwitcher = $('.text-slide-switcher-js'),
-		$tplWrapInner = $('<div class="text-slide-inner-js" />'),
+	var $textSlide = $('.text-slide-js');
+
+		if (!$textSlide.length) return false;
+
+	var textFull = 'full description',
+		textShort = 'short description',
+		$tplSlideFull = $('<div class="text-full text-full-js"><a href="#" class="text-slide-switcher-js"><span>' + textFull + '</span><i class="depict-arrow-down"></i></a></div>'),
+		$tplTextSlideInner = $('<div class="text-slide-inner-js" />'),
 		$tplShadow = $('<div class="text-slide-shadow-js" >'),
 		textSlideHeight = $textSlide.outerHeight(),
-		isTextFull = false;
+		isTextFull = false,
+		minHeight = 120;
 
-	if (!$textSlide.length) return false;
+	// hide elements
+	TweenMax.set($tplShadow, {autoAlpha: 0});
+	$tplSlideFull.hide(0);
 
+	// build structure
 	$textSlide
-		.wrapInner($tplWrapInner)
+		.wrapInner($tplTextSlideInner)
+		.after($tplSlideFull)
 		.append($tplShadow);
 
-	$textSlideSwitcher.on('click', function (e) {
+	var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+
+	$( window ).on('load resize', function () {
+		wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+		$textSlide.css('max-height', 'none');
+
+		if (wrapInnerHeight <= minHeight) {
+			TweenMax.set($textSlide, {height: 'auto'});
+			TweenMax.set($tplShadow, {autoAlpha: 0});
+			$tplSlideFull.hide(0);
+		} else {
+			TweenMax.set($textSlide, {height: minHeight});
+			TweenMax.set($tplShadow, {autoAlpha: 1});
+			$tplSlideFull.show(0);
+
+			textSlideHeight = $textSlide.outerHeight();
+		}
+	});
+
+	$textSlide.parent().on('click', '.text-slide-switcher-js', function (e) {
 		e.preventDefault();
 
-		var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+		wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
 
+		if (wrapInnerHeight <= minHeight) return false;
+
+		var $this = $(this);
 		if ( isTextFull ) {
 			TweenMax.to($textSlide, 0.5, {height: textSlideHeight, ease: Power3.easeInOut});
 			TweenMax.to($tplShadow, 0.5, {autoAlpha: 1});
 
-			$(this).removeClass('active');
+			$this.removeClass('active').children('span').text(textFull);
 
 			isTextFull = false;
 		} else {
@@ -1613,20 +1645,9 @@ function textSlide() {
 			}});
 
 			TweenMax.to($tplShadow, 0.5, {autoAlpha: 0});
-			$(this).addClass('active');
+			$this.addClass('active').children('span').text(textShort);
 		}
 	});
-
-	//$(window).on('resize', function () {
-	//	wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
-	//	if (tm.progress() != 0) {
-	//		tm.to($textSlide, 0.5, {maxHeight: wrapInnerHeight});
-	//	}
-	//});
-
-
-
-
 }
 /*text slide events end*/
 

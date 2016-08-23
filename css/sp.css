@@ -75,16 +75,6 @@
 .soc-depict-share-a{ background-position: 0 -770px; width: 50px; height: 50px; }
 /*social icons end*/
 
-/*stars*/
-[class|="depict-star"],
-.icon-star,
-[class*=" depict-star-"]{
-	background:url(../img/sprite-rating.png) 0 0 no-repeat;
-	display: inline-block;
-	vertical-align: top;
-}
-/*stars end*/
-
 @media ( -webkit-min-device-pixel-ratio : 1.5 ),
 ( min-resolution : 144dpi ){
 	.iii {

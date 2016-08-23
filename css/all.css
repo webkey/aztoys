@@ -3174,7 +3174,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin: 0 0 15px;
 	font-size: 16px;
 	line-height: 30px;
-	height: 120px;
+	max-height: 120px;
 	overflow: hidden;
 	position: relative;
 }
@@ -3198,6 +3198,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .text-full a{
 	color: #b2b2b2;
 	text-decoration: none;
+	padding: 12px 0 0;
 }
 .text-full a > span{
 	line-height: 1;
@@ -3209,7 +3210,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .desktop .text-full a:hover > span{ border-bottom-color: transparent; }
 .text-full a > [class*="depict-"]{
-	margin: 1px 0 0 2px;
+	margin: 1px 4px;
 	vertical-align: middle;
 	-webkit-transition-property: -webkit-transform;
 	transition-property: transform;
