@@ -1604,10 +1604,9 @@ function textSlide() {
 		.after($tplSlideFull)
 		.append($tplShadow);
 
-	var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
-
 	$( window ).on('load resize', function () {
-		wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+		var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+
 		$textSlide.css('max-height', 'none');
 
 		if (wrapInnerHeight <= minHeight) {
@@ -1626,11 +1625,12 @@ function textSlide() {
 	$textSlide.parent().on('click', '.text-slide-switcher-js', function (e) {
 		e.preventDefault();
 
-		wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
+		var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
 
 		if (wrapInnerHeight <= minHeight) return false;
 
 		var $this = $(this);
+
 		if ( isTextFull ) {
 			TweenMax.to($textSlide, 0.5, {height: textSlideHeight, ease: Power3.easeInOut});
 			TweenMax.to($tplShadow, 0.5, {autoAlpha: 1});
@@ -1641,6 +1641,7 @@ function textSlide() {
 		} else {
 			TweenMax.to($textSlide, 0.5, {height: wrapInnerHeight, ease: Power3.easeInOut, onComplete: function () {
 				TweenMax.set($textSlide, {height: 'auto'});
+
 				isTextFull = true;
 			}});
 
@@ -1650,6 +1651,51 @@ function textSlide() {
 	});
 }
 /*text slide events end*/
+
+/*popup events*/
+function popupEvents() {
+	var $popup = $('.popup-js');
+
+	if (!$popup.length) return false;
+
+	var $popupOpener = $('.products__inner'),
+		popupOpened = false,
+		animateSpeed = 0.6;
+
+	TweenMax.set($popup, {autoAlpha: 0, yPercent: 100, onComplete: function () {
+		$popup.show(0);
+	}});
+
+	$popupOpener.on('click', function (e) {
+		e.preventDefault();
+
+		if (!popupOpened) {
+			TweenMax.to($popup, animateSpeed, {autoAlpha: 1, yPercent: 0, ease: Power3.easeInOut, onComplete: function () {
+				popupOpened = true;
+			}});
+
+			$('html, body').addClass('no-scroll');
+		} else {
+			closePopup();
+		}
+	});
+
+	$popup.on('click', '.btn-close', function (e) {
+		e.preventDefault();
+
+		closePopup();
+	});
+
+	function closePopup() {
+		TweenMax.to($popup, animateSpeed, {
+			autoAlpha: 0, yPercent: 100, ease: Power3.easeInOut, onComplete: function () {
+				popupOpened = false;
+				$('html, body').removeClass('no-scroll');
+			}
+		});
+	}
+}
+/*popup events end*/
 
 /*footer at bottom*/
 function footerBottom(){
@@ -1692,7 +1738,7 @@ $(document).ready(function(){
 	printShow();
 	eventsMainScreen();
 	tabs();
-	productsBehavior();
+	// productsBehavior();
 	equalHeightInit();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
@@ -1710,6 +1756,7 @@ $(document).ready(function(){
 	mainNavigationInit();
 	fotoramaInit();
 	textSlide();
+	popupEvents();
 
 	footerBottom();
 	// parallaxBg();

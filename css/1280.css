@@ -1,4 +1,7 @@
 @media only screen and (max-width: 1279px){}
+.products-page .main {
+	padding-top: 144px;
+}
 .text-page .max-wrap {
 	padding: 30px 30px 30px 200px;
 }

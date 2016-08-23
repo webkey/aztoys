@@ -11,9 +11,19 @@
 	background-size: 100%;
 }
 
+/*MAIN*/
+/*CONTENT*/
 .buttons,
 .load-more{ padding: 35px 30px 55px; }
 .section-title{ padding: 55px 30px 35px; }
+/*popup*/
+.popup{
+	left: 0;
+	z-index: 999;
+}
+/*popup end*/
+/*CONTENT end*/
+/*MAIN end*/
 
 /*HEADER*/
 .header{
