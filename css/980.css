@@ -19,7 +19,7 @@
 /*popup*/
 .popup{
 	left: 0;
-	z-index: 999;
+	padding-top: 86px;
 }
 /*popup end*/
 /*CONTENT end*/

@@ -27,6 +27,54 @@ function placeholderInit(){
 }
 /*placeholder end*/
 
+// 1) malihu jquery custom scrollbar plugin (widgets.js);
+// 2) resizeByWidth (resize only width);
+(function($){
+	var $page = $('body');
+	
+	$(window).on("load",function(){
+
+		$page.mCustomScrollbar({
+			theme:"minimal-dark",
+			autoExpandScrollbar:true,
+			scrollInertia:300,
+			callbacks:{
+				onInit: function () {
+					getCustomScrollStart(this);
+				},
+				onScroll: function(){
+					getCustomScrollStart(this);
+				}
+			}
+		});
+	});
+
+	var minScrollTop = $('.header').outerHeight();
+
+	var previousScrollTop = -1;
+
+	if (!DESKTOP) {
+		$(window).on('load scroll resizeByWidth', function () {
+			var currentScrollTop = $(window).scrollTop();
+			var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+
+			$page.toggleClass('header-show', showHeaderPanel);
+
+			previousScrollTop = currentScrollTop;
+		});
+	} else {
+		function getCustomScrollStart(event) {
+			var currentScrollTop = -event.mcs.top;
+
+			var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+
+			$page.toggleClass('header-show', showHeaderPanel);
+
+			previousScrollTop = currentScrollTop;
+		}
+	}
+})(jQuery);
+
 /*state form fields*/
 function stateFields(){
 	$('.is-validate select').on('change', function(event) {
@@ -1298,18 +1346,20 @@ function headerFixed(){
 	// 1) resizeByWidth (resize only width);
 
 	var $page = $('body'),
-		minScrollTop = $('.header').outerHeight(),
-		previousScrollTop = $(window).scrollTop();
+		minScrollTop = $('.header').outerHeight();
 
+	var previousScrollTop = $(window).scrollTop();
 	$(window).on('load scroll resizeByWidth', function () {
-		var currentScrollTop = $(window).scrollTop(),
-			showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+		var currentScrollTop = $(window).scrollTop();
+		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
 		$page.toggleClass('header-show', showHeaderPanel);
 
 		previousScrollTop = currentScrollTop;
 	});
 }
+
+
 /*header fixed end*/
 
 /*main navigation*/
@@ -1452,6 +1502,11 @@ function headerFixed(){
 			$staggerItems = self.$staggerItems,
 			$sbFooter = self.$navFooter;
 
+		// custom scroll page disabled
+		if (DESKTOP) {
+			$('body').mCustomScrollbar('disable');
+		}
+
 		$html.addClass(self.modifiers.opened);
 		$buttonMenu.addClass(self.modifiers.active);
 
@@ -1488,6 +1543,11 @@ function headerFixed(){
 			$navContainer = self.$navContainer,
 			$buttonMenu = self.$btnMenu,
 			_animationSpeed = self._animateSpeedOverlay;
+
+		// custom scroll page update
+		if (DESKTOP) {
+			$('body').mCustomScrollbar('update');
+		}
 
 		$html.removeClass(self.modifiers.opened);
 		$buttonMenu.removeClass(self.modifiers.active);
@@ -1673,8 +1733,7 @@ function popupEvents() {
 			TweenMax.to($popup, animateSpeed, {autoAlpha: 1, yPercent: 0, ease: Power3.easeInOut, onComplete: function () {
 				popupOpened = true;
 			}});
-
-			$('html, body').addClass('no-scroll');
+			$('body').mCustomScrollbar('disable');
 		} else {
 			closePopup();
 		}
@@ -1686,11 +1745,17 @@ function popupEvents() {
 		closePopup();
 	});
 
+	$(document).keyup(function(e) {
+		if (e.keyCode == 27) {
+			closePopup();
+		}
+	});
+
 	function closePopup() {
 		TweenMax.to($popup, animateSpeed, {
 			autoAlpha: 0, yPercent: 100, ease: Power3.easeInOut, onComplete: function () {
+				$('body').mCustomScrollbar('update');
 				popupOpened = false;
-				$('html, body').removeClass('no-scroll');
 			}
 		});
 	}
@@ -1752,7 +1817,7 @@ $(document).ready(function(){
 	locateEvents();
 	swiperSliderInit();
 	shareFixed();
-	headerFixed();
+	// headerFixed();
 	mainNavigationInit();
 	fotoramaInit();
 	textSlide();

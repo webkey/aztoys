@@ -13,16 +13,19 @@
 /*normalize end*/
 
 /*------ TYPOGRAPHIC STYLES ------*/
-/*.no-scroll-no html,
-.no-scroll body {
+html,
+body,
+.no-scroll-no html,
+.no-scroll body{
 	height: 100%;
 	max-width: 100%;
 	max-height: 100%;
 	overflow: hidden;
 }
-.no-scroll body {
-	padding-right: 17px;
-}*/
+.no-js{
+	overflow: auto;
+	max-height: none;
+}
 .page{
 	overflow: auto;
 	height: 100%;
@@ -4184,6 +4187,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 /*footer holder end*/
 /*FOOTER end*/
+
+/*custom page scroll*/
+body > .mCSB_scrollTools{ z-index: 99; }
+.mCSB_outside.mCS-dark+.mCSB_scrollTools{ right: 0; }
+/*custom page scroll end*/
 
 .browserupgrade {
 	margin: 0.2em 0;
