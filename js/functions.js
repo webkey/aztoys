@@ -30,29 +30,40 @@ function placeholderInit(){
 // 1) malihu jquery custom scrollbar plugin (widgets.js);
 // 2) resizeByWidth (resize only width);
 (function($){
-	var $page = $('body');
+	var $body = $('body'),
+		$pageHome = $('.home-page'),
+		_minScrollTop = 20,
+		_screenHided = false,
+		_flagPositionCorrection = true;
 
 	$(window).on("load",function(){
 		// custom scroll on page
-		$page.mCustomScrollbar({
+		$body.mCustomScrollbar({
 			theme: "minimal-dark",
 			autoHideScrollbar: true,
 			autoExpandScrollbar: true,
 			scrollInertia: 300,
 			callbacks: {
 				onInit: function () {
-					getCustomScrollStart(this);
+					toggleHeaderForCustomScroll(this);
+					parallaxBg(-this.mcs.top);
+					if ($pageHome.length && !_screenHided) {
+						mainScreenForCustomScroll(-this.mcs.top);
+					}
 				},
 				onScroll: function () {
-					getCustomScrollStart(this);
+					toggleHeaderForCustomScroll(this);
 				},
 				whileScrolling: function () {
-					parallaxBg(-this.mcs.top)
+					parallaxBg(-this.mcs.top);
+					if ($pageHome.length && !_screenHided) {
+						mainScreenForCustomScroll(-this.mcs.top);
+					}
 				}
 			}
 		});
 
-		// custom scroll on popup
+		// custom scroll for popup
 		var $popupScroll = $('.popup-scroll-js');
 		if ($popupScroll.length) {
 			$popupScroll.mCustomScrollbar({
@@ -63,7 +74,7 @@ function placeholderInit(){
 			});
 		}
 
-		// custom scroll on popup
+		// custom scroll for nav drop
 		var $navDropScroll = $('.nav-drop');
 		if ($navDropScroll.length) {
 			$navDropScroll.mCustomScrollbar({
@@ -73,7 +84,6 @@ function placeholderInit(){
 				scrollInertia: 300
 			});
 		}
-
 	});
 
 	// header show / hide
@@ -81,25 +91,24 @@ function placeholderInit(){
 
 	var previousScrollTop = -1;
 
-	// if (!DESKTOP) {
-	if (false) {
-		$(window).on('load scroll resizeByWidth', function () {
-			var currentScrollTop = $(window).scrollTop();
-			var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+	function toggleHeaderForCustomScroll(value) {
+		var currentScrollTop = -value.mcs.top;
 
-			$page.toggleClass('header-show', showHeaderPanel);
+		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
-			previousScrollTop = currentScrollTop;
-		});
-	} else {
-		function getCustomScrollStart(event) {
-			var currentScrollTop = -event.mcs.top;
+		$body.toggleClass('header-show', showHeaderPanel);
 
-			var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+		previousScrollTop = currentScrollTop;
+	}
 
-			$page.toggleClass('header-show', showHeaderPanel);
+	// main screen show / hide
+	function mainScreenForCustomScroll(value) {
+		if (!$pageHome.length || _screenHided) return false;
 
-			previousScrollTop = currentScrollTop;
+		if ( value > _minScrollTop && _flagPositionCorrection ) {
+			_screenHided = true;
+			$body.addClass('hide-screen');
+			$body.mCustomScrollbar("scrollTo", 2);
 		}
 	}
 })(jQuery);
@@ -133,8 +142,9 @@ function printShow() {
 }
 /*print end*/
 
-/*events main screen*/
-function eventsMainScreen() {
+/*main screen*/
+function mainScreen() {
+
 	var $html = $('html, body'),
 		page = '.home-page',
 		$page = $(page),
@@ -179,7 +189,7 @@ function eventsMainScreen() {
 		};
 	});
 }
-/*events main screen end*/
+/*main screen end*/
 
 /* tabs */
 function tabs() {
@@ -211,11 +221,11 @@ function tabs() {
 function equalHeightForTabs(content){
 	var $parent = content.find('.products__list');
 	if ($parent.length) {
-		$parent.find('.products__inner').equalHeight({
-			useParent: true,
-			parent: $parent,
-			resize: true
-		});
+		// $parent.find('.products__inner').equalHeight({
+		// 	useParent: true,
+		// 	parent: $parent,
+		// 	resize: true
+		// });
 		$parent.find('.products__img').equalHeight({
 			useParent: true,
 			parent: $parent,
@@ -1103,8 +1113,8 @@ function mapMainInit(){
 }
 /*map init end*/
 
-/*locate events*/
-function locateEvents() {
+/*contacts*/
+function contacts() {
 	'use strict';
 
 	var $locate = $('.locate-js');
@@ -1193,7 +1203,7 @@ function locateEvents() {
 		}
 	}
 }
-/*locate events end*/
+/*contacts end*/
 
 /*swiper slider initial*/
 // external js:
@@ -1857,7 +1867,7 @@ $(document).ready(function(){
 	placeholderInit();
 	stateFields();
 	printShow();
-	eventsMainScreen();
+	// mainScreen();
 	tabs();
 	// productsBehavior();
 	equalHeightInit();
@@ -1870,7 +1880,7 @@ $(document).ready(function(){
 	navDropHeight();
 	navDropEvents();
 	mapMainInit();
-	locateEvents();
+	contacts();
 	swiperSliderInit();
 	shareFixed();
 	// headerFixed();

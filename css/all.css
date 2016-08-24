@@ -1486,7 +1486,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	top: 0;
 	height: 100%;
 	width: 100%;
-	z-index: 98;
+	z-index: 101;
 	display: none;
 	will-change: opacity, transform, box-shadow, visibility;
 	opacity: 1;
