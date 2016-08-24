@@ -2,8 +2,7 @@
 .layout { padding-left: 0; }
 .main,
 .sidebar,
-.hide-screen .sidebar,
-.nav-drop__holder{ padding-top: 86px; }
+.hide-screen .sidebar{ padding-top: 86px; }
 .products-page .main { padding-top: 231px; }
 .mobile .nav-drop .btn-close{ margin-top: 86px; }
 .color-tape-horizontal{
@@ -18,11 +17,19 @@
 .section-title{ padding: 55px 30px 35px; }
 /*popup*/
 .popup{
-	left: 0;
-	padding-top: 86px;
+	z-index: 99;
+}
+.popup .btn-close{
+	right: 10px;
+	top: 10px;
 }
 /*popup end*/
 /*CONTENT end*/
+/*overlay*/
+.overlay{
+	background: transparent url(../img/empty.png);
+}
+/*overlay end*/
 /*MAIN end*/
 
 /*HEADER*/
@@ -70,6 +77,7 @@
 	transform: translate(0, 0);
 }
 /*main navigation*/
+.nav-drop__holder{ padding-top: 86px; }
 .nav-drop__group {
 	border: none;
 	display: block;

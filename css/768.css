@@ -1,5 +1,7 @@
 @media only screen and (max-width: 767px){}
 
+/*MAIN*/
+/*CONTENT*/
 /*breadcrumbs*/
 .breadcrumbs {
 	padding-bottom: 30px;
@@ -61,6 +63,20 @@
 	padding: 30px;
 }
 /*contacts form end*/
+
+/*popup*/
+.product-card__visual {
+	float: none;
+	width: auto;
+}
+.product-card__content {
+	width: auto;
+	margin-left: 0;
+	padding-left: 0;
+}
+/*popup end*/
+/*CONTENT end*/
+/*MAIN end*/
 
 /*FILTERS*/
 .filters-button-middle .button {

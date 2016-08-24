@@ -33,6 +33,8 @@
 }
 /*blockquote end*/
 
+
+/*MAIN*/
 /*breadcrumbs*/
 .user-content .breadcrumbs{ padding-left: 30px; }
 /*breadcrumbs end*/
@@ -98,7 +100,14 @@
 	right: 40px;
 	top: 40px;
 }
-/*locate*/
+/*locate end*/
+
+/*popup*/
+.product-card__content {
+	padding-left: 30px;
+}
+/*popup end*/
+/*MAIN end*/
 
 /*FILTERS*/
 .filters__group:nth-child(2){
