@@ -33,27 +33,30 @@ function placeholderInit(){
 	var $page = $('body');
 	
 	$(window).on("load",function(){
-
-		$page.mCustomScrollbar({
-			theme:"minimal-dark",
-			autoExpandScrollbar:true,
-			scrollInertia:300,
-			callbacks:{
-				onInit: function () {
-					getCustomScrollStart(this);
-				},
-				onScroll: function(){
-					getCustomScrollStart(this);
+		// if (DESKTOP) {
+		if (true) {
+			$page.mCustomScrollbar({
+				theme: "minimal-dark",
+				autoHideScrollbar: true,
+				autoExpandScrollbar: true,
+				scrollInertia: 300,
+				callbacks: {
+					onInit: function () {
+						getCustomScrollStart(this);
+					}, onScroll: function () {
+						getCustomScrollStart(this);
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 
 	var minScrollTop = $('.header').outerHeight();
 
 	var previousScrollTop = -1;
 
-	if (!DESKTOP) {
+	// if (!DESKTOP) {
+	if (false) {
 		$(window).on('load scroll resizeByWidth', function () {
 			var currentScrollTop = $(window).scrollTop();
 			var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
@@ -1643,7 +1646,7 @@ function fotoramaInit() {
 function textSlide() {
 	var $textSlide = $('.text-slide-js');
 
-		if (!$textSlide.length) return false;
+	if (!$textSlide.length) return false;
 
 	var textFull = 'full description',
 		textShort = 'short description',
@@ -1673,7 +1676,7 @@ function textSlide() {
 			TweenMax.set($textSlide, {height: 'auto'});
 			TweenMax.set($tplShadow, {autoAlpha: 0});
 			$tplSlideFull.hide(0);
-		} else {
+		} else if ( !isTextFull ) {
 			TweenMax.set($textSlide, {height: minHeight});
 			TweenMax.set($tplShadow, {autoAlpha: 1});
 			$tplSlideFull.show(0);
@@ -1720,7 +1723,7 @@ function popupEvents() {
 
 	var $popupOpener = $('.products__inner'),
 		popupOpened = false,
-		animateSpeed = 0.6;
+		animateSpeed = 0.4;
 
 	TweenMax.set($popup, {autoAlpha: 0, yPercent: 100, onComplete: function () {
 		$popup.show(0);
@@ -1730,6 +1733,8 @@ function popupEvents() {
 		e.preventDefault();
 
 		if (!popupOpened) {
+			$('html, body').addClass('no-scroll');
+
 			TweenMax.to($popup, animateSpeed, {autoAlpha: 1, yPercent: 0, ease: Power3.easeInOut, onComplete: function () {
 				popupOpened = true;
 			}});
@@ -1754,6 +1759,7 @@ function popupEvents() {
 	function closePopup() {
 		TweenMax.to($popup, animateSpeed, {
 			autoAlpha: 0, yPercent: 100, ease: Power3.easeInOut, onComplete: function () {
+				$('html, body').removeClass('no-scroll');
 				$('body').mCustomScrollbar('update');
 				popupOpened = false;
 			}

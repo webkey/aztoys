@@ -13,9 +13,9 @@
 /*normalize end*/
 
 /*------ TYPOGRAPHIC STYLES ------*/
-html,
-body,
-.no-scroll-no html,
+/*html,*/
+/*body,*/
+.no-scroll html,
 .no-scroll body{
 	height: 100%;
 	max-width: 100%;
