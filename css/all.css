@@ -1237,7 +1237,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .social-networks a{
 	float: left;
-	text-indent: -9999px;
+	/*text-indent: -9999px;*/
 	overflow: hidden;
 	width: 50px;
 	height: 50px;
@@ -1283,6 +1283,36 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition: border 0.3s 0.1s;
 }
 .desktop .social-networks a:hover:after{ border-color: transparent; }
+
+.social-networks svg {
+	max-height: 2rem;
+	max-width: 2rem;
+	position: relative;
+	margin-top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+.no-svg .social-networks svg { display: none; }
+.social-networks path {
+	-webkit-transition-property: fill;
+	transition-property: fill;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+	fill: #fff;
+}
+.desktop .social-networks a:hover .soc-fb-path {
+	fill: #3b5998;
+}
+.desktop .social-networks a:hover .soc-tw-path {
+	fill: #00acee;
+}
+.desktop .social-networks a:hover .soc-yt-path {
+	fill: #af100a;
+}
+
 .social-networks a>[class*="depict-"]{
 	position: absolute;
 	left: 50%;
@@ -1292,7 +1322,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	opacity: 1;
 	-webkit-transition: opacity 0.4s 0.05s;
 	transition: opacity 0.4s 0.05s;
+	display: none;
 }
+.no-svg .social-networks a>[class*="depict-"]{ display: block; }
 .social-networks a>[class$="-h"]{ opacity: 0; }
 .desktop .social-networks a:hover>[class*="depict-"]{ opacity: 0; }
 .desktop .social-networks a:hover>[class$="-h"]{ opacity: 1; }
@@ -1342,6 +1374,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 50px;
 	width: 50px;
 	margin-right: 11px;
+	text-align: center;
 
 	font-size: 16px;
 	letter-spacing: normal;
@@ -1398,6 +1431,36 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transform: translate(-50%, -50%) scale(1.2, 1.2);
 	opacity: 0;
 }
+
+.soc-list svg {
+	max-height: 2rem;
+	max-width: 2rem;
+	position: relative;
+	margin-top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+.no-svg .soc-list svg { display: none; }
+.soc-list path {
+	-webkit-transition-property: fill;
+	transition-property: fill;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+	fill: #07adc9;
+}
+.desktop .soc-list a:hover .soc-fb-path {
+	fill: #3b5998;
+}
+.desktop .soc-list a:hover .soc-tw-path {
+	fill: #00acee;
+}
+.desktop .soc-list a:hover .soc-yt-path {
+	fill: #af100a;
+}
+
 .soc-list .soc-icons [class*="depict-"]{
 	position: absolute;
 	left: 50%;
@@ -1407,6 +1470,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	opacity: 1;
 	-webkit-transition: opacity 0.4s 0.05s;
 	transition: opacity 0.4s 0.05s;
+	display: none;
+}
+.no-svg .soc-list .soc-icons [class*="depict-"]{
+	display: block;
 }
 .soc-list .soc-icons [class$="-h"]{ opacity: 0; }
 .desktop .soc-list a:hover .soc-icons [class*="depict-"]{ opacity: 0; }
@@ -1464,10 +1531,41 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	height: 63px;
 	width: 62px;
+	text-align: center;
 
 	font-size: 16px;
 	letter-spacing: normal;
 }
+
+.soc-square svg {
+	max-height: 2rem;
+	max-width: 2rem;
+	position: relative;
+	margin-top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+.no-svg .soc-square svg { display: none; }
+.soc-square path {
+	-webkit-transition-property: fill;
+	transition-property: fill;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+	fill: #07adc9;
+}
+.desktop .soc-square a:hover .soc-fb-path {
+	fill: #3b5998;
+}
+.desktop .soc-square a:hover .soc-tw-path {
+	fill: #00acee;
+}
+.desktop .soc-square a:hover .soc-yt-path {
+	fill: #af100a;
+}
+
 .soc-square .soc-icons [class*="depict-"]{
 	position: absolute;
 	left: 50%;
@@ -1477,7 +1575,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	opacity: 1;
 	-webkit-transition: opacity 0.4s 0.05s;
 	transition: opacity 0.4s 0.05s;
+	display: none;
 }
+.no-svg .soc-square .soc-icons [class*="depict-"]{ display: block; }
 .soc-square .soc-icons [class$="-h"]{ opacity: 0; }
 .desktop .soc-square a:hover .soc-icons [class*="depict-"]{ opacity: 0; }
 .desktop .soc-square a:hover .soc-icons [class$="-h"]{ opacity: 1; }
@@ -3078,6 +3178,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	line-height: 50px;
 	position: relative;
 }
+.locate-cont__item .locate__tel + dd,
 .locate-cont__item .locate__tel + dd a{
 	color: #00abc7;
 }
