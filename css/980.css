@@ -5,6 +5,19 @@
 .hide-screen .sidebar{ padding-top: 86px; }
 .products-page .main { padding-top: 231px; }
 .mobile .nav-drop .btn-close{ margin-top: 86px; }
+.main:before{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	padding-top: inherit;
+	background: #00abc7;
+	box-sizing: border-box;
+}
+.products-page .main:before{
+	background: none;
+}
 .color-tape-horizontal{
 	-webkit-background-size: 100%;
 	background-size: 100%;
@@ -49,14 +62,16 @@
 	-ms-transform: translate(0, 70px);
 	transform: translate(0, 70px);
 }
+.header-show .soc.fixed.stick-bottom {
+	-webkit-transform: translate(0);
+	-ms-transform: translate(0);
+	transform: translate(0);
+}
 /*social end*/
 
 /*SIDEBAR*/
 .sidebar,
 .hide-screen .sidebar{
-	/*-webkit-transform: translate(-100%, 0);*/
-	/*-ms-transform: translate(-100%, 0);*/
-	/*transform: translate(-100%, 0);*/
 	display: none;
 }
 .sidebar .logo{

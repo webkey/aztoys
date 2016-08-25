@@ -29,9 +29,11 @@ function placeholderInit(){
 
 // 1) malihu jquery custom scrollbar plugin (widgets.js);
 // 2) resizeByWidth (resize only width);
+// 3) TweetMax VERSION: 1.19.0 (widgets.js);
 (function($){
 	var $body = $('body'),
 		$pageHome = $('.home-page'),
+		$fixedBox = $('.soc-js'),
 		_minScrollTop = 20,
 		_screenHided = false,
 		_flagPositionCorrection = true;
@@ -45,19 +47,36 @@ function placeholderInit(){
 			scrollInertia: 300,
 			callbacks: {
 				onInit: function () {
-					toggleHeaderForCustomScroll(this);
-					parallaxBg(-this.mcs.top);
-					if ($pageHome.length && !_screenHided) {
-						mainScreenForCustomScroll(-this.mcs.top);
+					var thisMCSTop = -this.mcs.top;
+
+					toggleHeaderForCustomScroll(thisMCSTop);
+
+					parallaxBg(thisMCSTop);
+
+					if ($fixedBox.length) {
+						shareFixedForCustomScroll(thisMCSTop);
 					}
+
+					if ($pageHome.length && !_screenHided) {
+						mainScreenForCustomScroll(thisMCSTop);
+					}
+
+					swiperSliderInit();
 				},
 				onScroll: function () {
-					toggleHeaderForCustomScroll(this);
+					toggleHeaderForCustomScroll(-this.mcs.top);
 				},
 				whileScrolling: function () {
-					parallaxBg(-this.mcs.top);
+					var thisMCSTop = -this.mcs.top;
+
+					parallaxBg(thisMCSTop);
+
+					if ($fixedBox.length) {
+						shareFixedForCustomScroll(thisMCSTop);
+					}
+
 					if ($pageHome.length && !_screenHided) {
-						mainScreenForCustomScroll(-this.mcs.top);
+						mainScreenForCustomScroll(thisMCSTop);
 					}
 				}
 			}
@@ -103,7 +122,7 @@ function placeholderInit(){
 	var previousScrollTop = -1;
 
 	function toggleHeaderForCustomScroll(value) {
-		var currentScrollTop = -value.mcs.top;
+		var currentScrollTop = value;
 
 		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
@@ -119,14 +138,103 @@ function placeholderInit(){
 		if ( value > _minScrollTop && _flagPositionCorrection ) {
 			_screenHided = true;
 			$body.addClass('hide-screen');
-			$body.mCustomScrollbar("scrollTo", 2);
+			$body.mCustomScrollbar("scrollTo", "top");
 		}
+	}
+
+	footerBottom();
+
+	// main screen show / hide
+	var $barrier = $('.full-width-js'),
+		$footer = $('.footer'),
+		topSpace = 50;
+
+	var $fixedMarker = $('<div />');
+	$fixedMarker.insertBefore($fixedBox).css({
+		'height': 0,
+		'width': 0,
+		'float': 'left'
+	});
+
+	function shareFixedForCustomScroll(scrollTop) {
+		if (!$fixedBox.length) return false;
+
+		var fixedBoxHeight = $fixedBox.outerHeight(),
+			fixedBoxFullHeight = fixedBoxHeight + topSpace*2,
+			footerOffsetTop = $footer.offset().top,
+			fixedMarkerPositionTop = $fixedMarker.position().top;
+
+		var $wrapper = $fixedBox.parent(),
+			wrapperHeight = $wrapper.outerHeight(),
+			wrapperPositionTop = $wrapper.position().top,
+			topPadding = fixedMarkerPositionTop - wrapperPositionTop,
+			bottomPadding = +$wrapper.css("padding-top").replace("px", ""),
+			wrapperInnerHeight = wrapperHeight - (topPadding + bottomPadding);
+
+		if (wrapperInnerHeight <= fixedBoxHeight) {
+			clearFixedBoxStyles();
+
+			return false;
+		}
+
+		if ($barrier.length && $barrier.outerHeight() > 0) {
+			var barrierHeight = $barrier.outerHeight(),
+				showBeforeBarrier = $barrier.position().top + barrierHeight - topSpace,
+				wrapperMinHeight = fixedBoxHeight*2 + barrierHeight;
+
+			if (wrapperInnerHeight <= wrapperMinHeight) {
+				clearFixedBoxStyles();
+
+				return false;
+			}
+
+			if (scrollTop >= showBeforeBarrier) {
+				$fixedBox
+					.addClass('fixed')
+					.css({
+						'position': 'fixed',
+						'top': topSpace
+					});
+			} else {
+				clearFixedBoxStyles();
+			}
+		} else {
+			if (scrollTop >= fixedMarkerPositionTop - topSpace) {
+				$fixedBox
+					.addClass('fixed')
+					.css({
+						'position': 'fixed',
+						'top': topSpace
+					});
+			} else {
+				clearFixedBoxStyles();
+			}
+		}
+
+
+		if (footerOffsetTop <= fixedBoxFullHeight) {
+			$fixedBox
+				.addClass('stick-bottom')
+				.css({
+				'top': footerOffsetTop - fixedBoxFullHeight + topSpace
+			});
+		} else {
+			$fixedBox.removeClass('stick-bottom');
+		}
+	}
+
+	function clearFixedBoxStyles() {
+		$fixedBox
+			.removeClass('fixed')
+			.css({
+				'position': 'relative', 'top': 'auto'
+			});
 	}
 })(jQuery);
 
 /*state form fields*/
 function stateFields(){
-	$('.is-validate select').on('change', function(event) {
+	$('.is-validate select').on('change', function() {
 		var $currentSelect = $(this);
 		var selectedOptionIndex = $currentSelect.find('option:selected').index();
 		var completeClass = 'input-complete';
@@ -702,6 +810,52 @@ function shareEvents() {
 	});
 }
 /*share events end*/
+
+/*share fixed*/
+function shareFixed(){
+	var $fixedBox = $('.soc-js');
+
+	if(!$fixedBox.length) return false;
+
+	var fixedBoxTopPosition = $fixedBox.offset().top,
+		$barrier = $('.full-width-js'),
+		$bottom = $('.footer'),
+		topSpace = 50;
+
+	$(window).on('load scroll resizeByWidth', function () {
+
+		var barrierTopPosition = $barrier.offset().top,
+			barrierHeight = $barrier.outerHeight(),
+			fixedBoxHeight = $fixedBox.outerHeight(),
+			bottomTopPosition = $bottom.offset().top,
+			currentScrollTop = $(window).scrollTop();
+
+		if (currentScrollTop >= (fixedBoxTopPosition - topSpace)) {
+			$fixedBox
+				.addClass('fixed')
+				.css({
+					'position': 'fixed',
+					'top': topSpace
+				});
+		} else {
+			$fixedBox
+				.removeClass('fixed')
+				.css({
+					'position': 'relative',
+					'top': 'auto'
+				});
+		}
+
+		if (currentScrollTop >= barrierTopPosition - fixedBoxHeight - topSpace*2
+			&& currentScrollTop < barrierTopPosition + barrierHeight
+			|| currentScrollTop >= bottomTopPosition - fixedBoxHeight - topSpace*2) {
+			var tl = TweenMax.to($fixedBox, 0.1, {autoAlpha: 0, ease: Power2.easeInOut});
+		} else {
+			TweenMax.to($fixedBox, 0.1, {autoAlpha: 1, ease: Power2.easeInOut});
+		}
+	});
+}
+/*share fixed end*/
 
 /*hover class*/
 (function ($) {
@@ -1355,52 +1509,6 @@ function swiperSliderInit() {
 }
 /*swiper slider initial end*/
 
-/*share fixed*/
-function shareFixed(){
-	var $fixedBox = $('.soc-js');
-
-	if(!$fixedBox.length) return false;
-
-	var fixedBoxTopPosition = $fixedBox.offset().top,
-		$barrier = $('.main-img-js'),
-		$bottom = $('.footer'),
-		topSpace = 50;
-
-	$(window).on('load scroll resizeByWidth', function () {
-
-		var barrierTopPosition = $barrier.offset().top,
-			barrierHeight = $barrier.outerHeight(),
-			fixedBoxHeight = $fixedBox.outerHeight(),
-			bottomTopPosition = $bottom.offset().top,
-			currentScrollTop = $(window).scrollTop();
-
-		if (currentScrollTop >= (fixedBoxTopPosition - topSpace)) {
-			$fixedBox
-				.addClass('fixed')
-				.css({
-					'position': 'fixed',
-					'top': topSpace
-				});
-		} else {
-			$fixedBox
-				.removeClass('fixed')
-				.css({
-					'position': 'relative',
-					'top': 'auto'
-				});
-		}
-
-		if (currentScrollTop >= barrierTopPosition - fixedBoxHeight - topSpace*2
-			&& currentScrollTop < barrierTopPosition + barrierHeight
-			|| currentScrollTop >= bottomTopPosition - fixedBoxHeight - topSpace*2) {
-			var tl = TweenMax.to($fixedBox, 0.1, {autoAlpha: 0, ease: Power2.easeInOut});
-		} else {
-			TweenMax.to($fixedBox, 0.1, {autoAlpha: 1, ease: Power2.easeInOut});
-		}
-	});
-}
-/*share fixed end*/
-
 /*header fixed*/
 function headerFixed(){
 	// external js:
@@ -1419,8 +1527,6 @@ function headerFixed(){
 		previousScrollTop = currentScrollTop;
 	});
 }
-
-
 /*header fixed end*/
 
 /*main navigation*/
@@ -1887,19 +1993,19 @@ $(document).ready(function(){
 	}
 	//filtersEvents();
 	shareEvents();
+	// shareFixed();
 	hoverClassInit();
 	navDropHeight();
 	navDropEvents();
 	mapMainInit();
 	contacts();
-	swiperSliderInit();
-	shareFixed();
+	// swiperSliderInit();
 	// headerFixed();
 	mainNavigationInit();
 	fotoramaInit();
 	textSlide();
 	popupEvents();
 
-	footerBottom();
+	// footerBottom();
 	// parallaxBg();
 });

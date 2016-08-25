@@ -84,10 +84,6 @@ h1 {
 /*HEADER end*/
 
 /*tabs*/
-.tabs-wrap{
-	padding-top: 20px;
-}
-.tabs-wrap,
 .products__list{
 	max-width: 280px;
 	margin: 0 auto;
@@ -194,6 +190,13 @@ h1,
 	line-height: 40px;
 }
 /*contacts form end*/
+
+/*video section*/
+.video-slider .swiper-slide {
+	width: 100%;
+	max-width: 100%;
+}
+/*video section end*/
 
 /*popup*/
 .product-card {
