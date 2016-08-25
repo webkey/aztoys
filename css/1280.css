@@ -126,9 +126,31 @@
 }
 /*FILTERS end*/
 
+/*SIDEBAR*/
 /*main navigation*/
 .nav-drop__group{
 	padding: 25px 30px;
 	width: 240px;
 }
 /*main navigation end*/
+/*SIDEBAR end*/
+
+/*FOOTER*/
+.footer-holder{
+	text-align: center;
+}
+.footer-holder:after{
+	content: normal;
+}
+.footer-holder:before{
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	min-height: 80px;
+}
+.footer-col{
+	width: 33.28%;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+/*FOOTER end*/

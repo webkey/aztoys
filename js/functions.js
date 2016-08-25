@@ -147,9 +147,9 @@ function placeholderInit(){
 	// main screen show / hide
 	var $barrier = $('.full-width-js'),
 		$footer = $('.footer'),
-		topSpace = 50;
+		topSpace = 50,
+		$fixedMarker = $('<div />');
 
-	var $fixedMarker = $('<div />');
 	$fixedMarker.insertBefore($fixedBox).css({
 		'height': 0,
 		'width': 0,

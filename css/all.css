@@ -587,15 +587,25 @@ textarea.input-complete{
 /*form field complete end*/
 /*form field focus*/
 input[type="text"]:focus,
+input[type="text"]:focus:hover,
 input[type="text"].input-complete:focus,
+input[type="text"].input-complete:focus:hover,
 input[type="password"]:focus,
+input[type="password"]:focus:hover,
 input[type="password"].input-complete:focus,
+input[type="password"].input-complete:focus:hover,
 input[type="email"]:focus,
+input[type="email"]:focus:hover,
 input[type="email"].input-complete:focus,
+input[type="email"].input-complete:focus:hover,
 input[type="search"]:focus,
+input[type="search"]:focus:hover,
 input[type="search"].input-complete:focus,
+input[type="search"].input-complete:focus:hover,
 textarea:focus,
-textarea.input-complete:focus{
+textarea:focus:hover,
+textarea.input-complete:focus,
+textarea.input-complete:focus:hover{
 	box-shadow: inset 0 0 0 1px #54c7d9, inset 4px 4px 6px rgba(0, 0, 0, 0.08);
 	color: #333;
 	background: #fff;
@@ -603,25 +613,30 @@ textarea.input-complete:focus{
 /*form field focus end*/
 /*form error*/
 input[type="text"].error,
+input[type="text"].error:hover,
 input[type="password"].error,
+input[type="password"].error:hover,
 input[type="email"].error,
+input[type="email"].error:hover,
 input[type="search"].error,
-textarea.error{
+input[type="search"].error:hover,
+textarea.error,
+textarea.error:hover{
 	color: #fff;
 	border-color: #d32e2e;
 	background: #d32e2e;
 	box-shadow: inset 0 0 0 1px #d32e2e;
 }
 input.error::-webkit-input-placeholder,
-textarea.error::-webkit-input-placeholder{ color: #fff; }
+textarea.error::-webkit-input-placeholder{ color: #fff !important; }
 input.error:-moz-placeholder,
-textarea.error:-moz-placeholder{ color: #fff; }
+textarea.error:-moz-placeholder{ color: #fff !important; }
 input.error::-moz-placeholder,
-textarea.error::-moz-placeholder{ color: #fff; opacity: 1; }
+textarea.error::-moz-placeholder{ color: #fff !important; opacity: 1; }
 input.error:-ms-input-placeholder,
-textarea.error:-ms-input-placeholder{ color: #fff; opacity: 1; }
+textarea.error:-ms-input-placeholder{ color: #fff !important; opacity: 1; }
 input.error .placeholder,
-textarea.error .placeholder{ color: #fff; opacity: 1; }
+textarea.error .placeholder{ color: #fff !important; opacity: 1; }
 /*form error end*/
 /*form field focus*/
 input[type="text"].error:focus,
@@ -2571,7 +2586,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition-duration: 0.2s;
 }
 .desktop a.news__inner:hover,
-.news__item:hover a.news__inner{
+.desktop .news__item:hover a.news__inner{
 	box-shadow: inset 0 0 0 1px #54c7d9, 0 10px 27px rgba(0, 0, 0, 0.25);
 }
 .news__img{
@@ -4101,18 +4116,24 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*footer holder*/
 .footer-holder{
-	font-size: 0;
-	letter-spacing: -4px;
-	position: relative;
-	padding: 0 30px;
 	background: #54c7d9;
 	color: #fff;
+	position: relative;
+	padding: 0 30px;
+	text-align: justify;
+	overflow: hidden;
+	cursor: default;
+
+	font-size: 1px;
+	line-height: 0;
+	letter-spacing: -4px;
 }
-.footer-holder:before{
-	content: '';
+.footer-holder:after{
+	content: "1";
+	margin-left: 100%;
+	height: 1px;
+	overflow: hidden;
 	display: inline-block;
-	height: 80px;
-	vertical-align: middle;
 }
 .footer-holder a{
 	color: #fff;
@@ -4126,10 +4147,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
-	width: 33.28%;
-	padding: 0 12px;
+	/*width: 33.28%;*/
+	padding: 29px 12px;
 	font-size: 16px;
-	line-height: 21px;
+	line-height: 22px;
 	letter-spacing: normal;
 	box-sizing: border-box;
 }
@@ -4198,8 +4219,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .desktop a:hover .developer_logo:after{
 	background-color: #fff;
-	-webkit-transition-duration: 3s;
-	transition-duration: 3s;
+	-webkit-transition-duration: 1s;
+	transition-duration: 1s;
 }
 /*footer holder end*/
 /*FOOTER end*/
@@ -4209,6 +4230,10 @@ body > .mCSB_scrollTools{ z-index: 99; }
 .mCSB_outside.mCS-dark+.mCSB_scrollTools{ right: 0; }
 .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: 100%; }
 body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: auto; }
+.sidebar__holder > .mCSB_scrollTools,
+.mobile .mCSB_scrollTools{
+	pointer-events: none;
+}
 /*custom page scroll end*/
 
 .browserupgrade {
@@ -4359,4 +4384,3 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
 	.social-networks{ display: none; }
 	/*sidebar footer end*/
 }
-
