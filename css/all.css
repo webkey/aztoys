@@ -1590,6 +1590,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background-image: -moz-linear-gradient(top,  #ec1b24 0%, #ec1b24 8%, #f25c19 8%, #f25c19 17%, #f8a62a 17%, #f8a62a 25%, #cce20f 25%, #cce20f 33%, #71bf44 33%, #71bf44 42%, #3871c1 42%, #3871c1 50%, #00acef 50%, #00acef 58%, #f8a62a 58%, #f8a62a 67%, #fcd105 67%, #fcd105 75%, #00abc7 75%, #00abc7 83%, #54c7d9 83%, #54c7d9 92%, #3871c1 92%, #3871c1 100%);
 	background-image: -webkit-linear-gradient(top,  #ec1b24 0%,#ec1b24 8%,#f25c19 8%,#f25c19 17%,#f8a62a 17%,#f8a62a 25%,#cce20f 25%,#cce20f 33%,#71bf44 33%,#71bf44 42%,#3871c1 42%,#3871c1 50%,#00acef 50%,#00acef 58%,#f8a62a 58%,#f8a62a 67%,#fcd105 67%,#fcd105 75%,#00abc7 75%,#00abc7 83%,#54c7d9 83%,#54c7d9 92%,#3871c1 92%,#3871c1 100%);
 	background-image: linear-gradient(to bottom,  #ec1b24 0%,#ec1b24 8%,#f25c19 8%,#f25c19 17%,#f8a62a 17%,#f8a62a 25%,#cce20f 25%,#cce20f 33%,#71bf44 33%,#71bf44 42%,#3871c1 42%,#3871c1 50%,#00acef 50%,#00acef 58%,#f8a62a 58%,#f8a62a 67%,#fcd105 67%,#fcd105 75%,#00abc7 75%,#00abc7 83%,#54c7d9 83%,#54c7d9 92%,#3871c1 92%,#3871c1 100%);
+	background-repeat: no-repeat;
 	-webkit-background-size: cover;
 	background-size: cover;
 	-webkit-transition-property: -webkit-transform;
@@ -1679,8 +1680,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: fixed;
 	left: 0;
 	top: 0;
+	bottom: 0;
 	width: 240px;
-	height: 100%;
+	/*height: 100%;*/
 	background: #00abc7;
 	box-sizing: border-box;
 	z-index: 90;
@@ -4202,6 +4204,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*custom page scroll*/
 body > .mCSB_scrollTools{ z-index: 99; }
 .mCSB_outside.mCS-dark+.mCSB_scrollTools{ right: 0; }
+.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: 100%; }
 /*custom page scroll end*/
 
 .browserupgrade {
@@ -4344,10 +4347,12 @@ body > .mCSB_scrollTools{ z-index: 99; }
 }
 @media only screen and (max-height: 539px){
 	.sidebar__frame{ padding-bottom: 64px; }
-	/*sidebar footer*/
-	.social-networks{
-		display: none;
+	.color-tape-vertical{
+		-webkit-background-size: 100% 200%;
+		background-size: 100% 200%;
 	}
+	/*sidebar footer*/
+	.social-networks{ display: none; }
 	/*sidebar footer end*/
 }
 

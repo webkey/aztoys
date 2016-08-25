@@ -84,6 +84,17 @@ function placeholderInit(){
 				scrollInertia: 300
 			});
 		}
+
+		// custom scroll for sidebar
+		var $sidebarScroll = $('.sidebar__holder');
+		if ($sidebarScroll.length) {
+			$sidebarScroll.mCustomScrollbar({
+				theme: "minimal-dark",
+				autoHideScrollbar: true,
+				autoExpandScrollbar: true,
+				scrollInertia: 300
+			});
+		}
 	});
 
 	// header show / hide
