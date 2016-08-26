@@ -196,6 +196,24 @@ h1,
 	width: 100%;
 	max-width: 100%;
 }
+.play-video > span {
+	width: 60px;
+	height: 60px;
+	margin: -50px 0 0 -30px;
+}
+.video-slider .swiper-button-prev:before,
+.video-slider .swiper-button-next:before {
+	height: 8px;
+	width: 20px;
+	margin: -4px 0 0 -10px;
+}
+.video-slider .swiper-button-next:before,
+.video-slider .swiper-container-rtl .swiper-button-prev:before {
+	background-position: 0 -17px;
+}
+.video-slider .swiper-button-prev, .video-slider .swiper-button-next {
+	width: 36px;
+}
 /*video section end*/
 
 /*popup*/
