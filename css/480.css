@@ -232,6 +232,7 @@ h1,
 	top: auto;
 	height: auto !important;
 	overflow: hidden;
+	z-index: 1;
 }
 .nav-drop__holder { padding-top: 0; }
 .nav-drop__group { width: auto; }
