@@ -44,7 +44,8 @@ function placeholderInit(){
 			theme: "minimal-dark",
 			autoHideScrollbar: true,
 			autoExpandScrollbar: true,
-			scrollInertia: 300,
+			scrollInertia: 800,
+			mouseWheel:{ scrollAmount: 160 },
 			callbacks: {
 				onInit: function () {
 					var thisMCSTop = -this.mcs.top;
