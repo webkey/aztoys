@@ -147,9 +147,9 @@ function placeholderInit(){
 	// main screen show / hide
 	var $barrier = $('.full-width-js'),
 		$footer = $('.footer'),
-		topSpace = 50;
+		topSpace = 50,
+		$fixedMarker = $('<div />');
 
-	var $fixedMarker = $('<div />');
 	$fixedMarker.insertBefore($fixedBox).css({
 		'height': 0,
 		'width': 0,
@@ -784,7 +784,7 @@ function shareEvents() {
 		tw
 			.set($itemList, {perspective: 500})
 			.set($item, {display: "block"})
-			.staggerFrom($item, 0.25, {autoAlpha: 0, rotationX: -90, transformOrigin: "50% 0"}, 0.15);
+			.staggerFrom($item, 0.2, {autoAlpha: 0, rotationX: -90, transformOrigin: "50% 0"}, 0.1);
 
 		$currentBtn
 			.on('click', function (e) {
