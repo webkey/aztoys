@@ -15,12 +15,15 @@
 /*------ TYPOGRAPHIC STYLES ------*/
 /*html,*/
 /*body,*/
-.no-scroll html,
-.no-scroll body{
-	height: 100%;
-	max-width: 100%;
-	max-height: 100%;
-	overflow: hidden;
+html.no-scroll,
+html.no-scroll body{
+	width: 100%!important;
+	height: 100%!important;
+	max-width: 100%!important;
+	max-height: 100%!important;
+	margin: 0!important;
+	padding: 0!important;
+	overflow: hidden!important;
 }
 .no-js{
 	overflow: auto;
@@ -3924,10 +3927,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	left: 0;
 	right: 0;
 	top: 100%;
-	/*overflow: auto;*/
 	opacity: 0;
 	visibility: hidden;
 	background: #f7f7f7;
+}
+.mobile .filters-drop{
+	overflow: auto;
 }
 .filters-drop__holder{
 	padding: 44px 50px 24px;

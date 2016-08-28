@@ -31,12 +31,13 @@ function placeholderInit(){
 // 2) resizeByWidth (resize only width);
 // 3) TweetMax VERSION: 1.19.0 (widgets.js);
 (function($){
+	if (!DESKTOP) return false;
+
 	var $body = $('body'),
 		$pageHome = $('.home-page'),
-		$fixedBox = $('.soc-js'),
-		_minScrollTop = 20,
-		_screenHided = false,
-		_flagPositionCorrection = true;
+		minScrollTop = $('.header').outerHeight(),
+		previousScrollTop = -1,
+		$fixedBox = $('.soc-js');
 
 	$(window).on("load",function(){
 		// custom scroll on page
@@ -58,11 +59,15 @@ function placeholderInit(){
 						shareFixedForCustomScroll(thisMCSTop);
 					}
 
-					if ($pageHome.length && !_screenHided) {
-						mainScreenForCustomScroll(thisMCSTop);
-					}
+
+					//mainScreenForCustomScroll();
 
 					swiperSliderInit();
+				},
+				onScrollStart: function () {
+					if ($pageHome.length && !_screenHided) {
+						mainScreenForCustomScroll(-this.mcs.top);
+					}
 				},
 				onScroll: function () {
 					toggleHeaderForCustomScroll(-this.mcs.top);
@@ -74,10 +79,6 @@ function placeholderInit(){
 
 					if ($fixedBox.length) {
 						shareFixedForCustomScroll(thisMCSTop);
-					}
-
-					if ($pageHome.length && !_screenHided) {
-						mainScreenForCustomScroll(thisMCSTop);
 					}
 				}
 			}
@@ -116,17 +117,6 @@ function placeholderInit(){
 			});
 		}
 
-		// custom scroll for sidebar filters panel
-		/*var $sidebarFiltersPanel = $('.filters__panel');
-		if ($sidebarFiltersPanel.length) {
-			$sidebarFiltersPanel.mCustomScrollbar({
-				theme: "minimal-dark",
-				autoHideScrollbar: true,
-				autoExpandScrollbar: true,
-				scrollInertia: 300
-			});
-		}*/
-
 		// custom scroll for sidebar filters drop
 		var $sidebarFiltersDrop = $('.filters-drop');
 		if ($sidebarFiltersDrop.length) {
@@ -139,11 +129,9 @@ function placeholderInit(){
 		}
 	});
 
+	footerBottom();
+
 	// header show / hide
-	var minScrollTop = $('.header').outerHeight();
-
-	var previousScrollTop = -1;
-
 	function toggleHeaderForCustomScroll(value) {
 		var currentScrollTop = value;
 
@@ -155,19 +143,19 @@ function placeholderInit(){
 	}
 
 	// main screen show / hide
-	function mainScreenForCustomScroll(value) {
+	var _screenHided = false;
+
+	function mainScreenForCustomScroll() {
 		if (!$pageHome.length || _screenHided) return false;
 
-		if ( value > _minScrollTop && _flagPositionCorrection ) {
-			_screenHided = true;
-			$body.addClass('hide-screen');
+		_screenHided = true;
+		$body.addClass('hide-screen');
+		setTimeout(function () {
 			$body.mCustomScrollbar("scrollTo", "top");
-		}
+		}, 200);
 	}
 
-	footerBottom();
-
-	// main screen show / hide
+	// share box fixed
 	var $barrier = $('.full-width-js'),
 		$footer = $('.footer'),
 		topSpace = 50,
@@ -1960,21 +1948,42 @@ function toggleScrollPage(id) {
 	// page fixed;
 	if (id === undefined) return false;
 
-	var $body = $('body');
-	if ($body.hasClass('mCS_disabled') && $body.attr('data-toggle-scroll') != id) return false;
+	var $body = $('body'),
+		$html = $('html'),
+		attr = $html.attr('data-toggle-scroll');
 
-	$body.attr('data-toggle-scroll', id);
+	if (typeof attr !== typeof undefined && attr !== false && attr != id) return false;
+
+	$html.attr('data-toggle-scroll', id);
 
 	var arg = arguments[1];
 	if (arg === false) {
-		$body.mCustomScrollbar('disable');
+		if (DESKTOP) {
+			$body.mCustomScrollbar('disable');
+		} else {
+			$html.addClass('no-scroll');
+		}
 	} else {
-		$body
-			.mCustomScrollbar('update')
-			.attr('data-toggle-scroll', '');
+		if (DESKTOP) {
+			$body.mCustomScrollbar('update');
+		} else {
+			$html.removeClass('no-scroll');
+		}
+
+		$html.removeAttr('data-toggle-scroll');
 	}
 }
 /*toggle scroll of page end*/
+
+/*parallax background page*/
+function parallaxBg(position) {
+	var $page = $('body');
+
+	$page.css({
+		'background-position-y': -position/3
+	})
+}
+/*parallax background page end*/
 
 /*footer at bottom*/
 function footerBottom(){
@@ -1993,47 +2002,41 @@ function footerBottom(){
 }
 /*footer at bottom end*/
 
-/*parallax background page*/
-function parallaxBg(position) {
-	var $page = $('body');
-
-	// var number = Math.abs(Math.ceil(position/1000) * 1000 - position - 500);
-
-	$page.css({
-		'background-position-y': -position/3
-		// 'background-position-x': number/2
-	})
-}
-/*parallax background page end*/
-
 /** ready/load/resize document **/
 
 $(document).ready(function(){
 	placeholderInit();
 	stateFields();
 	printShow();
-	// mainScreen();
 	tabs();
-	// productsBehavior();
+	// productsBehavior(); // change z-index
 	equalHeightInit();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
 	}
 	//filtersEvents();
 	shareEvents();
-	// shareFixed();
 	hoverClassInit();
 	navDropHeight();
 	navDropEvents();
 	mapMainInit();
 	contacts();
-	// swiperSliderInit();
-	// headerFixed();
 	mainNavigationInit();
 	fotoramaInit();
 	textSlide();
 	popupEvents();
+	//toggleScrollPage(id); // toggle overflow from auto to hidden on page
 
-	// footerBottom();
+	if (!DESKTOP) {
+		mainScreen();
+		headerFixed();
+		swiperSliderInit();
+		//shareFixed();
+		$(window).on('load scroll', function () {
+			parallaxBg($(window).scrollTop());
+		});
+
+		footerBottom();
+	}
 	// parallaxBg();
 });
