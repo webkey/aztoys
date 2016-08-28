@@ -45,7 +45,7 @@ function placeholderInit(){
 			autoHideScrollbar: true,
 			autoExpandScrollbar: true,
 			scrollInertia: 800,
-			mouseWheel:{ scrollAmount: 160 },
+			//mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
 					var thisMCSTop = -this.mcs.top;
@@ -109,6 +109,28 @@ function placeholderInit(){
 		var $sidebarScroll = $('.sidebar__holder');
 		if ($sidebarScroll.length) {
 			$sidebarScroll.mCustomScrollbar({
+				theme: "minimal-dark",
+				autoHideScrollbar: true,
+				autoExpandScrollbar: true,
+				scrollInertia: 300
+			});
+		}
+
+		// custom scroll for sidebar filters panel
+		/*var $sidebarFiltersPanel = $('.filters__panel');
+		if ($sidebarFiltersPanel.length) {
+			$sidebarFiltersPanel.mCustomScrollbar({
+				theme: "minimal-dark",
+				autoHideScrollbar: true,
+				autoExpandScrollbar: true,
+				scrollInertia: 300
+			});
+		}*/
+
+		// custom scroll for sidebar filters drop
+		var $sidebarFiltersDrop = $('.filters-drop');
+		if ($sidebarFiltersDrop.length) {
+			$sidebarFiltersDrop.mCustomScrollbar({
 				theme: "minimal-dark",
 				autoHideScrollbar: true,
 				autoExpandScrollbar: true,
@@ -704,6 +726,8 @@ function filtersEvents() {
 			.set($filters, {autoAlpha:1, transitionDuration: 0})
 			.to($filters, animationSpeedTween, {x: 0, ease: Power2.easeInOut});
 
+		toggleScrollPage('mobile-filter-panel', false);
+
 		return false;
 	});
 
@@ -712,6 +736,7 @@ function filtersEvents() {
 		var filtersWidth = $('.filters-js').outerWidth();
 		filtersTLL.to($filters, animationSpeedTween, {x: -filtersWidth, ease: Power2.easeInOut});
 
+		toggleScrollPage('mobile-filter-panel');
 		return false;
 	});
 
@@ -1058,7 +1083,9 @@ function navDropEvents(){
 
 				// $html.addClass(activeClass);
 				TweenMax.set($currentNavDrop, {display: 'block'});
-				TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha: 1});
+				TweenMax.to($currentNavDrop, animateSpeed, {autoAlpha: 1, onComplete: function () {
+					$('.sidebar__holder').mCustomScrollbar('update');
+				}});
 
 				equalHeightNavDropGroup();
 				createOverlay();

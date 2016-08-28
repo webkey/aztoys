@@ -3728,7 +3728,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition-duration: 0.3s;
 	z-index: 6;
 }
-.filters__panel{ position: relative; }
+.filters__panel{
+	position: relative;
+	height: 100%;
+}
 .filters__panel:before,
 .filters-opener:before{
 	content: '';
@@ -3921,7 +3924,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	left: 0;
 	right: 0;
 	top: 100%;
-	overflow: auto;
+	/*overflow: auto;*/
 	opacity: 0;
 	visibility: hidden;
 	background: #f7f7f7;
@@ -3975,7 +3978,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .filters-drop__list a{
 	display: inline-block;
 	vertical-align: top;
-	padding: 0 0 0 36px;
+	padding: 0 0 0 40px;
 	position: relative;
 	color: #1a1a1a;
 	text-decoration: none;
