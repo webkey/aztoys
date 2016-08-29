@@ -13,22 +13,6 @@
 /*normalize end*/
 
 /*------ TYPOGRAPHIC STYLES ------*/
-/*html,*/
-/*body,*/
-html.no-scroll,
-html.no-scroll body{
-	width: 100%!important;
-	height: 100%!important;
-	max-width: 100%!important;
-	max-height: 100%!important;
-	margin: 0!important;
-	padding: 0!important;
-	overflow: hidden!important;
-}
-.no-js{
-	overflow: auto;
-	max-height: none;
-}
 .page{
 	overflow: auto;
 	height: 100%;
@@ -39,11 +23,19 @@ body{
 	color: #4c4c4c;
 	background: #fff url(../img/bg-page.png) 50% 0;
 	min-width: 320px;
-	/*will-change: background-position;*/
-	/*-webkit-transition-property: background-position;*/
-	/*transition-property: background-position;*/
-	/*-webkit-transition-duration: 0.2s;*/
-	/*transition-duration: 0.2s;*/
+}
+html.no-scroll{
+	width: 100%!important;
+	height: 100%!important;
+	max-width: 100%!important;
+	max-height: 100%!important;
+	margin: 0!important;
+	padding: 0!important;
+	overflow: hidden!important;
+}
+body .no-js{
+	overflow: auto;
+	max-height: none;
 }
 h1, h2, h3, h4, h5, h6{
 	font-weight: normal;
