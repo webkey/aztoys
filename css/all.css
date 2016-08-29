@@ -254,31 +254,13 @@ button{
 }
 
 /*list*/
-.user-content ul,
-.user-content ol{
-	margin: 0;
-	padding: 0 0 20px;
-	list-style: none;
-}
-.user-content ol{
-	counter-reset: section;
-}
-.user-content ul li,
-.user-content ol li{
-	padding: 12px 0 0 20px;
-	position: relative;
-}
-.user-content ol > li{
-	counter-increment: section;
-	height: 1%;
-	overflow: hidden;
-	padding-left: 0;
-}
-.user-content ul li:first-child,
-.user-content ol > li:first-child{
-	padding-top: 0;
-}
-.user-content ul > li:before{
+.user-content ul, .user-content ol{ margin: 0; padding: 0 0 20px; list-style: none; }
+.user-content ol{ counter-reset: section; }
+.user-content ul li, .user-content ol li{ padding: 12px 0 0 20px; position: relative; }
+.user-content ol > li{ counter-increment: section; height: 1%; overflow: hidden; padding-left: 0; }
+.user-content ul li:first-child, .user-content ol > li:first-child{ padding-top: 0; }
+.user-content ul > li:before,
+.user-content ol ul > li:first-child:before{
 	content: '';
 	position: absolute;
 	left: 0;
@@ -289,9 +271,7 @@ button{
 	border-radius: 50%;
 	box-sizing: border-box;
 }
-.user-content ul > li:first-child:before{
-	top: 12px;
-}
+.user-content ul > li:first-child:before{ top: 12px; }
 .user-content ol > li:before{
 	display: inline-block;
 	text-align: left;
@@ -301,7 +281,8 @@ button{
 	padding: 0 5px 0 0;
 }
 .user-content ul ul,
-.user-content ul ol{
+.user-content ul ol,
+.user-content ol > li > ul{
 	padding-bottom: 0;
 	padding-left: 0;
 }
@@ -310,8 +291,8 @@ button{
 }
 .user-content ul ul > li:before,
 .user-content ul ul > li:first-child:before,
-.user-content ol ul > li:before,
-.user-content ol ul > li:first-child:before{
+.user-content ol ul ul > li:before,
+.user-content ol ul ul > li:first-child:before{
 	height: 0;
 	width: 8px;
 	border-width: 1px 0;
@@ -337,6 +318,12 @@ button{
 /*list end*/
 
 /*default table*/
+.table_auto{
+	overflow: auto;
+	max-width: 100%;
+	-webkit-overflow-scrolling: touch;
+	margin: 0 0 20px;
+}
 table{
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -350,51 +337,6 @@ table th{
 	line-height: 1.4;
 }
 /*default table end*/
-
-/*table styling*/
-.table_auto{
-	overflow: auto;
-	max-width: 100%;
-	-webkit-overflow-scrolling: touch;
-	margin: 0 0 20px;
-}
-.user-content .tbl{
-	table-layout: fixed;
-	border: 1px solid #e4e4e4;
-	margin-bottom: 20px;
-}
-.table_auto .tbl{
-	margin: 0;
-}
-.user-content .tbl td,
-.user-content .tbl th{
-	font: 14px/20px Arial, Helvetica, sans-serif;
-	color: #333;
-	background-color: #fff;
-	border: solid #e4e4e4;
-	border-width: 0 0 0 1px;
-	padding: 13px 12px;
-}
-.user-content .tbl tbody tr:nth-child(even) td{
-	background: #f2f2f2;
-}
-.user-content .tbl td:first-child{
-	text-align: left;
-}
-.user-content .tbl tbody td:first-child,
-.user-content .tbl tfoot td:first-child{
-	border-left-width: 0;
-}
-.user-content .tbl th,
-.user-content .tbl thead td{
-	line-height: 17px;
-	color: #fff;
-	background: #00abc7;
-	border-color: #0491a9;
-	padding: 16px 12px 17px;
-}
-.user-content .tbl tfoot td{ background: #f2f2f2; }
-/*table styling end*/
 
 /*blockquote*/
 .blockquote{
@@ -1587,12 +1529,34 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	letter-spacing: normal;
 	visibility: hidden;
 }
+
+.btn-view-print{
+	float: right;
+	margin-left: 30px;
+	line-height: 1;
+}
+.modible .btn-view-print{ display: none; }
+.btn-view-print a{
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+	color: #4c4c4c;
+	background: #fcd105;
+	padding: 6px 8px;
+}
+.btn-view-print span{
+	display: inline-block;
+	vertical-align: middle;
+}
+.btn-view-print svg {
+	vertical-align: middle;
+	width: 16px;
+	margin-right: 5px;
+}
 /*social square end*/
 /*USER CONTENT end*/
 
-/*MAIN BLOCKS*/
-.hide-state{ display: none; }
-
+/*MAIN SCREEN*/
 /*screen*/
 .screen{
 	position: fixed;
@@ -1751,7 +1715,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background: url(../img/color-tape-horizontal.png);
 }
 /*screen end*/
+/*MAIN SCREEN end*/
 
+/*MAIN BLOCKS*/
 .wrapper{
 	margin: 0 auto;
 	min-height: 100%;
@@ -1836,6 +1802,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin-left: -280px;
 	margin-right: -80px;
 }
+.hide-state{ display: none; }
 /*MAIN BLOCKS end*/
 
 /*HEADER*/

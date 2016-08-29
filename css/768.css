@@ -1,5 +1,14 @@
 @media only screen and (max-width: 767px){}
 
+.btn-view-print svg{ margin-right: 0; }
+.btn-view-print span{ display: none; }
+.imgl,
+.imgr{
+	float: none;
+	display: block;
+	padding: 0;
+	margin: 0 auto 30px;
+}
 /*MAIN*/
 /*CONTENT*/
 /*breadcrumbs*/
