@@ -1613,6 +1613,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 0;
 	line-height: 0;
 	letter-spacing: -4px;
+	z-index: 2;
 }
 .screen__logo:after{
 	content: '';
@@ -1634,6 +1635,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	color: #fff;
 	padding: 0 30px;
 	box-sizing: border-box;
+	z-index: 2;
 }
 
 .screen:after{
