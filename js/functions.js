@@ -1921,9 +1921,6 @@ function popupEvents() {
 	// switch popup
 	$popupOpener.on('click', function (e) {
 		e.preventDefault();
-
-		toggleOtherBlocks(popupOpened);
-
 		if (!popupOpened) {
 			openPopup();
 		} else {
@@ -1971,6 +1968,7 @@ function popupEvents() {
 								toggleBtnClose();
 								TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
 								popupOpened = true;
+								toggleMainClass(popupOpened);
 							}
 						}, 0.1);
 					}
@@ -1992,6 +1990,7 @@ function popupEvents() {
 		// 		$main.css('height', 'auto');
 		// 	}
 		// });
+		toggleMainClass(false);
 
 		TweenMax.set($main, {height: 'auto', onComplete: function () {
 			setTimeout(function () {
@@ -2058,37 +2057,8 @@ function popupEvents() {
 	}
 
 	// hide filters opener and header
-	function toggleOtherBlocks(popupOpened) {
-		var $header = $('.header'),
-			$ifHeaderVisible = false,
-			$filter = $('.filters-opener'),
-			$ifFilterVisible = false;
-
-		if ($header.is(':visible')) {
-			$ifHeaderVisible = true;
-		}
-
-		if ($filter.is(':visible')) {
-			$ifFilterVisible = true;
-		}
-
-		if (popupOpened) {
-			if ($ifFilterVisible) {
-				console.log(1);
-				TweenMax.to($filter, 0.2, { autoAlpha: 0 });
-			}
-			if ($ifHeaderVisible) {
-				TweenMax.to($header, 0.2, { autoAlpha: 0 });
-			}
-		} else {
-			if ($ifFilterVisible) {
-				console.log(2);
-				TweenMax.to($filter, 0.2, { autoAlpha: 1 });
-			}
-			if ($ifHeaderVisible) {
-				TweenMax.to($header, 0.2, { autoAlpha: 1 });
-			}
-		}
+	function toggleMainClass(popupOpened) {
+		$('html').toggleClass('popup-show', popupOpened);
 	}
 }
 /*popup events end*/

@@ -1786,6 +1786,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	clear: both;
 	z-index: 5;
 }
+.popup-show .footer{ z-index: 103; }
 .max-wrap{
 	max-width: 1120px;
 	margin: 0 auto;

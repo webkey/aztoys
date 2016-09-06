@@ -37,6 +37,9 @@
 	top: 10px;
 	z-index: 100;
 }
+.popup-overlay{
+	z-index: 100;
+}
 /*popup end*/
 /*CONTENT end*/
 /*overlay*/
@@ -49,6 +52,9 @@
 /*HEADER*/
 .header{
 	display: block;
+}
+.popup-show .header{
+	display: none;
 }
 .nav-opened .header .logo{
 	-webkit-transform: translate(38px, 0);
@@ -116,6 +122,9 @@
 	top: 0;
 	left: 0;
 	border-top: 1px solid #f7f7f7;
+}
+.popup-show .filters {
+	display: none;
 }
 .header-show .filters {
 	-webkit-transform: translate(0, 86px);
