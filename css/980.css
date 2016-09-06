@@ -32,9 +32,10 @@
 .popup{
 	z-index: 99;
 }
-.popup .btn-close{
+.btn-close-popup{
 	right: 10px;
 	top: 10px;
+	z-index: 100;
 }
 /*popup end*/
 /*CONTENT end*/

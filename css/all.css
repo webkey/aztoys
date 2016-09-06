@@ -3222,17 +3222,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	width: 100%;
 	box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.15);
 }
-.popup .btn-close{
-	opacity: 1;
-	visibility: visible;
-	right: 20px;
-	top: 20px;
-}
-.popup .btn-close:active{
-	-webkit-transform: scale(0.9, 0.9);
-	-ms-transform: scale(0.9, 0.9);
-	transform: scale(0.9, 0.9);
-}
 .popup-overflow{
 	max-height: 100%;
 	height: 100%;
@@ -3242,6 +3231,19 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .popup-align{
 	padding: 45px 0 50px;
 	box-sizing: border-box;
+}
+.btn-close-popup{
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	z-index: 7;
+	opacity: 0;
+	visibility: hidden;
+}
+.btn-close-popup:active{
+	-webkit-transform: scale(0.9, 0.9);
+	-ms-transform: scale(0.9, 0.9);
+	transform: scale(0.9, 0.9);
 }
 /*popup end*/
 

@@ -224,7 +224,6 @@ function placeholderInit(){
 			}
 		}
 
-
 		if (footerOffsetTop <= fixedBoxFullHeight) {
 			$fixedBox
 				.addClass('stick-bottom')
@@ -1898,100 +1897,117 @@ function popupEvents() {
 	if (!$popup.length) return false;
 
 	var $popupOpener = $('.products__inner'),
-		$content = $('.content'),
 		$main = $('.main'),
 		$mainHeight = $main.outerHeight(),
-		$window = $(window),
+		btnClose = '.btn-close-popup',
+		$btnClose = $(btnClose),
 		popupOpened = false,
-		animateSpeed = 0.6;
+		animateSpeed = 0.6,
+		topPosition = 0;
 
+	// add overlay on page
 	var $popupOverlay = $('<div class="popup-overlay" />');
 	$popupOverlay.appendTo('body');
 
+	// prepare popup
 	TweenMax.set($popup, {
 		autoAlpha: 0,
-		yPercent: 100,
-		// scaleY: 0,
-		// scaleX: 0,
+		// yPercent: 100,
 		onComplete: function () {
 			$popup.show(0);
 		}
 	});
 
+	// switch popup
 	$popupOpener.on('click', function (e) {
 		e.preventDefault();
 
+		toggleOtherBlocks(popupOpened);
+
 		if (!popupOpened) {
-			// TweenMax.to(window, 2, {scrollTo:{y:0}, ease: Power3.easeInOut});
-
-			TweenMax.to($popupOverlay, 0.3, {
-				autoAlpha: 1,
-				// scaleY: 0,
-				// scaleX: 0,
-				// yPercent: 100,
-				ease: Back.easeIn.config(1),
-				onComplete: function () {
-
-					TweenMax.to($main, 0.2, {
-						height: $popup.outerHeight(),
-						onComplete: function () {
-							$('body').mCustomScrollbar("scrollTo", 0, {
-								scrollInertia:0
-							});
-							TweenMax.to($popup, animateSpeed, {
-								autoAlpha: 1,
-								yPercent: 0,
-								// scaleY: 1,
-								// scaleX: 1,
-								ease: Power3.easeInOut,
-								onComplete: function () {
-									TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
-									popupOpened = true;
-								}
-							}, 0.1);
-						}
-					});
-				}
-			});
-			// toggleScrollPage('popup-events', false);
+			openPopup();
 		} else {
 			closePopup();
 		}
 	});
 
-	$popup.on('click', '.btn-close', function (e) {
-		e.preventDefault();
-
-		closePopup();
-	});
-
+	// close popup on click to "Esc" key
 	$(document).keyup(function(e) {
 		if (e.keyCode == 27) {
 			closePopup();
 		}
 	});
 
-	function closePopup() {
-		TweenMax.to($main, animateSpeed, {
-			height: $mainHeight,
-			ease: Power3.easeInOut,
+	// close popup on click to close button
+	$('body').on('click', btnClose, function (e) {
+		e.preventDefault();
+		closePopup();
+	});
+
+	// popup open
+	function openPopup() {
+		// set scroll position
+		if (DESKTOP) {
+			topPosition = $('#mCSB_1_container').position().top;
+		} else {
+			topPosition = $(window).scrollTop();
+		}
+
+		// show popup
+		TweenMax.to($popupOverlay, 0.3, {
+			autoAlpha: 1,
+			ease: Back.easeIn.config(1),
 			onComplete: function () {
-				$main.css('height', 'auto');
+				TweenMax.set($main, {
+					height: $popup.outerHeight(),
+					onComplete: function () {
+						pageScrollToTop();
+
+						TweenMax.to($popup, animateSpeed, {
+							autoAlpha: 1,
+							// yPercent: 0,
+							ease: Power3.easeInOut,
+							onComplete: function () {
+								toggleBtnClose();
+								TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
+								popupOpened = true;
+							}
+						}, 0.1);
+					}
+				});
 			}
 		});
+		// disable page scrolling
+		// toggleScrollPage('popup-events', false);
+	}
+
+	// popup close
+	function closePopup() {
+		toggleBtnClose(false);
+
+		// TweenMax.to($main, animateSpeed, {
+		// 	height: $mainHeight,
+		// 	ease: Power3.easeInOut,
+		// 	onComplete: function () {
+		// 		$main.css('height', 'auto');
+		// 	}
+		// });
+
+		TweenMax.set($main, {height: 'auto', onComplete: function () {
+			setTimeout(function () {
+				pageScrollToItem(topPosition);
+			}, 100)
+		}});
 
 		TweenMax.to($popup, animateSpeed, {
 			autoAlpha: 0,
-			yPercent: 100,
-			// scaleY: 0,
-			// scaleX: 0,
+			// yPercent: 100,
 			ease: Power3.easeInOut,
 			onComplete: function () {
+				// enable page scrolling
 				// toggleScrollPage('popup-events');
 				TweenMax.to($popupOverlay, animateSpeed, {
 					autoAlpha: 0,
-					// scaleY: 1,
-					// scaleX: 1,
 					yPercent: 0,
 					ease: Back.easeOut.config(1),
 					onComplete: function () {
@@ -2000,6 +2016,79 @@ function popupEvents() {
 				});
 			}
 		});
+	}
+
+	// hide close button
+	TweenMax.set($btnClose, {autoAlpha: 0});
+
+	// button close toggle
+	var btnTween = new TimelineLite({paused: true});
+	btnTween.to($btnClose, 0.2, {autoAlpha: 1});
+	function toggleBtnClose() {
+		var arg = arguments[0];
+		if (arg == false) {
+			btnTween.reverse();
+		} else {
+			btnTween.play();
+		}
+	}
+
+	// page scroll to top
+	function pageScrollToTop() {
+		if (DESKTOP) {
+			$('body').mCustomScrollbar("scrollTo", 0, {
+				scrollInertia: 0
+			});
+		} else {
+			TweenMax.to(window, 0.1, {scrollTo: {y: 0}, ease: Power3.easeInOut});
+		}
+	}
+
+	// page scroll to item
+	function pageScrollToItem() {
+		topPosition = topPosition || 0;
+
+		if (DESKTOP) {
+			$('body').mCustomScrollbar("scrollTo", topPosition, {
+				scrollInertia: 0
+			});
+		} else {
+			$('html,body').scrollTop( topPosition );
+		}
+	}
+
+	// hide filters opener and header
+	function toggleOtherBlocks(popupOpened) {
+		var $header = $('.header'),
+			$ifHeaderVisible = false,
+			$filter = $('.filters-opener'),
+			$ifFilterVisible = false;
+
+		if ($header.is(':visible')) {
+			$ifHeaderVisible = true;
+		}
+
+		if ($filter.is(':visible')) {
+			$ifFilterVisible = true;
+		}
+
+		if (popupOpened) {
+			if ($ifFilterVisible) {
+				console.log(1);
+				TweenMax.to($filter, 0.2, { autoAlpha: 0 });
+			}
+			if ($ifHeaderVisible) {
+				TweenMax.to($header, 0.2, { autoAlpha: 0 });
+			}
+		} else {
+			if ($ifFilterVisible) {
+				console.log(2);
+				TweenMax.to($filter, 0.2, { autoAlpha: 1 });
+			}
+			if ($ifHeaderVisible) {
+				TweenMax.to($header, 0.2, { autoAlpha: 1 });
+			}
+		}
 	}
 }
 /*popup events end*/
