@@ -3674,10 +3674,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	line-height: 30px;
 	color: #1a1a1a;
 	text-align: center;
-	padding: 12px 5px;
 	box-sizing: border-box;
 }
 .phone a{
+	display: block;
+	padding: 12px 5px;
 	text-decoration: none;
 	color: #1a1a1a;
 }
@@ -4648,7 +4649,10 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
 	.phone {
 		font-size: 20px;
 		line-height: 24px;
-		padding: 10px 5px;
+	}
+	.phone a{
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 	.nav-list > li > a {
 		padding-top: 12px;
@@ -4697,7 +4701,7 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
 		padding-bottom: 12px;
 	}
 }
-@media only screen and (max-height: 539px) and (min-width: 480px){
+@media only screen and (max-height: 539px) and (min-width: 639px){
 	.sidebar__frame{ padding-bottom: 115px; }
 	.color-tape-vertical{
 		-webkit-background-size: 100% 200%;
@@ -4706,5 +4710,22 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
 	.social-networks{ display: none; }
 }
 @media only screen and (max-height: 539px) and (max-width: 479px){
-
+	.sidebar__frame {
+		padding-bottom: 150px;
+	}
+	.slogan {
+		min-height: 38px;
+	}
+	.phone {
+		font-size: 18px;
+		line-height: 22px;
+	}
+	.phone a{
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+	.nav-list > li > a {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
 }
