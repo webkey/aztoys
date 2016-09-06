@@ -3457,11 +3457,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	min-height: 100%;
 	box-sizing: border-box;
+	padding-bottom: 301px;
 }
 /*logo*/
 .sidebar .logo{
 	display: block;
-	height: 240px;
+	height: 234px;
 	border-bottom: 1px solid #029db5;
 	overflow: hidden;
 }
@@ -3598,11 +3599,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	line-height: 24px;
 }
 .nav-drop__list li,
 .user-content .nav-drop__list li,
 .user-content .nav-drop__list li:first-child{
-	padding: 0 0 10px;
+	padding: 0 0 16px;
 }
 .user-content .nav-drop__list li:before,
 .user-content .nav-drop__list li:first-child:before{
@@ -3622,11 +3624,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .nav-drop__list a i{
 	float: left;
-	margin-right: 5px;
 	width: 30px;
 	height: 30px;
+	margin-right: 5px;
 }
 .nav-drop__list a span{
+	padding: 3px 0;
 	display: block;
 	overflow: hidden;
 }
@@ -3658,14 +3661,15 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
-	padding: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
 }
 /*slogan end*/
 
 /*phone*/
 .phone{
 	background: #fcd105;
-	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
+	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	line-height: 30px;
 	color: #1a1a1a;
@@ -3673,6 +3677,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	padding: 12px 5px;
 	box-sizing: border-box;
 }
+.phone a{
+	text-decoration: none;
+	color: #1a1a1a;
+}
+.phone a:hover{ text-decoration: none; }
 /*phone end*/
 /*SIDEBAR end*/
 
@@ -3919,6 +3928,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	list-style: none;
 	padding: 0;
 	margin: 0 -25px 0 -25px;
+	line-height: 24px;
 
 	font-size: 0;
 	letter-spacing: -4px;
@@ -3942,6 +3952,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .filters-drop__list a{
 	display: inline-block;
 	vertical-align: top;
+	min-height: 30px;
 	padding: 0 0 0 40px;
 	position: relative;
 	color: #1a1a1a;
@@ -3950,7 +3961,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition-property: color;
 	-webkit-transition-duration: 0.2s;
 	transition-duration: 0.2s;
-	overflow: hidden;
 }
 .desktop .filters-drop__list a:hover,
 .filters-drop__list a.is-checked{
@@ -4004,6 +4014,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .filters-drop__list a > span{
 	display: block;
 	overflow: hidden;
+	padding: 3px 0;
 }
 /*filters drop end*/
 
@@ -4581,53 +4592,116 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
    Media Queries on height
    ========================================================================== */
 @media only screen and (max-height: 919px){
-	/*logo*/
+	.sidebar__frame {
+		padding-bottom: 245px;
+	}
 	.sidebar .logo{
-		height: 168px;
+		height: 170px;
+	}
+	.sidebar .logo__img {
+		margin: 27px auto 20px;
+	}
+	.slogan {
+		min-height: 90px;
+	}
+	.social-networks, .social-networks .list{
+		padding: 18px 0;
+	}
+}
+@media only screen and (max-height: 829px){
+	.sidebar .logo{ height: 144px; }
+	.sidebar .logo__img{
+		width: 150px;
+		height: 65px;
+		margin: 20px auto 12px;
+	}
+	.nav-list > li > a{
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+}
+@media only screen and (max-height: 739px){
+	.sidebar__frame {
+		position: relative;
+		min-height: 100%;
+		box-sizing: border-box;
+		padding-bottom: 225px;
+	}
+	.social-networks, .social-networks .list{
+		padding: 8px 0;
+	}
+	.slogan {
+		min-height: 78px;
+	}
+	.nav-list > li > a {
+		padding-top: 14px;
+		padding-bottom: 14px;
+	}
+}
+@media only screen and (max-height: 699px){
+	.sidebar__frame {
+		padding-bottom: 195px;
+	}
+	.slogan {
+		min-height: 70px;
+	}
+	.phone {
+		font-size: 20px;
+		line-height: 24px;
+		padding: 10px 5px;
+	}
+	.nav-list > li > a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+}
+@media only screen and (max-height: 639px){
+	.sidebar__frame {
+		padding-bottom: 179px;
+	}
+	.sidebar .logo {
+		height: 90px;
+	}
+	.sidebar .logo__img {
+		width: 140px;
+		height: 60px;
+		margin: 16px auto 12px;
 	}
 	.sidebar .logo__slogan{
 		display: none;
 	}
-	/*logo end*/
-	.slogan{
-		display: none;
-	}
-}
-@media only screen and (max-height: 739px){
-	/*logo*/
-	.sidebar .logo{ height: 104px; }
-	.sidebar .logo__img{
-		width: 150px;
-		height: 65px;
-		margin: 20px auto 0;
-	}
-	/*logo end*/
-	/*social networks*/
-	.social-networks, .social-networks .list{
-		padding: 8px 0;
-	}
-	/*social networks end*/
-	/*main navigation*/
 	.nav-list > li > a{
-		padding: 18px 5px;
-	}
-	/*main navigation end*/
-}
-@media only screen and (max-height: 599px){
-	/*main navigation*/
-	.nav-list > li > a{
-		padding: 12px 5px;
+		padding-top: 12px;
+		padding-bottom: 12px;
 		font-size: 20px;
 	}
-	/*main navigation end*/
+	.social-networks, .social-networks .list {
+		padding: 0;
+	}
+}
+@media only screen and (max-height: 579px){
+	.nav-list > li > a{
+		padding-top: 9px;
+		padding-bottom: 9px;
+	}
+}
+@media only screen and (max-height: 579px) and (max-width: 479px){
+	.slogan {
+		min-height: 50px;
+	}
+	.social-networks, .social-networks .list {
+		padding: 5px 0;
+	}
+	.nav-list > li > a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
 }
 @media only screen and (max-height: 539px){
-	.sidebar__frame{ padding-bottom: 64px; }
+	.sidebar__frame{ padding-bottom: 115px; }
 	.color-tape-vertical{
 		-webkit-background-size: 100% 200%;
 		background-size: 100% 200%;
 	}
-	/*sidebar footer*/
 	.social-networks{ display: none; }
-	/*sidebar footer end*/
 }
