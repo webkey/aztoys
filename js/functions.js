@@ -143,14 +143,21 @@ function placeholderInit(){
 		var newDelta = 0;
 
 		$('.screen').on('mousewheel', function(event) {
-			newDelta = newDelta + event.deltaY;
+			var deltaY = event.deltaY;
+			newDelta = newDelta + deltaY;
+
+			console.log("deltaY: ", deltaY);
 
 			// $body.mCustomScrollbar("scrollTo", "top");
-			$body.mCustomScrollbar("scrollTo", "top");
 
-			if(newDelta < -4) {
+			if (deltaY < 0) {
+				$body.mCustomScrollbar("disable");
+			}
+
+			if (newDelta < -4) {
 				_screenHided = true;
 				$body.addClass('hide-screen');
+				$body.mCustomScrollbar("update");
 			}
 		});
 	}
