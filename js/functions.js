@@ -146,63 +146,21 @@ function placeholderInit(){
 	var _screenHided = false;
 
 	function mainScreenForCustomScroll() {
-		var elem = document.getElementById('main-screen-animate');
+		if (!$pageHome.length) return false;
 
 		var newDelta = 0;
 
-		if (elem.addEventListener) {
-			if ('onwheel' in document) {
-				// IE9+, FF17+
-				elem.addEventListener("wheel", onWheel);
-			} else if ('onmousewheel' in document) {
-				// устаревший вариант события
-				elem.addEventListener("mousewheel", onWheel);
-			} else {
-				// Firefox < 17
-				elem.addEventListener("MozMousePixelScroll", onWheel);
-			}
-		} else { // IE8-
-			elem.attachEvent("onmousewheel", onWheel);
-		}
-
-		// Это решение предусматривает поддержку IE8-
-		function onWheel(e) {
-			e = e || window.event;
-
-			// deltaY, detail содержат пиксели
-			// wheelDelta не дает возможность узнать количество пикселей
-			// onwheel || MozMousePixelScroll || onmousewheel
-			var delta = e.deltaY || e.detail || e.wheelDelta;
-
-			// var info = document.getElementById('delta');
-			//
-			// info.innerHTML = +info.innerHTML + delta;
-			// newDelta = newDelta + delta;
-			// console.log("++delta: ", newDelta);
-
-			e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-		}
-
-
-
-		$('#main-screen-animate').on('mousewheel', function(event) {
-			// console.log(event.deltaX, event.deltaY, event.deltaFactor);
+		$('.screen').on('mousewheel', function(event) {
+			$body.mCustomScrollbar('disable');
 
 			newDelta = newDelta + event.deltaY;
-			console.log("++delta: ", newDelta);
 
-			if(newDelta < -4) {
-				alert('show');
+			if(newDelta < -4 || _screenHided) {
+				_screenHided = true;
+				$body.addClass('hide-screen');
+				$body.mCustomScrollbar('update');
 			}
 		});
-
-		// if (!$pageHome.length || _screenHided) return false;
-		//
-		// _screenHided = true;
-		// $body.addClass('hide-screen');
-		// setTimeout(function () {
-		// 	$body.mCustomScrollbar("scrollTo", "top");
-		// }, 200);
 	}
 
 	mainScreenForCustomScroll();
@@ -2017,7 +1975,7 @@ function toggleScrollPage(id) {
 		}
 	} else {
 		if (DESKTOP) {
-			$body.mCustomScrollbar('update');
+			$body.mCustomScrollbar('disable');
 		} else {
 			$html.removeClass('no-scroll');
 		}
