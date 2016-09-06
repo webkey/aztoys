@@ -74,11 +74,20 @@
 /*contacts form end*/
 
 /*popup*/
-.product-card__visual {
+.product-card__title{
+	width: auto;
+	display: block;
+	float: none;
+	padding-left: 0;
+}
+.product-card__title:after{
+	content: '';
+}
+.product-card__visual{
 	float: none;
 	width: auto;
 }
-.product-card__content {
+.product-card__content{
 	width: auto;
 	margin-left: 0;
 	padding-left: 0;

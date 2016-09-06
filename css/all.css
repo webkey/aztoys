@@ -2177,7 +2177,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: inline-block;
 	vertical-align: top;
 	box-sizing: border-box;
-	width: 16.66%;
+	width: 16.65%;
 
 	font-size: 16px;
 	letter-spacing: normal;
@@ -2230,15 +2230,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .products__param dt{
 	margin: 0;
-	padding: 0 5px 4px 0;
+	padding: 0 5px 0 0;
 	float: left;
 	color: #00abc7;
 }
 .products__param dd{
 	margin: 0;
-	padding: 0 0 4px;
+	padding: 0 0 10px;
 	color: #808080;
-	overflow: hidden;
 }
 /*products list*/
 
@@ -3203,15 +3202,15 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*popup*/
 .popup{
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
-	bottom: 0;
 	min-height: 50px;
 	background: #fff;
+	overflow: hidden;
 	box-sizing: border-box;
-	z-index: 6;
+	z-index: 7;
 	display: none;
 }
 .popup:before{
@@ -3261,12 +3260,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	line-height: 36px;
 	color: #00abc7;
 	padding: 0 20px 35px 0;
+	box-sizing: border-box;
 }
 .product-card__title:after{
 	content: '';
-	display: block;
 	float: none;
 	clear: both;
+	display: none;
 }
 
 .product-card__visual{
@@ -3292,13 +3292,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background: #fff;
 }
 .product-card__gallery.fotorama--fullscreen .fotorama__thumb-border{
-	border: none;
 	border-radius: 0;
 }
 
-.product-card__content{
+.product-card__content,
+.product-card__title{
 	width: 50%;
-	margin-left: 50%;
+	float: right;
+	/*margin-left: 50%;*/
 	padding-left: 50px;
 	box-sizing: border-box;
 }
@@ -3372,9 +3373,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	max-width: 50%;
 	box-sizing: border-box;
 	overflow: hidden;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	position: relative;
 }
 .product-card__dl dd{
-	padding: 0;
+	padding: 0 0 10px;
 	margin: 0;
 	overflow: hidden;
 }
@@ -3408,6 +3413,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	line-height: 24px;
 }
 .skills-list li,
 .user-content .skills-list li,
@@ -3427,13 +3433,15 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .skills-list li span{
 	display: block;
 	overflow: hidden;
+	padding: 2px 0;
 }
 /*product card end*/
 /*CONTENT*/
 
 /*overlay*/
 .overlay,
-.nav-overlay{
+.nav-overlay,
+.popup-overlay{
 	background: #000 url(../img/empty.png);
 	position: fixed;
 	left: 0;
@@ -3442,9 +3450,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 	visibility: hidden;
+}
+.popup-overlay{
+	background-color: #fff;
+	z-index: 6;
 }
 /*overlay end*/
 /*MAIN end*/
@@ -3589,7 +3599,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .nav-drop__title{
 	display: block;
-	font-family: 'rotondac-regular', Arial, Helvetica, sans-serif;
+	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-weight: normal;
 	font-size: 24px;
 	line-height: 30px;

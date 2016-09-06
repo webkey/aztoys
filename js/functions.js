@@ -37,16 +37,13 @@ function placeholderInit(){
 		$pageHome = $('.home-page'),
 		minScrollTop = $('.header').outerHeight(),
 		previousScrollTop = -1,
-		$fixedBox = $('.soc-js');
+		$fixedBox = $('.soc-js'),
+		_screenHided = false;
 
 	$(window).on("load",function(){
 		// custom scroll on page
 		$body.mCustomScrollbar({
-			theme: "minimal-dark",
-			autoHideScrollbar: true,
-			autoExpandScrollbar: true,
-			scrollInertia: 800,
-			//mouseWheel:{ scrollAmount: 250 },
+			theme: "minimal-dark", autoHideScrollbar: true, autoExpandScrollbar: true, scrollInertia: 800, //mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
 					var thisMCSTop = -this.mcs.top;
@@ -59,20 +56,16 @@ function placeholderInit(){
 						shareFixedForCustomScroll(thisMCSTop);
 					}
 
-
-					//mainScreenForCustomScroll();
+					tabs();
 
 					swiperSliderInit();
-				},
-				onScrollStart: function () {
-					if ($pageHome.length && !_screenHided) {
-						// mainScreenForCustomScroll(-this.mcs.top);
-					}
-				},
-				onScroll: function () {
+
+				}, onScroll: function () {
+
 					toggleHeaderForCustomScroll(-this.mcs.top);
-				},
-				whileScrolling: function () {
+
+				}, whileScrolling: function () {
+
 					var thisMCSTop = -this.mcs.top;
 
 					parallaxBg(thisMCSTop);
@@ -85,15 +78,15 @@ function placeholderInit(){
 		});
 
 		// custom scroll for popup
-		var $popupScroll = $('.popup-scroll-js');
-		if ($popupScroll.length) {
-			$popupScroll.mCustomScrollbar({
-				theme: "minimal-dark",
-				autoHideScrollbar: true,
-				autoExpandScrollbar: true,
-				scrollInertia: 300
-			});
-		}
+		// var $popupScroll = $('.popup-scroll-js');
+		// if ($popupScroll.length) {
+		// 	$popupScroll.mCustomScrollbar({
+		// 		theme: "minimal-dark",
+		// 		autoHideScrollbar: true,
+		// 		autoExpandScrollbar: true,
+		// 		scrollInertia: 300
+		// 	});
+		// }
 
 		// custom scroll for nav drop
 		var $navDropScroll = $('.nav-drop');
@@ -143,22 +136,21 @@ function placeholderInit(){
 	}
 
 	// main screen show / hide
-	var _screenHided = false;
 
 	function mainScreenForCustomScroll() {
-		if (!$pageHome.length) return false;
+		if (!$pageHome.length && _screenHided) return false;
 
 		var newDelta = 0;
 
 		$('.screen').on('mousewheel', function(event) {
-			$body.mCustomScrollbar('disable');
-
 			newDelta = newDelta + event.deltaY;
 
-			if(newDelta < -4 || _screenHided) {
+			// $body.mCustomScrollbar("scrollTo", "top");
+			$body.mCustomScrollbar("scrollTo", "top");
+
+			if(newDelta < -4) {
 				_screenHided = true;
 				$body.addClass('hide-screen');
-				$body.mCustomScrollbar('update');
 			}
 		});
 	}
@@ -361,11 +353,6 @@ function tabs() {
 function equalHeightForTabs(content){
 	var $parent = content.find('.products__list');
 	if ($parent.length) {
-		// $parent.find('.products__inner').equalHeight({
-		// 	useParent: true,
-		// 	parent: $parent,
-		// 	resize: true
-		// });
 		$parent.find('.products__img').equalHeight({
 			useParent: true,
 			parent: $parent,
@@ -385,10 +372,6 @@ function equalHeightInit(){
 	/*previews*/
 	var $previewsList = $('.previews__list');
 	if ($previewsList.length) {
-		// imagesLoaded($previewsList, function () {
-		//
-		// });
-		// var previewsInner = $previewsList.find('.previews__inner');
 		var $previewsInner = $('.previews__inner');
 		$previewsInner.equalHeight({
 			// useParent: true,
@@ -1811,12 +1794,8 @@ function mainNavigationInit(){
 
 /*fotorama init*/
 function fotoramaInit() {
-	// product card gallery
-	$('.product-card__gallery').fotorama({
-		// width: 700,
-		// maxwidth: '100%',
-		// ratio: 16/9,
-		// allowfullscreen: true,
+	var $fotoramaDiv = $('.product-card__gallery').fotorama({
+		click: false,
 		nav: 'thumbs',
 		allowfullscreen: true,
 		thumbmargin: 20,
@@ -1824,7 +1803,18 @@ function fotoramaInit() {
 		thumbheight: 82,
 		thumbborderwidth: 2,
 		ratio: 1/1
+	}).on('fotorama:ready', function (a, b) {
+		var $this = $(this);
+		$this.on('click', '.fotorama__stage__frame', function () {
+			// $this.find('.fotorama__fullscreen-icon').trigger('click');
+		})
 	});
+
+	// 2. Get the API object.
+	var myfotorama = $fotoramaDiv.data('fotorama');
+
+	// 3. Inspect it in console.
+	console.log(myfotorama);
 }
 /*fotorama init end*/
 
@@ -1908,21 +1898,62 @@ function popupEvents() {
 	if (!$popup.length) return false;
 
 	var $popupOpener = $('.products__inner'),
+		$content = $('.content'),
+		$main = $('.main'),
+		$mainHeight = $main.outerHeight(),
+		$window = $(window),
 		popupOpened = false,
-		animateSpeed = 0.4;
+		animateSpeed = 0.6;
 
-	TweenMax.set($popup, {autoAlpha: 0, yPercent: 100, onComplete: function () {
-		$popup.show(0);
-	}});
+	var $popupOverlay = $('<div class="popup-overlay" />');
+	$popupOverlay.appendTo('body');
+
+	TweenMax.set($popup, {
+		autoAlpha: 0,
+		yPercent: 100,
+		// scaleY: 0,
+		// scaleX: 0,
+		onComplete: function () {
+			$popup.show(0);
+		}
+	});
 
 	$popupOpener.on('click', function (e) {
 		e.preventDefault();
 
 		if (!popupOpened) {
-			TweenMax.to($popup, animateSpeed, {autoAlpha: 1, yPercent: 0, ease: Power3.easeInOut, onComplete: function () {
-				popupOpened = true;
-			}});
-			toggleScrollPage('popup-events', false);
+			// TweenMax.to(window, 2, {scrollTo:{y:0}, ease: Power3.easeInOut});
+
+			TweenMax.to($popupOverlay, 0.3, {
+				autoAlpha: 1,
+				// scaleY: 0,
+				// scaleX: 0,
+				// yPercent: 100,
+				ease: Back.easeIn.config(1),
+				onComplete: function () {
+
+					TweenMax.to($main, 0.2, {
+						height: $popup.outerHeight(),
+						onComplete: function () {
+							$('body').mCustomScrollbar("scrollTo", 0, {
+								scrollInertia:0
+							});
+							TweenMax.to($popup, animateSpeed, {
+								autoAlpha: 1,
+								yPercent: 0,
+								// scaleY: 1,
+								// scaleX: 1,
+								ease: Power3.easeInOut,
+								onComplete: function () {
+									TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
+									popupOpened = true;
+								}
+							}, 0.1);
+						}
+					});
+				}
+			});
+			// toggleScrollPage('popup-events', false);
 		} else {
 			closePopup();
 		}
@@ -1941,10 +1972,32 @@ function popupEvents() {
 	});
 
 	function closePopup() {
+		TweenMax.to($main, animateSpeed, {
+			height: $mainHeight,
+			ease: Power3.easeInOut,
+			onComplete: function () {
+				$main.css('height', 'auto');
+			}
+		});
+
 		TweenMax.to($popup, animateSpeed, {
-			autoAlpha: 0, yPercent: 100, ease: Power3.easeInOut, onComplete: function () {
-				toggleScrollPage('popup-events');
-				popupOpened = false;
+			autoAlpha: 0,
+			yPercent: 100,
+			// scaleY: 0,
+			// scaleX: 0,
+			ease: Power3.easeInOut,
+			onComplete: function () {
+				// toggleScrollPage('popup-events');
+				TweenMax.to($popupOverlay, animateSpeed, {
+					autoAlpha: 0,
+					// scaleY: 1,
+					// scaleX: 1,
+					yPercent: 0,
+					ease: Back.easeOut.config(1),
+					onComplete: function () {
+						popupOpened = false;
+					}
+				});
 			}
 		});
 	}
@@ -1975,7 +2028,7 @@ function toggleScrollPage(id) {
 		}
 	} else {
 		if (DESKTOP) {
-			$body.mCustomScrollbar('disable');
+			$body.mCustomScrollbar('update');
 		} else {
 			$html.removeClass('no-scroll');
 		}
@@ -2018,7 +2071,6 @@ $(document).ready(function(){
 	placeholderInit();
 	stateFields();
 	printShow();
-	tabs();
 	// productsBehavior(); // change z-index
 	equalHeightInit();
 	if(DESKTOP){
@@ -2038,6 +2090,7 @@ $(document).ready(function(){
 	//toggleScrollPage(id); // toggle overflow from auto to hidden on page
 
 	if (!DESKTOP) {
+		tabs();
 		mainScreen();
 		headerFixed();
 		swiperSliderInit();
