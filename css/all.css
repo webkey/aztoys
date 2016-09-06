@@ -1564,7 +1564,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	top: 0;
 	height: 100%;
 	width: 100%;
-	z-index: 101;
+	z-index: 106;
 	display: none;
 	will-change: opacity, transform, box-shadow, visibility;
 	opacity: 1;
@@ -3278,6 +3278,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-sizing: border-box;
 	padding-top: 5px;
 }
+.fotorama__wrap .fotorama__grab{
+	cursor: zoom-in;
+}
+.fotorama--fullscreen .fotorama__grab{
+	cursor: move;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
 .product-card__gallery .fotorama__stage,
 .product-card__gallery .fotorama__thumb{
 	box-sizing: border-box;
@@ -4329,7 +4337,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*FOOTER end*/
 
 /*custom page scroll*/
-body > .mCSB_scrollTools{ z-index: 99; }
+body > .mCSB_scrollTools{ z-index: 105; }
 .mCSB_outside.mCS-dark+.mCSB_scrollTools{ right: 0; }
 .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: 100%; }
 body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: auto; }

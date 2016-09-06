@@ -57,8 +57,8 @@ function placeholderInit(){
 					}
 
 					tabs();
-
 					swiperSliderInit();
+					fotoramaInit();
 
 				}, onScroll: function () {
 
@@ -1793,27 +1793,31 @@ function mainNavigationInit(){
 
 /*fotorama init*/
 function fotoramaInit() {
-	var $fotoramaDiv = $('.product-card__gallery').fotorama({
-		click: false,
-		nav: 'thumbs',
-		allowfullscreen: true,
-		thumbmargin: 20,
-		thumbwidth: 82,
-		thumbheight: 82,
-		thumbborderwidth: 2,
-		ratio: 1/1
-	}).on('fotorama:ready', function (a, b) {
+	var $gallery = $('.gallery-js');
+	$.each($gallery, function () {
 		var $this = $(this);
-		$this.on('click', '.fotorama__stage__frame', function () {
-			// $this.find('.fotorama__fullscreen-icon').trigger('click');
+
+		var $galleryFotorama = $this.fotorama({
+			click: false,
+			nav: 'thumbs',
+			allowfullscreen: true,
+			thumbmargin: 20,
+			thumbwidth: 82,
+			thumbheight: 82,
+			thumbborderwidth: 2,
+			ratio: 1/1
+		});
+
+		// Get the API object.
+		var fotorama = $galleryFotorama.data('fotorama');
+
+		// Inspect it in console.
+		$this.on('click', '.fotorama__grab', function (e) {
+			console.log(1);
+			e.preventDefault();
+			fotorama.requestFullScreen();
 		})
-	});
-
-	// 2. Get the API object.
-	var myfotorama = $fotoramaDiv.data('fotorama');
-
-	// 3. Inspect it in console.
-	console.log(myfotorama);
+	})
 }
 /*fotorama init end*/
 
@@ -2143,7 +2147,6 @@ $(document).ready(function(){
 	mapMainInit();
 	contacts();
 	mainNavigationInit();
-	fotoramaInit();
 	textSlide();
 	popupEvents();
 	//toggleScrollPage(id); // toggle overflow from auto to hidden on page
@@ -2153,6 +2156,7 @@ $(document).ready(function(){
 		mainScreen();
 		headerFixed();
 		swiperSliderInit();
+		fotoramaInit();
 		//shareFixed();
 		$(window).on('load scroll', function () {
 			parallaxBg($(window).scrollTop());
