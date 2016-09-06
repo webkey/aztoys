@@ -4697,11 +4697,14 @@ body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y
 		padding-bottom: 12px;
 	}
 }
-@media only screen and (max-height: 539px){
+@media only screen and (max-height: 539px) and (min-width: 480px){
 	.sidebar__frame{ padding-bottom: 115px; }
 	.color-tape-vertical{
 		-webkit-background-size: 100% 200%;
 		background-size: 100% 200%;
 	}
 	.social-networks{ display: none; }
+}
+@media only screen and (max-height: 539px) and (max-width: 479px){
+
 }
