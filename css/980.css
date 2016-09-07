@@ -25,6 +25,13 @@
 
 /*MAIN*/
 /*CONTENT*/
+.imgl,
+.imgr{
+	float: none;
+	display: block;
+	margin-left: 0;
+	margin-right: 0;
+}
 .buttons,
 .load-more{ padding: 35px 30px 55px; }
 .section-title{ padding: 55px 30px 35px; }

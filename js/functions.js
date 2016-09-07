@@ -393,7 +393,11 @@ function equalHeightInit(){
 		imagesLoaded($products, function () {
 			var $productsInner = $('.products__inner');
 			var elementLength = $productsInner.length;
-			$productsInner.equalHeight({
+			// $productsInner.equalHeight({
+			// 	amount: elementLength,
+			// 	resize: true
+			// });
+			$('.products__content').equalHeight({
 				amount: elementLength,
 				resize: true
 			});
