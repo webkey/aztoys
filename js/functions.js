@@ -2086,16 +2086,6 @@ function toggleScrollPage(id) {
 }
 /*toggle scroll of page end*/
 
-/*parallax background page*/
-function parallaxBg(position) {
-	var $page = $('body');
-
-	$page.css({
-		'background-position-y': -position/3
-	})
-}
-/*parallax background page end*/
-
 /*footer at bottom*/
 function footerBottom(){
 	var $footer = $('.footer');
@@ -2166,9 +2156,6 @@ $(document).ready(function(){
 		swiperSliderInit();
 		fotoramaInit();
 		//shareFixed();
-		$(window).on('load scroll', function () {
-			parallaxBg($(window).scrollTop());
-		});
 
 		footerBottom();
 	}
