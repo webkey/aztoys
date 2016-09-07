@@ -306,22 +306,23 @@ function mainScreenForDesktop() {
 		$pageHome = $('.home-page'),
 		_screenHided = false;
 
-	if (!$pageHome.length && _screenHided) return false;
+	if ($pageHome.length && !_screenHided) {
 
-	$body.mCustomScrollbar("disable");
+		$body.mCustomScrollbar("disable");
 
-	var newDelta = 0;
+		var newDelta = 0;
 
-	$('.screen').on('mousewheel', function(event) {
-		var deltaY = event.deltaY;
-		newDelta = newDelta + deltaY;
+		$('.screen').on('mousewheel', function(event) {
+			var deltaY = event.deltaY;
+			newDelta = newDelta + deltaY;
 
-		if (newDelta < -4) {
-			_screenHided = true;
-			$body.addClass('hide-screen');
-			$body.mCustomScrollbar("update");
-		}
-	});
+			if (newDelta < -3) {
+				_screenHided = true;
+				$body.addClass('hide-screen');
+				$body.mCustomScrollbar("update");
+			}
+		});
+	};
 }
 /*main screen for desktop end*/
 
@@ -339,9 +340,6 @@ function tabs() {
 			animation: 'fade', // slide
 			duration: 300, // default 500
 			animationQueue: true,
-			// load: function(event, firstTab){
-			// 	equalHeightForTabs($(firstTab.panel));
-			// },
 			activate: function(event, tab) {
 				clearTimeout(equalTimer);
 				equalTimer = setTimeout(function () {
@@ -406,27 +404,6 @@ function equalHeightInit(){
 	}
 }
 /*equal height elements end*/
-
-/*products behavior*/
-function productsBehavior() {
-	var $main = $('.main'),
-		$filters = $('.filters'),
-		zIndexMain = $main.css('z-index'),
-		zIndexFilters = $filters.css('z-index');
-
-	if(!DESKTOP) return false;
-
-	$(window).load(function () {
-		$('.products__item, .previews__item').mouseenter(function () {
-			$main.css('z-index', '91');
-			$filters.css('z-index', '99');
-		}).mouseleave(function () {
-			$main.css('z-index', zIndexMain);
-			$filters.css('z-index', zIndexFilters);
-		});
-	})
-}
-/*products behavior end*/
 
 /* multiselect init */
 /*add ui position add class*/
@@ -2167,7 +2144,6 @@ $(document).ready(function(){
 	placeholderInit();
 	stateFields();
 	printShow();
-	// productsBehavior(); // change z-index
 	equalHeightInit();
 	if(DESKTOP){
 		customSelect($('select.cselect'));
@@ -2182,7 +2158,7 @@ $(document).ready(function(){
 	mainNavigationInit();
 	textSlide();
 	popupEvents();
-	//toggleScrollPage(id); // toggle overflow from auto to hidden on page
+	//toggleScrollPage(id); // toggle scroll page
 
 	if (!DESKTOP) {
 		tabs();
