@@ -1433,6 +1433,7 @@ function swiperSliderInit() {
 			slideShadows : false,
 			scale: 0.8
 		},
+		slideToClickedSlide: true,
 		slideNextClass: 'swiper-slide-next',
 		slidePrevClass: 'swiper-slide-prev',
 		onInit: function(event){
