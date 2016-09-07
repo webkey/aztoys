@@ -2128,6 +2128,111 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*MAIN*/
 /*CONTENT*/
+/*fotorama*/
+.csstransforms .fotorama__arr {
+	background: rgba(255, 255, 255, 0.2);
+}
+.csstransforms .fotorama__arr:before,
+.csstransforms .fotorama__arr:after{
+	content: '';
+	position: absolute;
+	left: 6px;
+	top: 50%;
+	height: 6px;
+	width: 20px;
+	border-radius: 5px;
+	background: #00abc7;
+}
+.csstransforms .fotorama__arr:before{
+	margin: -8px 0 0;
+}
+.csstransforms .fotorama__arr:after{
+	margin: 2px 0 0;
+}
+.csstransforms .fotorama__arr--prev {
+	right: 2px;
+	background-position: -32px 0;
+}
+.csstransforms .fotorama__arr--next {
+	right: 2px;
+	background-position: -32px 0;
+}
+.csstransforms .fotorama__arr--prev:before{
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.csstransforms .fotorama__arr--prev:after{
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.csstransforms .fotorama__arr--next:before{
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.csstransforms .fotorama__arr--next:after{
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.csstransforms .fotorama__fullscreen-icon {
+	width: 22px;
+	height: 22px;
+	top: 10px;
+	right: 10px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 2px;
+}
+.csstransforms .fotorama__fullscreen-icon:before{
+	content: '';
+	position: absolute;
+	left: -8px;
+	top: -8px;
+	right: -8px;
+	bottom: -8px;
+	border-radius: 0;
+	border: solid #00abc7;
+	border-width: 12px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.csstransforms .fotorama__fullscreen-icon:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	height: 4px;
+	width: 20px;
+	margin: -3px 0 0 2px;
+	border-radius: 0;
+	background: #00abc7;
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.csstransforms .fotorama--fullscreen .fotorama__fullscreen-icon:before {
+	left: 50%;
+	top: 50%;
+	right: auto;
+	bottom: auto;
+	width: 0;
+	height: 0;
+	margin: -8px 0 0 -8px;
+	border-radius: 0;
+	border: 8px solid;
+	border-color: #00abc7 transparent;
+}
+.csstransforms .fotorama--fullscreen .fotorama__fullscreen-icon:after {
+	content: none;
+}
+/*fotorama end*/
+
 /*search form*/
 .search-form{ margin: 0 10px; }
 .search-form .input-wrap{
@@ -4318,8 +4423,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*custom page scroll*/
 body > .mCSB_scrollTools{ z-index: 105; }
 .mCSB_outside.mCS-dark+.mCSB_scrollTools{ right: 0; }
-.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: 100%; }
-body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: auto; }
+body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: 100%; }
+/*body.mCS_disabled > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden { height: auto; }*/
 .sidebar__holder > .mCSB_scrollTools,
 .mobile .mCSB_scrollTools{ pointer-events: none; }
 /*custom page scroll end*/

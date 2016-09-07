@@ -44,7 +44,9 @@ function placeholderInit(){
 			theme: "minimal-dark", autoHideScrollbar: true, autoExpandScrollbar: true, scrollInertia: 800, //mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
-					$body.mCustomScrollbar("disable");
+					if (DESKTOP) {
+						$body.mCustomScrollbar("disable");
+					}
 
 					var thisMCSTop = -this.mcs.top;
 
@@ -58,7 +60,7 @@ function placeholderInit(){
 
 					tabs();
 					swiperSliderInit();
-					fotoramaInit();
+					// fotoramaInit();
 
 				}, onScroll: function () {
 
@@ -1779,6 +1781,7 @@ function mainNavigationInit(){
 /*fotorama init*/
 function fotoramaInit() {
 	var $gallery = $('.gallery-js');
+
 	$.each($gallery, function () {
 		var $this = $(this);
 
@@ -1798,7 +1801,6 @@ function fotoramaInit() {
 
 		// Inspect it in console.
 		$this.on('click', '.fotorama__grab', function (e) {
-			console.log(1);
 			e.preventDefault();
 			fotorama.requestFullScreen();
 		})
@@ -1887,7 +1889,6 @@ function popupEvents() {
 
 	var $popupOpener = $('.products__inner'),
 		$main = $('.main'),
-		$mainHeight = $main.outerHeight(),
 		btnClose = '.btn-close-popup',
 		$btnClose = $(btnClose),
 		popupOpened = false,
@@ -1901,9 +1902,12 @@ function popupEvents() {
 	// prepare popup
 	TweenMax.set($popup, {
 		autoAlpha: 0,
+		height: '100%',
 		// yPercent: 100,
 		onComplete: function () {
-			$popup.show(0);
+			$popup.show(0, function () {
+				fotoramaInit();
+			});
 		}
 	});
 
@@ -1939,6 +1943,8 @@ function popupEvents() {
 			topPosition = $(window).scrollTop();
 		}
 
+		$popup.height('auto');
+
 		// show popup
 		TweenMax.to($popupOverlay, 0.3, {
 			autoAlpha: 1,
@@ -1964,21 +1970,11 @@ function popupEvents() {
 				});
 			}
 		});
-		// disable page scrolling
-		// toggleScrollPage('popup-events', false);
 	}
 
 	// popup close
 	function closePopup() {
 		toggleBtnClose(false);
-
-		// TweenMax.to($main, animateSpeed, {
-		// 	height: $mainHeight,
-		// 	ease: Power3.easeInOut,
-		// 	onComplete: function () {
-		// 		$main.css('height', 'auto');
-		// 	}
-		// });
 		toggleMainClass(false);
 
 		TweenMax.set($main, {height: 'auto', onComplete: function () {
@@ -1987,6 +1983,7 @@ function popupEvents() {
 			}, 100)
 		}});
 
+		$popup.height('100%');
 		TweenMax.to($popup, animateSpeed, {
 			autoAlpha: 0,
 			// yPercent: 100,
@@ -2085,6 +2082,16 @@ function toggleScrollPage(id) {
 	}
 }
 /*toggle scroll of page end*/
+
+/*parallax background page*/
+function parallaxBg(position) {
+	var $page = $('body');
+
+	$page.css({
+		'background-position-y': -position/3
+	})
+}
+/*parallax background page end*/
 
 /*footer at bottom*/
 function footerBottom(){
