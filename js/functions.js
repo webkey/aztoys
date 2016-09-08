@@ -387,17 +387,13 @@ function equalHeightInit(){
 	var $products = $('.products');
 	if ($products.length) {
 		imagesLoaded($products, function () {
-			var $productsInner = $('.products__inner');
+			var $productsInner = $('.products__inner', $products);
 			var elementLength = $productsInner.length;
-			// $productsInner.equalHeight({
-			// 	amount: elementLength,
-			// 	resize: true
-			// });
-			$('.products__content').equalHeight({
+			$('.products__content', $products).equalHeight({
 				amount: elementLength,
 				resize: true
 			});
-			$('.products__img').equalHeight({
+			$('.products__img', $products).equalHeight({
 				amount: elementLength,
 				resize: true
 			});
@@ -1810,11 +1806,17 @@ function fotoramaInit() {
 
 /*text slide events*/
 function textSlide() {
+	// external js:
+	// 1) TweetMax VERSION: 1.19.0 (widgets.js);
+	// 2) device.js 0.2.7 (widgets.js);
+	// 3) resizeByWidth (resize only width);
+	
 	var $textSlide = $('.text-slide-js');
 
 	if (!$textSlide.length) return false;
 
-	var textFull = 'full description',
+	var $window = $( window ),
+		textFull = 'full description',
 		textShort = 'short description',
 		$tplSlideFull = $('<div class="text-full text-full-js"><a href="#" class="text-slide-switcher-js"><span>' + textFull + '</span><i class="depict-arrow-down"></i></a></div>'),
 		$tplTextSlideInner = $('<div class="text-slide-inner-js" />'),
@@ -1833,7 +1835,7 @@ function textSlide() {
 		.after($tplSlideFull)
 		.append($tplShadow);
 
-	$( window ).on('load resize', function () {
+	$window.on('load resize', function () {
 		var wrapInnerHeight = $('.text-slide-inner-js').outerHeight();
 
 		$textSlide.css('max-height', 'none');
@@ -1861,18 +1863,29 @@ function textSlide() {
 		var $this = $(this);
 
 		if ( isTextFull ) {
-			TweenMax.to($textSlide, 0.5, {height: textSlideHeight, ease: Power3.easeInOut});
+			TweenMax.to($textSlide, 0.5, {
+				height: textSlideHeight,
+				ease: Power3.easeInOut,
+				onComplete: function () {
+					$window.trigger('heightMainRecalc');
+				}
+			});
 			TweenMax.to($tplShadow, 0.5, {autoAlpha: 1});
 
 			$this.removeClass('active').children('span').text(textFull);
 
 			isTextFull = false;
 		} else {
-			TweenMax.to($textSlide, 0.5, {height: wrapInnerHeight, ease: Power3.easeInOut, onComplete: function () {
-				TweenMax.set($textSlide, {height: 'auto'});
-
-				isTextFull = true;
-			}});
+			TweenMax.to($textSlide, 0.5, {
+				height: wrapInnerHeight,
+				ease: Power3.easeInOut,
+				onComplete: function () {
+					TweenMax.set($textSlide, {height: 'auto'});
+					$window.trigger('heightMainRecalc');
+					
+					isTextFull = true;
+				}
+			});
 
 			TweenMax.to($tplShadow, 0.5, {autoAlpha: 0});
 			$this.addClass('active').children('span').text(textShort);
@@ -1887,7 +1900,7 @@ function popupEvents() {
 
 	if (!$popup.length) return false;
 
-	var $popupOpener = $('.products__inner'),
+	var $popupOpener = $('.popup-opener-js'),
 		$main = $('.main'),
 		btnClose = '.btn-close-popup',
 		$btnClose = $(btnClose),
@@ -1907,6 +1920,7 @@ function popupEvents() {
 		onComplete: function () {
 			$popup.show(0, function () {
 				fotoramaInit();
+				similarSlider();
 			});
 		}
 	});
@@ -1919,6 +1933,21 @@ function popupEvents() {
 		} else {
 			closePopup();
 		}
+	});
+
+	// recalculation main height
+	var $window = $(window);
+	$window.on('heightMainRecalc', function () {
+		console.log("popupOpened: ", popupOpened);
+		if (popupOpened) {
+			console.log('recalculated main height');
+			TweenMax.to($main, 0.2, {height: $popup.outerHeight()}, 0.5);
+		}
+	});
+
+	// recalculation main height on resize page width
+	$window.on('resizeByWidth', function () {
+		$window.trigger('heightMainRecalc');
 	});
 
 	// close popup on click to "Esc" key
@@ -2049,6 +2078,48 @@ function popupEvents() {
 }
 /*popup events end*/
 
+/*!
+similar slider
+ */
+function similarSlider() {
+	'use strict';
+	var $frame  = $('.tape-slider__frame');
+	var $wrap   = $frame.parent();
+
+	var options = {
+		horizontal: 1,
+		itemNav: 'basic',
+		smart: 1,
+		activateOn: 'click',
+		mouseDragging: 1,
+		touchDragging: 1,
+		releaseSwing: 1,
+		startAt: 0,
+		scrollBar: $wrap.find('.tape-slider__scrollbar'),
+		scrollBy: 0,
+		speed: 300,
+		elasticBounds: 1,
+		easing: 'easeOutExpo',
+		dragHandle: 1,
+		dynamicHandle: 1,
+		clickBar: 1,
+
+		// Buttons
+		prevPage: $wrap.find('.tape-slider__prev'),
+		nextPage: $wrap.find('.tape-slider__next')
+	};
+	var frame = new Sly($frame, options);
+
+	// Initiate frame
+	frame.init();
+
+	// Reload on resize
+	$(window).on('resize', function () {
+		frame.reload();
+	});
+}
+/*similar slider*/
+
 /*toggle scroll of page*/
 function toggleScrollPage(id) {
 	// id is mandatory argument
@@ -2162,6 +2233,7 @@ $(document).ready(function(){
 		headerFixed();
 		swiperSliderInit();
 		fotoramaInit();
+		similarSlider();
 		//shareFixed();
 
 		footerBottom();

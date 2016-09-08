@@ -192,7 +192,7 @@
 	/*locate end*/
 
 	/*popup*/
-	.product-card__content { padding-left: 30px; }
+	.product-card__content, .product-card__title { padding-left: 30px; }
 	/*popup end*/
 	/*MAIN end*/
 
