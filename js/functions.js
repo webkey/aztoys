@@ -535,8 +535,6 @@ function filtersEvents() {
 			dataTagsGroup = $currentTag.closest('.tags-group-js').attr('data-tags-group'),
 			filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method');
 
-		console.log("filterMethod: ", filterMethod);
-
 		dataTagsGroup = (dataTagsGroup == undefined) ?
 			$currentTag.attr(dataFilter) :
 			dataTagsGroup;
