@@ -1911,7 +1911,7 @@ function popupEvents() {
 		onComplete: function () {
 			$popup.show(0, function () {
 				fotoramaInit();
-				similarSlider();
+				tapeSlider();
 			});
 		}
 	});
@@ -1929,9 +1929,7 @@ function popupEvents() {
 	// recalculation main height
 	var $window = $(window);
 	$window.on('heightMainRecalc', function () {
-		console.log("popupOpened: ", popupOpened);
 		if (popupOpened) {
-			console.log('recalculated main height');
 			TweenMax.to($main, 0.2, {height: $popup.outerHeight()}, 0.5);
 		}
 	});
@@ -2072,7 +2070,7 @@ function popupEvents() {
 /*!
 similar slider
  */
-function similarSlider() {
+function tapeSlider() {
 	'use strict';
 	var $frame  = $('.tape-slider__frame');
 	var $wrap   = $frame.parent();
@@ -2223,8 +2221,8 @@ $(document).ready(function(){
 		tabs();
 		headerFixed();
 		swiperSliderInit();
-		fotoramaInit();
-		similarSlider();
+		// fotoramaInit();
+		// tapeSlider();
 		//shareFixed();
 
 		footerBottom();

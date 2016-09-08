@@ -448,6 +448,10 @@
 		padding-left: 0;
 	}
 	/*popup end*/
+
+	/*tape slider*/
+	.tape-slider__arr{ width: 30px; }
+	/*tape slider end*/
 	/*CONTENT end*/
 	/*MAIN end*/
 

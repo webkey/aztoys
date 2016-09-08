@@ -2129,9 +2129,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*MAIN*/
 /*CONTENT*/
 /*fotorama*/
-.csstransforms .fotorama__arr {
-	background: rgba(255, 255, 255, 0.2);
-}
+.csstransforms .fotorama__arr { background: rgba(255, 255, 255, 0.2); }
 .csstransforms .fotorama__arr:before,
 .csstransforms .fotorama__arr:after{
 	content: '';
@@ -2143,12 +2141,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-radius: 5px;
 	background: #00abc7;
 }
-.csstransforms .fotorama__arr:before{
-	margin: -8px 0 0;
-}
-.csstransforms .fotorama__arr:after{
-	margin: 2px 0 0;
-}
+.csstransforms .fotorama__arr:before{ margin: -8px 0 0; }
+.csstransforms .fotorama__arr:after{ margin: 2px 0 0; }
 .csstransforms .fotorama__arr--prev:before{
 	-webkit-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
@@ -2220,9 +2214,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border: 8px solid;
 	border-color: #00abc7 transparent;
 }
-.csstransforms .fotorama--fullscreen .fotorama__fullscreen-icon:after {
-	content: none;
-}
+.csstransforms .fotorama--fullscreen .fotorama__fullscreen-icon:after { content: none; }
 /*fotorama end*/
 
 /*search form*/
@@ -2408,9 +2400,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 16px;
 	letter-spacing: normal;
 }
-.products__list .products__item{
-	width: 16.65%;
-}
+.products__list .products__item{ width: 16.65%; }
 .products__inner{
 	position: relative;
 	display: block;
@@ -2428,7 +2418,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-shadow: 0 0 0 1px transparent, 0 5px 27px rgba(0, 44, 51, 0.25);
 	z-index: 1;
 }
-.products__img,
 .products__content{
 	max-width: 220px;
 	box-sizing: border-box;
@@ -3404,7 +3393,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .popup-overflow{
 	max-height: 100%;
 	height: 100%;
-	overflow: auto;
+	overflow: hidden;
 	position: relative;
 }
 .popup-align{
@@ -3610,18 +3599,18 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*product card end*/
 
 /*popup footer*/
-.popup-subtitle{
-	padding: 0 0 10px;
-}
+.popup-subtitle{ padding: 0 30px 30px; }
 .popup-subtitle h2{
+	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	line-height: 36px;
+	color: #00abc7;
 	padding: 0;
 }
 /*popup footer end*/
 
 /*similar products*/
-.similar-products{
-	padding: 0 0 50px;
-}
+.similar-products{ position: relative; }
 /*tape slider*/
 .tape-slider{
 	position: relative;
@@ -3656,12 +3645,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*tape slider scrollbar end*/
 
 /*tape slider frame*/
-.tape-slider__frame{
-	overflow: visible !important;
-}
-.tape-slider__holder{
-	height: 100%;
-}
+.tape-slider__frame{ overflow: visible !important; }
+.tape-slider__holder{ height: 100%; }
 .tape-slider__holder:before,
 .tape-slider__holder:after { content: ""; display: table; }
 .tape-slider__holder:after { clear: both; }
@@ -3672,7 +3657,17 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 100%;
 }
 .tape-slider__holder .products__content{
-	height: 220px;
+	height: 164px;
+	overflow: hidden;
+}
+.tape-slider__holder .products__title,
+.tape-slider__holder .products__param dd{
+	display: block;
+	overflow: hidden;
+	position: relative;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 /*tape slider end*/
 .tape-slider__arr{
@@ -3687,6 +3682,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-webkit-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
+.mobile .tape-slider__arr{ display: none !important; }
 .tape-slider__arr.disabled{
 	opacity: 0;
 	pointer-events: none;
@@ -3719,12 +3715,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-radius: 5px;
 	background: #00abc7;
 }
-.tape-slider__arr:before{
-	margin-top: -8px;
-}
-.tape-slider__arr:after{
-	margin-top: 2px;
-}
+.tape-slider__arr:before{ margin-top: -8px; }
+.tape-slider__arr:after{ margin-top: 2px; }
 .tape-slider__prev:before{
 	-webkit-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
@@ -4695,6 +4687,45 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 	color: #fff;
 	margin: 12px 0 0 -100px;
 }
+.prl-text .prl-dot{
+	font-size: 18px;
+	display: inline-block;
+	position: relative;
+	-webkit-animation: dotsAnimate 0.6s infinite alternate linear;
+	animation: dotsAnimate 0.6s infinite alternate linear;
+}
+.prl-text .prl-dot:nth-child(1){
+	-webkit-animation-delay: 1.8s;
+	animation-delay: 1.8s;
+}
+.prl-text .prl-dot:nth-child(2){
+	-webkit-animation-delay: 0.9s;
+	animation-delay: 0.9s;
+}
+.prl-text .prl-dot:nth-child(3){
+	-webkit-animation-delay: 0s;
+	animation-delay: 0s;
+}
+@-webkit-keyframes dotsAnimate{
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+	100% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+	}
+}
+@keyframes dotsAnimate {
+	0% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+	100% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+	}
+}
 /*preloader end*/
 
 .browserupgrade {
@@ -4892,6 +4923,22 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 		text-align: left !important;
 		height: auto !important;
 	}
+	.products__img:after,
+	.products__img:before,
+	.products__figure:before,
+	.products__figure:before{
+		content: none !important;
+	}
+	.products__figure{
+		position: relative !important;
+		left: auto !important;
+		top: auto !important;
+		right: auto !important;
+		bottom: auto !important;
+		height: auto !important;
+		width: auto !important;
+		text-align: left !important;
+	}
 	.products__img img{
 		width: auto !important;
 		max-width: none !important;
@@ -5052,8 +5099,7 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 		width: 100%;
 		padding-bottom: 20px;
 	}
-	.products__list .products__inner,
-	.products__list .products__img{ height: auto !important; }
+	.products__list .products__inner{ height: auto !important; }
 }
 
 /* ==========================================================================
