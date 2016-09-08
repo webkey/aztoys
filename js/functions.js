@@ -515,6 +515,7 @@ function filtersEvents() {
 		tags = {},
 		classShowDrop = 'show-drop',
 		isCheckedClass = 'is-checked',
+		dataFilter = 'data-filter',
 		animationSpeed = 200,
 		animationSpeedTween = animationSpeed/1000,
 		showButtonFind = false;
@@ -529,33 +530,63 @@ function filtersEvents() {
 	// bind filter tag click
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
 		e.preventDefault();
-		var $currentTag = $( this );
-		var dataTagsGroup = $currentTag.closest('.tags-group').attr('data-tags-group');
+
+		var $currentTag = $( this ),
+			dataTagsGroup = $currentTag.closest('.tags-group-js').attr('data-tags-group'),
+			filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method');
+
+		console.log("filterMethod: ", filterMethod);
 
 		dataTagsGroup = (dataTagsGroup == undefined) ?
-			$currentTag.attr('data-filter') :
+			$currentTag.attr(dataFilter) :
 			dataTagsGroup;
 
-		tags[ dataTagsGroup ] = ($currentTag.hasClass(isCheckedClass)) ?
+		tags [ dataTagsGroup ] = ($currentTag.hasClass(isCheckedClass)) ?
 			'' :
-			$currentTag.attr('data-filter');
+			$currentTag.attr(dataFilter);
 
-		var filterValue = concatValues( tags );
+		console.log("tags: ", tags);
+
+		var filterValue = (filterMethod == 'or') ? concatValuesOR( tags ) : concatValuesEND ( tags );
+		// var filterValue = '.tag-new.tag-senior, .tag-new.tag-art';
 		$grid.isotope({ filter: filterValue });
 
 		showButtonFind = true;
 	});
 
-	//concatenation values of tags
-	function concatValues(obj) {
+	// concatenation values of tags OR;
+	// example return '.prop1, .prop2';
+	// show items which contains prop1 or prop2;
+	function concatValuesOR(obj) {
+		var value = '',
+			// arr = Object.keys(obj);
+			arr = [];
+
+		for ( var prop in obj ) {
+			var thisProp = obj[ prop ];
+			if (thisProp == '') continue;
+			arr.push(thisProp);
+		}
+
+		value = arr.join(', ');
+		console.log("arr: ", arr);
+		console.log("value: ", value);
+		return value;
+	}
+
+	// concatenation values of tags END;
+	// example return '.prop1.prop2';
+	// show items which contains prop1 and prop2;
+	function concatValuesEND(obj) {
 		var value = '';
 		for ( var prop in obj ) {
 			value += obj[ prop ];
 		}
+		console.log("value: ", value);
 		return value;
 	}
 
-	// search field
+	// search
 	$( ".filters-search-js input" ).on('change keyup', function() {
 		var text = $(this).val();
 
@@ -565,10 +596,13 @@ function filtersEvents() {
 		} });
 	});
 
+	// toggle class checked
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
 		e.preventDefault();
+
 		var $this = $( this );
-		$this.closest('.button-group-js').find('.is-checked').not(e.target).removeClass('is-checked');
+
+		$this.parent().find('.filter-radio.is-checked').not(e.target).removeClass('is-checked');
 
 		$this.toggleClass('is-checked');
 
@@ -730,7 +764,7 @@ function filtersEvents() {
 
 	}
 
-	// fixed height of container products
+	// fixed height container products
 	function fixedContainerHeight(fixed) {
 		var productsContainerHeight = $productsContainer.outerHeight();
 
@@ -2181,6 +2215,7 @@ $(window).load(function () {
 
 		setTimeout(function () {
 			TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
+				$preloader.hide(0);
 				setTimeout(function () {
 					if (DESKTOP) {
 						mainScreenForDesktop();

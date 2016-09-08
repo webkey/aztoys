@@ -197,7 +197,7 @@
 	<div class="filters__panel">
 		<div class="filters__panel-holder">
 			<div class="filters__group">
-				<div class="tags-group filters-tags-js button-group-js" data-tags-group="age">
+				<div class="tags-group tags-group-js filters-tags-js" data-filter-method="or">
 					<span class="filters__label">Age:</span>
 					<a href="#" class="button" data-filter=".tag-younger">2-3</a>
 					<a href="#" class="button" data-filter=".tag-middle">4-5</a>
@@ -205,11 +205,11 @@
 				</div>
 			</div>
 			<div class="filters__group">
-				<div class="tags-group filters-tags-js button-group-js filters-button-middle" data-tags-group="state">
+				<div class="tags-group filters-button-middle tags-group-js filters-tags-js" data-tags-group="state">
 					<span class="filters__label hide-state">Labels:</span>
-					<a href="#" class="button" data-filter=".tag-new">New</a>
-					<a href="#" class="button" data-filter=".tag-popular">Popular</a>
-					<a href="#" class="button" data-filter=".tag-exclusive">Exclusive</a>
+					<a href="#" class="button filter-radio" data-filter=".tag-new">New</a>
+					<a href="#" class="button filter-radio" data-filter=".tag-popular">Popular</a>
+					<a href="#" class="button filter-radio" data-filter=".tag-exclusive">Exclusive</a>
 				</div>
 			</div>
 			<div class="filters__group has-drop filters-content-js">
@@ -219,7 +219,7 @@
 					<div class="filters-drop__holder">
 						<div class="filters-drop__group">
 							<strong class="filters-drop__title">Category:</strong>
-							<ul class="filters-drop__list filters-tags-js">
+							<ul class="filters-drop__list filters-tags-js" data-filter-method="or">
 								<li><a href="#" data-filter=".tag-educational"><span>Educational Toys</span></a></li>
 								<li><a href="#" data-filter=".tag-music"><span>Sound and Music Toys</span></a></li>
 								<li><a href="#" data-filter=".tag-art"><span>Art and Craft Kits</span></a></li>
@@ -238,7 +238,7 @@
 						</div>
 						<div class="filters-drop__group">
 							<strong class="filters-drop__title">Skills:</strong>
-							<ul class="filters-drop__list filters-tags-js">
+							<ul class="filters-drop__list filters-tags-js" data-filter-method="or">
 								<li><a href="#" data-filter=".tag-physical"><i class="depict-skills-01"></i><span>Physical skills</span></a></li>
 								<li><a href="#" data-filter=".tag-cognitive"><i class="depict-skills-02"></i><span>Cognitive skills</span></a></li>
 								<li><a href="#" data-filter=".tag-imagination"><i class="depict-skills-03"></i><span>Imagination develop.</span></a></li>
@@ -330,7 +330,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-senior tag-popular tag-educational tag-art tag-educational-card">
+				<div class="products__item tag-senior tag-younger tag-popular tag-educational tag-art tag-educational-card">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-04.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -343,7 +343,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-middle tag-popular tag-tablet tag-sticker">
+				<div class="products__item tag-middle tag-younger tag-popular tag-tablet tag-sticker">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-05.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -356,7 +356,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-senior tag-new tag-educational tag-music tag-smartphone tag-sticker">
+				<div class="products__item tag-senior tag-younger tag-middle tag-new tag-educational tag-music tag-smartphone tag-sticker">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-06.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -382,7 +382,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-senior tag-exclusive tag-educational tag-smartphone">
+				<div class="products__item tag-senior tag-middle tag-exclusive tag-educational tag-smartphone">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-02.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -408,7 +408,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-senior tag-smart-watch tag-microphone">
+				<div class="products__item tag-senior tag-middle tag-smart-watch tag-microphone">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-04.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -447,7 +447,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-younger tag-educational tag-smart-watch tag-set">
+				<div class="products__item tag-younger tag-middle tag-educational tag-smart-watch tag-set">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-01.jpg" alt="image description" /></div></div>
 						<div class="products__content">
@@ -473,7 +473,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="products__item tag-younger tag-new tag-educational tag-console tag-sound-mat">
+				<div class="products__item tag-younger tag-middle tag-new tag-educational tag-console tag-sound-mat">
 					<a href="#" class="products__inner popup-opener-js">
 						<div class="products__img"><div class="products__figure"><img src="img/img-products-03.jpg" alt="image description" /></div></div>
 						<div class="products__content">

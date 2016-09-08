@@ -4197,7 +4197,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	top: 100%;
 	opacity: 0;
 	visibility: hidden;
-	background: #f7f7f7;
+	background: rgb(245, 245, 245);
 }
 .mobile .filters-drop{ overflow: auto; }
 .filters-drop__holder{
@@ -4621,13 +4621,13 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 	border-radius: 50%;
 	box-sizing: border-box;
 	will-change: animation;
-	border-top: 12px solid rgba(255, 255, 255, 0.15);
+	border-left: 12px solid rgba(255, 255, 255, 0.15);
 	border-right: 12px solid rgba(255, 255, 255, 0.15);
 	border-bottom: 12px solid rgba(255, 255, 255, 0.15);
-	border-left: 14px solid #fff;
+	border-top: 14px solid #fff;
 	box-shadow: inset 0 0 0 1px #fff, 0 0 0 1px #fff;
-	-webkit-animation: loadAnimate 1.5s infinite linear;
-	animation: loadAnimate 1.5s infinite linear;
+	-webkit-animation: loadAnimate 1.5s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
+	animation: loadAnimate 1.5s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 .prl-icon:after {
 	border-radius: 50%;
