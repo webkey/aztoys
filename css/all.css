@@ -2437,8 +2437,41 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .products__img{
 	overflow: hidden;
 	margin-bottom: 20px;
+	background: #fff;
+	position: relative;
 }
-.products__img img{ width: 100%; }
+.products__img:before {
+	content: '';
+	display: block;
+	height: 0;
+	padding-top: 97.7%;
+}
+.products__figure {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: -2%;
+	height: 100%;
+	text-align: center;
+
+	font-size: 0;
+	letter-spacing: -4px;
+}
+.products__figure:after{
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+.products__figure img {
+	display: inline-block;
+	vertical-align: middle;
+	max-height: 100%;
+	max-width: 98%;
+
+	font-size: 16px;
+	letter-spacing: normal;
+}
 .products__title{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 24px;
@@ -3624,12 +3657,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*tape slider frame*/
 .tape-slider__frame{
-	overflow: hidden;
+	overflow: visible !important;
 }
 .tape-slider__holder{
 	height: 100%;
-	overflow: hidden;
 }
+.tape-slider__holder:before,
+.tape-slider__holder:after { content: ""; display: table; }
+.tape-slider__holder:after { clear: both; }
 .tape-slider__holder .products__item {
 	display: block;
 	float: left;

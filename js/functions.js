@@ -355,11 +355,6 @@ function tabs() {
 function equalHeightForTabs(content){
 	var $parent = content.find('.products__list');
 	if ($parent.length) {
-		$parent.find('.products__img').equalHeight({
-			useParent: true,
-			parent: $parent,
-			resize: true
-		});
 		$parent.find('.products__content').equalHeight({
 			useParent: true,
 			parent: $parent,
@@ -390,10 +385,6 @@ function equalHeightInit(){
 			var $productsInner = $('.products__inner', $products);
 			var elementLength = $productsInner.length;
 			$('.products__content', $products).equalHeight({
-				amount: elementLength,
-				resize: true
-			});
-			$('.products__img', $products).equalHeight({
 				amount: elementLength,
 				resize: true
 			});
