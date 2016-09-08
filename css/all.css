@@ -4695,12 +4695,12 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 	animation: dotsAnimate 0.6s infinite alternate linear;
 }
 .prl-text .prl-dot:nth-child(1){
-	-webkit-animation-delay: 1.8s;
-	animation-delay: 1.8s;
+	-webkit-animation-delay: 0.6s;
+	animation-delay: 0.6s;
 }
 .prl-text .prl-dot:nth-child(2){
-	-webkit-animation-delay: 0.9s;
-	animation-delay: 0.9s;
+	-webkit-animation-delay: 0.3s;
+	animation-delay: 0.3s;
 }
 .prl-text .prl-dot:nth-child(3){
 	-webkit-animation-delay: 0s;
@@ -4712,8 +4712,8 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 		transform: translateY(0);
 	}
 	100% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-4px);
+		transform: translateY(-4px);
 	}
 }
 @keyframes dotsAnimate {
@@ -4722,8 +4722,8 @@ body.mCS_no_scrollbar > .mCustomScrollBox > .mCSB_container.mCS_no_scrollbar_y.m
 		transform: translateY(0);
 	}
 	100% {
-		-webkit-transform: translateY(-10px);
-		transform: translateY(-10px);
+		-webkit-transform: translateY(-4px);
+		transform: translateY(-4px);
 	}
 }
 /*preloader end*/
