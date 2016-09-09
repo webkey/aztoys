@@ -521,7 +521,8 @@ function filtersEvents() {
 		animationSpeedTween = animationSpeed/1000,
 		showButtonFind = false,
 		methodAndInit = false,
-		filtersDropShow = false;
+		filtersDropShow = false,
+		filterMethod;
 
 	// init Isotope
 	var $grid = $filtersWrapper.isotope({
@@ -537,8 +538,9 @@ function filtersEvents() {
 		var $currentTag = $( this ),
 			dataTagsGroup = $currentTag.closest('.tags-group-js').attr('data-tags-group'),
 			currentDataFilter = $currentTag.attr(dataFilter),
-			filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method'),
 			currentIsTagChecked = $currentTag.hasClass(isCheckedClass);
+
+		filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method');
 
 		if (currentIsTagChecked && filterMethod == 'and') {
 			methodAndInit = false;
