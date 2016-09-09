@@ -79,17 +79,6 @@ function placeholderInit(){
 			}
 		});
 
-		// custom scroll for popup
-		// var $popupScroll = $('.popup-scroll-js');
-		// if ($popupScroll.length) {
-		// 	$popupScroll.mCustomScrollbar({
-		// 		theme: "minimal-dark",
-		// 		autoHideScrollbar: true,
-		// 		autoExpandScrollbar: true,
-		// 		scrollInertia: 300
-		// 	});
-		// }
-
 		// custom scroll for nav drop
 		var $navDropScroll = $('.nav-drop');
 		if ($navDropScroll.length) {
@@ -548,7 +537,7 @@ function filtersEvents() {
 			methodOrInit = false;
 		}
 
-		console.log("filtersChecked: ", methodOrInit);
+		console.log("methodAndInit: ", methodOrInit);
 
 		if (currentIsTagChecked && filterMethod == 'and') {
 			methodAndInit = false;
@@ -588,14 +577,12 @@ function filtersEvents() {
 		for ( var prop in obj ) {
 			var thisProp = obj[ prop ];
 			if (!thisProp) continue;
-			console.log("filtersChecked2: ", methodOrInit);
 			if (methodOrInit && obj[ prop ] == methodAndInit) continue;
 			thisProp = (methodAndInit) ? (methodAndInit + thisProp) : thisProp;
 			arr.push(thisProp);
 		}
 
 		value = arr.join(', ');
-		console.log("value: ", value);
 		return value;
 	}
 
@@ -731,7 +718,7 @@ function filtersEvents() {
 		(cond === false) ? btn.text(textHide) : btn.text(textShow);
 	}
 
-	//recalculate height of phone drop
+	// recalculate height of phone drop
 	$(window).on('resize scroll', function () {
 		phonesDropHeight.call();
 	});
@@ -778,6 +765,7 @@ function filtersEvents() {
 		if ($(this).hasClass('disabled')) return;
 
 		clearFilters();
+		methodOrInit = false;
 	});
 
 	function clearFilters() {
