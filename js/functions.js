@@ -521,8 +521,8 @@ function filtersEvents() {
 		animationSpeedTween = animationSpeed/1000,
 		showButtonFind = false,
 		methodAndInit = false,
-		filtersDropShow = false,
-		filterMethod;
+		methodOrInit = false,
+		filtersDropShow = false;
 
 	// init Isotope
 	var $grid = $filtersWrapper.isotope({
@@ -538,9 +538,17 @@ function filtersEvents() {
 		var $currentTag = $( this ),
 			dataTagsGroup = $currentTag.closest('.tags-group-js').attr('data-tags-group'),
 			currentDataFilter = $currentTag.attr(dataFilter),
+			filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method'),
 			currentIsTagChecked = $currentTag.hasClass(isCheckedClass);
 
-		filterMethod = $currentTag.closest($filtersTagsGroup).attr('data-filter-method');
+		// var $currentTagIsInFilters = $currentTag.parents().hasClass(jsDrop.substring(1));
+		if (filterMethod == 'or' && !currentIsTagChecked) {
+			methodOrInit = true
+		} else if (filterMethod == 'or' && currentIsTagChecked) {
+			methodOrInit = false;
+		}
+
+		console.log("filtersChecked: ", methodOrInit);
 
 		if (currentIsTagChecked && filterMethod == 'and') {
 			methodAndInit = false;
@@ -579,7 +587,9 @@ function filtersEvents() {
 
 		for ( var prop in obj ) {
 			var thisProp = obj[ prop ];
-			if (!thisProp || obj[ prop ] == methodAndInit) continue;
+			if (!thisProp) continue;
+			console.log("filtersChecked2: ", methodOrInit);
+			if (methodOrInit && obj[ prop ] == methodAndInit) continue;
 			thisProp = (methodAndInit) ? (methodAndInit + thisProp) : thisProp;
 			arr.push(thisProp);
 		}
