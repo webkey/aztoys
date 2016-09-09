@@ -67,8 +67,8 @@
 		padding: 15px 1%;
 	}
 	.filter-more-options:before{ min-height: 72px; }
-	.filters__group .button,
-	.filters__group .filters-counter,
+	.filters-button,
+	.filters-counter,
 	.btn-filter-opener{
 		padding: 5px 10px;
 		min-height: 42px;
@@ -959,11 +959,11 @@
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	.filters__group .button, .filters__group .filters-counter, .btn-filter-opener {
+	.filters-button, .filters-counter, .btn-filter-opener {
 		padding-left: 1.5%;
 		padding-right: 1.5%;
 	}
-	.filters__group .button,
+	.filters-button,
 	.search-form{ margin: 0 6px; }
 	.filter-more-options{ padding: 0 20px; }
 	.filters__label{ padding-left: 6px; }

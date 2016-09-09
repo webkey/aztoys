@@ -125,9 +125,9 @@
 								<div class="nav-drop__group">
 									<strong class="nav-drop__title">Age:</strong>
 									<ul class="nav-drop__list">
-										<li><a href="#" class="button" data-filter=".tag-younger">2-3 years</a></li>
-										<li><a href="#" class="button" data-filter=".tag-middle">4-5 years</a></li>
-										<li><a href="#" class="button" data-filter=".tag-senior">6+ years</a></li>
+										<li><a href="#" data-filter=".tag-younger">2-3 years</a></li>
+										<li><a href="#" data-filter=".tag-middle">4-5 years</a></li>
+										<li><a href="#" data-filter=".tag-senior">6+ years</a></li>
 									</ul>
 								</div>
 							</div>
@@ -199,21 +199,21 @@
 			<div class="filters__group">
 				<div class="tags-group tags-group-js filters-tags-js" data-filter-method="or">
 					<span class="filters__label">Age:</span>
-					<a href="#" class="button" data-filter=".tag-younger">2-3</a>
-					<a href="#" class="button" data-filter=".tag-middle">4-5</a>
-					<a href="#" class="button" data-filter=".tag-senior">6+</a>
+					<a href="#" class="filters-button" data-filter=".tag-younger">2-3</a>
+					<a href="#" class="filters-button" data-filter=".tag-middle">4-5</a>
+					<a href="#" class="filters-button" data-filter=".tag-senior">6+</a>
 				</div>
 			</div>
 			<div class="filters__group">
-				<div class="tags-group filters-button-middle tags-group-js filters-tags-js" data-tags-group="state">
+				<div class="tags-group filters-button-middle tags-group-js filters-tags-js" data-tags-group="state"  data-filter-method="and">
 					<span class="filters__label hide-state">Labels:</span>
-					<a href="#" class="button filter-radio" data-filter=".tag-new">New</a>
-					<a href="#" class="button filter-radio" data-filter=".tag-popular">Popular</a>
-					<a href="#" class="button filter-radio" data-filter=".tag-exclusive">Exclusive</a>
+					<a href="#" class="filters-button filter-radio" data-filter=".tag-new">New</a>
+					<a href="#" class="filters-button filter-radio" data-filter=".tag-popular">Popular</a>
+					<a href="#" class="filters-button filter-radio" data-filter=".tag-exclusive">Exclusive</a>
 				</div>
 			</div>
 			<div class="filters__group has-drop filters-content-js">
-				<a href="#" class="filter-more-options filter-more-options-js"><span>More options</span><i class="depict-angle"></i></a>
+				<a href="#" class="filter-more-options filter-more-options-js"><span>Show filters</span><i class="depict-angle"></i></a>
 				<!--filters drop-->
 				<div class="filters-drop filters-drop-js">
 					<div class="filters-drop__holder">
@@ -262,8 +262,10 @@
 				<!--filters drop end-->
 			</div>
 			<div class="filters__group">
-				<div class="button filters-counter filters-counter-js"></div>
-				<a href="#" class="button clear-filter disabled"><i class="depict-clear"></i><span>Clear filter</span></a>
+				<div class="filters-button filters-counter">
+					<div class="filters-counter-js"></div>
+				</div>
+				<a href="#" class="filters-button clear-filters disabled"><i class="depict-clear"></i><span>Clear filter</span></a>
 			</div>
 			<div class="filters__group filters__search">
 				<div class="search-form filters-search-js">
@@ -280,6 +282,13 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="filters-options layout filters-options-js">
+	<div class="filters-button filters-counter">
+		<div class="filters-counter-js"></div>
+	</div>
+	<a href="#" class="btn-default show-filter-items show-filter-items-js">Show items</a>
+	<a href="#" class="filters-button clear-filters disabled"><i class="depict-clear"></i><span>Clear filter</span></a>
 </div>
 <!--FILTERS end-->
 
