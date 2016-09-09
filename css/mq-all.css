@@ -70,7 +70,8 @@
 	.filters-button,
 	.filters-counter,
 	.btn-filter-opener{
-		padding: 5px 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 		min-height: 42px;
 	}
 	.search-form input[type="search"],
@@ -675,6 +676,52 @@
 	.filters-drop__title{
 		font-size: 20px;
 		line-height: 24px;
+	}
+
+	.filters-options{
+		z-index: 103;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.filters-options .filters-button{
+		float: none;
+		display: inline-block;
+		vertical-align: top;
+		padding: 0;
+		min-height: 44px;
+	}
+	.filters-options .filters-counter {
+		float: left;
+		line-height: 15px;
+		width: 80px;
+		min-width: 0;
+		margin: 0;
+	}
+	.filters-options .filters-counter:before,
+	.filters-options .clear-filters:before {
+		height: 44px;
+	}
+	.filters-options .filters-counter > div{
+		font-size: 13px;
+	}
+	.filters-options .clear-filters{
+		float: right;
+		margin: 0;
+		line-height: 13px;
+		min-width: 0;
+		width: 60px;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.filters-options .clear-filters i{
+		display: none !important;
+	}
+	.filters-options .clear-filters span{
+		font-size: 11px;
+	}
+	.show-filters-items{
+		padding: 6px 17px;
+		font-size: 13px;
 	}
 
 	.btn-filter-close{ display: block; }

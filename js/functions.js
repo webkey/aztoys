@@ -577,15 +577,13 @@ function filtersEvents() {
 
 		for ( var prop in obj ) {
 			var thisProp = obj[ prop ];
-			if (!thisProp) continue;
+			if (!thisProp || obj[ prop ] == methodAndInit) continue;
 			thisProp = (methodAndInit) ? (methodAndInit + thisProp) : thisProp;
-			if (obj[ prop ] == methodAndInit) {
-				thisProp = obj[ prop ];
-			}
 			arr.push(thisProp);
 		}
 
 		value = arr.join(', ');
+		console.log("value: ", value);
 		return value;
 	}
 
@@ -789,6 +787,7 @@ function filtersEvents() {
 	$(window).on('resizeByWidth', function () {
 		if ( $filters.attr('style') ) {
 			$filters.attr('style','');
+			$jsDropOpener.trigger('click');
 		}
 	});
 

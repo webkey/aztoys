@@ -4114,13 +4114,23 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .desktop .filters-counter:hover{ box-shadow: none; }
 .clear-filters{
 	text-transform: uppercase;
-	font-size: 12px;
 	line-height: 15px;
-	letter-spacing: 0.05em;
 	color: #1a1a1a;
 	background: #f7f7f7;
 	border-color: #dadada;
 	min-width:120px;
+	width: 120px;
+	padding: 0;
+
+	font-size: 0;
+	letter-spacing: -4px;
+	white-space: nowrap;
+}
+.clear-filters:before{
+	content: '';
+	display: inline-block;
+	height: 48px;
+	vertical-align: middle;
 }
 .tags-group{
 	position: relative;
@@ -4137,6 +4147,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	display: inline-block;
 	vertical-align: middle;
 	max-width: 50px;
+
+	font-size: 12px;
+	letter-spacing: 0.05em;
+	white-space: normal;
 }
 .clear-filters > i{
 	vertical-align: middle;
@@ -4348,7 +4362,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-sizing: border-box;
 	text-align: center;
 	width: 100%;
-	background: #f5f5f5;
+	background: #fff;
 	box-shadow: 0 -3px 15px -3px rgba(0, 0, 0, 0.15);
 	z-index: 6;
 	display: none;
@@ -4357,6 +4371,16 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	float: none;
 	display: inline-block;
 	vertical-align: top;
+}
+.filters-options .filters-counter{
+	line-height: 17px;
+	min-width: 140px;
+}
+.filters-options .filters-counter > div{
+	font-size: 15px;
+}
+.filters-options .clear-filters{
+	margin: 0 0 0 30px;
 }
 /*filters panel end*/
 
@@ -4581,6 +4605,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	vertical-align: top;
 	width: 154px;
 	height: 20px;
+	top: 4px;
 	overflow: hidden;
 	text-align: left;
 	text-indent: -9999px;
