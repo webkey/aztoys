@@ -30,7 +30,7 @@ function placeholderInit(){
 // 1) malihu jquery custom scrollbar plugin (widgets.js);
 // 2) resizeByWidth (resize only width);
 // 3) TweetMax VERSION: 1.19.0 (widgets.js);
-(function($){
+function pageCustomScroll() {
 	if (!DESKTOP) return false;
 
 	var $body = $('body'),
@@ -41,18 +41,18 @@ function placeholderInit(){
 	$(window).on("load",function(){
 		// custom scroll on page
 		$body.mCustomScrollbar({
-			theme: "minimal-dark", autoHideScrollbar: true, autoExpandScrollbar: true, scrollInertia: 800, //mouseWheel:{ scrollAmount: 250 },
+			theme: "minimal-dark",
+			autoHideScrollbar: true,
+			autoExpandScrollbar: true,
+			scrollInertia: 800,
+			mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
-					if (DESKTOP) {
-						$body.mCustomScrollbar("disable");
-					}
-
 					var thisMCSTop = -this.mcs.top;
 
 					toggleHeaderForCustomScroll(thisMCSTop);
 
-					parallaxBg(thisMCSTop);
+					// parallaxBg(thisMCSTop);
 
 					if ($fixedBox.length) {
 						shareFixedForCustomScroll(thisMCSTop);
@@ -62,6 +62,8 @@ function placeholderInit(){
 					swiperSliderInit();
 					// fotoramaInit();
 
+					mainScreenForDesktop();
+
 				}, onScroll: function () {
 
 					toggleHeaderForCustomScroll(-this.mcs.top);
@@ -70,7 +72,7 @@ function placeholderInit(){
 
 					var thisMCSTop = -this.mcs.top;
 
-					parallaxBg(thisMCSTop);
+					// parallaxBg(thisMCSTop);
 
 					if ($fixedBox.length) {
 						shareFixedForCustomScroll(thisMCSTop);
@@ -197,8 +199,8 @@ function placeholderInit(){
 			$fixedBox
 				.addClass('stick-bottom')
 				.css({
-				'top': footerOffsetTop - fixedBoxFullHeight + topSpace
-			});
+					'top': footerOffsetTop - fixedBoxFullHeight + topSpace
+				});
 		} else {
 			$fixedBox.removeClass('stick-bottom');
 		}
@@ -211,7 +213,7 @@ function placeholderInit(){
 				'position': 'relative', 'top': 'auto'
 			});
 	}
-})(jQuery);
+}
 
 /*state form fields*/
 function stateFields(){
@@ -299,18 +301,21 @@ function mainScreenForDesktop() {
 
 	if ($pageHome.length && !_screenHided) {
 
-		$body.mCustomScrollbar("disable");
-
 		var newDelta = 0;
 
 		$('.screen').on('mousewheel', function(event) {
+
+			$body.mCustomScrollbar("disable");
+
 			var deltaY = event.deltaY;
 			newDelta = newDelta + deltaY;
 
 			if (newDelta < -3) {
-				_screenHided = true;
 				$body.addClass('hide-screen');
+
 				$body.mCustomScrollbar("update");
+				$body.mCustomScrollbar("scrollTo","top");
+				_screenHided = true;
 			}
 		});
 	};
@@ -2283,13 +2288,6 @@ $(window).load(function () {
 		setTimeout(function () {
 			TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
 				$preloader.hide(0);
-				setTimeout(function () {
-					if (DESKTOP) {
-						mainScreenForDesktop();
-					} else {
-						mainScreenForMobile();
-					}
-				}, 2000)
 			}});
 		}, 200)
 	}
@@ -2300,6 +2298,7 @@ $(window).load(function () {
 /** ready/load/resize document **/
 
 $(document).ready(function(){
+	pageCustomScroll();
 	placeholderInit();
 	stateFields();
 	printShow();
@@ -2328,6 +2327,7 @@ $(document).ready(function(){
 		// shareFixed();
 
 		footerBottom();
+		mainScreenForMobile();
 	}
 	// parallaxBg();
 });

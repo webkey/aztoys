@@ -151,8 +151,11 @@ body{
 	font: 16px/30px 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 	height: 100%;
 	color: #4c4c4c;
-	background: #fff url(../img/bg-page.png) 50% 0;
 	min-width: 320px;
+}
+body,
+body > .mCustomScrollBox > .mCSB_container{
+	background: #fff url(../img/bg-page.png) 50% 0;
 }
 html.no-scroll,
 body.preloader-show{
