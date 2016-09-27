@@ -3480,6 +3480,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	float: right;
 	padding-left: 50px;
 	box-sizing: border-box;
+	clear: right;
 }
 
 .product-card__widget{ padding: 0 0 35px; }
@@ -3614,6 +3615,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 30px;
 	line-height: 36px;
 	color: #00abc7;
+	text-align: center;
 	padding: 0;
 }
 /*popup footer end*/

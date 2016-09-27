@@ -572,8 +572,6 @@ function filtersEvents() {
 			methodOrInit = false;
 		}
 
-		console.log("methodAndInit: ", methodOrInit);
-
 		if (currentIsTagChecked && filterMethod == 'and') {
 			methodAndInit = false;
 		} else if (filterMethod == 'and') {
