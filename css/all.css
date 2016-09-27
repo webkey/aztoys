@@ -3847,6 +3847,16 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background: #fcd105;
 }
 /*about end*/
+
+/*wide*/
+.wide .max-wrap{
+	max-width: 1200px;
+}
+.wide .about__content {
+	padding-top: 50px;
+	padding-bottom: 25px;
+}
+/*wide end*/
 /*CONTENT*/
 
 /*overlay*/

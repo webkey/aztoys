@@ -402,7 +402,9 @@
 		display: block;
 		border-radius: 50px;
 		width: auto;
-		padding: 120px 48px 50px;
+		padding-top: 120px;
+		padding-left: 48px;
+		padding-right: 48px;
 	}
 	.about__content:before{
 		content: none;
