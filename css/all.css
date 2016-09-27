@@ -3441,8 +3441,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .product-card__title{
 	display: block;
 	padding: 0 20px 35px 0;
-	box-sizing: border-box;
+	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
+	color: #00abc7;
+	font-size: 30px;
 	line-height: 36px;
+	box-sizing: border-box;
 }
 .product-card__title > strong{
 	display: block;
