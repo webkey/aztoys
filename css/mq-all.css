@@ -160,6 +160,7 @@
 }
 
 @media only screen and (max-width: 1599px){
+	.products-page .main { padding-top: 72px; }
 	/*screen*/
 	.screen__logo{
 		width: 172px;
@@ -245,6 +246,7 @@
 }
 
 @media only screen and (max-width: 1499px){
+	.products-page .main { padding-top: 144px; }
 	/*FILTERS*/
 	.filters__group:nth-child(3){
 		float: none;

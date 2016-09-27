@@ -1921,6 +1921,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-sizing: border-box;
 	z-index: 90;
 }
+.popup-show .sidebar{ z-index: 104; }
 .home-page .sidebar{
 	left: -240px;
 	will-change: left;
@@ -3937,6 +3938,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 100%;
 	opacity: 0;
 	visibility: hidden;
+}
+.popup-show .overlay{
+	z-index: 103;
 }
 .popup-overlay{
 	background-color: #fff;
