@@ -544,6 +544,7 @@
 }
 
 @media only screen and (max-width: 767px){
+	.products-page .main { padding-top: 166px; }
 	.btn-view-print svg{ margin-right: 0; }
 	.btn-view-print span{ display: none; }
 	.imgl,
@@ -615,7 +616,8 @@
 		padding-left: 0;
 	}
 	.product-card__title:after{ content: ''; }
-	.product-card__visual{
+	.product-card__visual,
+	.product-card__spec{
 		float: none;
 		width: auto;
 	}
@@ -715,7 +717,6 @@
 }
 
 @media only screen and (max-width: 639px){
-	.products-page .main { padding-top: 158px; }
 	.screen__logo{
 		width: 172px;
 		left: 50%;

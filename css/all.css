@@ -3657,6 +3657,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	overflow: hidden;
 	padding: 2px 0;
 }
+
+.product-card__spec{
+	float: left;
+	width: 50%;
+	box-sizing: border-box;
+}
 /*product card end*/
 
 /*popup footer*/
@@ -3719,10 +3725,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 100%;
 }
 .tape-slider__holder .products__content{
-	height: 164px;
+	/*height: 164px;*/
 	overflow: hidden;
 }
-.tape-slider__holder .products__title,
+.tape-slider__holder .products__subtitle{
+	height: 60px;
+}
+/*.tape-slider__holder .products__title,*/
 .tape-slider__holder .products__param dd{
 	display: block;
 	overflow: hidden;
