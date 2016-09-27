@@ -27,10 +27,12 @@ function placeholderInit(){
 }
 /*placeholder end*/
 
-// 1) malihu jquery custom scrollbar plugin (widgets.js);
-// 2) resizeByWidth (resize only width);
-// 3) TweetMax VERSION: 1.19.0 (widgets.js);
+/*custom scroll on page */
 function pageCustomScroll() {
+	// 1) malihu jquery custom scrollbar plugin (widgets.js);
+	// 2) resizeByWidth (resize only width);
+	// 3) TweetMax VERSION: 1.19.0 (widgets.js);
+
 	if (!DESKTOP) return false;
 
 	var $body = $('body'),
@@ -244,6 +246,7 @@ function pageCustomScroll() {
 		});
 	}
 }
+/*custom scroll on page end*/
 
 /*state form fields*/
 function stateFields(){
