@@ -64,6 +64,9 @@ function pageCustomScroll() {
 
 					mainScreenForDesktop();
 
+					// show about items on init
+					showAboutItems.call(this);
+
 				}, onScroll: function () {
 
 					toggleHeaderForCustomScroll(-this.mcs.top);
@@ -77,6 +80,13 @@ function pageCustomScroll() {
 					if ($fixedBox.length) {
 						shareFixedForCustomScroll(thisMCSTop);
 					}
+
+					// show about items on scroll
+					showAboutItems.call(this);
+				},
+				onUpdate: function(){
+					// show about items on update
+					showAboutItems.call(this);
 				}
 			}
 		});
@@ -212,6 +222,26 @@ function pageCustomScroll() {
 			.css({
 				'position': 'relative', 'top': 'auto'
 			});
+	}
+
+	// show about item on change layout
+	function showAboutItems() {
+		var $items = this.mcs.content.find('.about__item');
+		var animationSpeed = 0.8;
+
+		var scrollTop = -this.mcs.top;
+		$items.each(function (i) {
+			// console.log(scrollTop);
+			var $this = $(this);
+			var positionTop = $this.position().top;
+			// var gh = $(this).height();
+			// console.log(Math.round(gh));
+
+			if (scrollTop > Math.round(positionTop) - $(window).height() + 100) {
+				$this.addClass('show');
+				TweenMax.to($this, animationSpeed,{autoAlpha: 1, delay: 0.2});
+			}
+		});
 	}
 }
 

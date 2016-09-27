@@ -3761,6 +3761,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	padding: 0 0 40px;
 	text-align: right;
 }
+.desktop .about__item{
+	opacity: 0;
+	visibility: hidden;
+}
 .about__item_rtl{
 	text-align: left;
 }
