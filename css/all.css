@@ -3799,7 +3799,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-sizing: border-box;
 	width: 66.2%;
 	text-align: left;
-	padding: 40px 5.4% 10px 17.7%;
+	padding: 75px 5.4% 50px 17.7%;
 
 	font-size: 0;
 	letter-spacing: -4px;
@@ -3811,13 +3811,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .about__content:before{
 	content: '';
 	display: inline-block;
-	display:-moz-inline-stack;
-	height: 400px;
-	vertical-align: middle;
+	height: 300px;
+	vertical-align: top;
 }
 .about__align{
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	max-width: 98%;
 
 	font-size: 16px;
