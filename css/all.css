@@ -2241,6 +2241,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	top: 50%;
 	margin-top: -8px;
 	line-height: 0;
+	pointer-events: none;
 }
 /*search form end*/
 

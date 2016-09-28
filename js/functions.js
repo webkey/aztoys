@@ -636,14 +636,84 @@ function filtersEvents() {
 	}
 
 	// search
-	$( ".filters-search-js input" ).on('change keyup', function() {
-		var text = $(this).val();
 
-		$grid.isotope({ filter: function() {
-			var name = $(this).find('.products__title').text();
-			return name.match( new RegExp('(' + text + ')', 'gi') );
-		} });
-	});
+	$( function() {
+		var availableTags = [
+			"Baby Player",
+			"Fire Kids Edition Tablet",
+			"Ladybird",
+			"Ladybird for education",
+			"Ladybird for education your baby",
+			"Player Ladybird",
+			"Baby Player Fire Kids Edition Tablet",
+			"Baby Player Ladybird",
+			"Baby Player Ladybird for education",
+			"Baby Player Ladybird for education your baby",
+			"Baby Player Ladybird",
+			"Baby Player Ladybird",
+			"Baby Player Fire Kids Edition Tablet",
+			"Baby Player Ladybird",
+			"Baby Player Ladybird for education",
+			"Baby Player Ladybird for education your baby",
+			"Baby Player Ladybird",
+			"Baby Player Ladybird"
+		];
+		$( ".filters-search-js input" ).autocomplete({
+			source: availableTags,
+			// appendTo: ".filters-search-js",
+			// open:function(){
+			// 	/* create the scrollbar each time autocomplete menu opens/updates */
+			// 	$(".ui-autocomplete").mCustomScrollbar({
+			// 		setHeight:180,
+			// 		theme: "minimal-dark",
+			// 		autoHideScrollbar: true,
+			// 		autoExpandScrollbar: true
+			// 	});
+			// },
+			// response:function(){
+			// 	/* destroy the scrollbar after each search completes, before the menu is shown */
+			// 	$(".ui-autocomplete").mCustomScrollbar("destroy");
+			// },
+			// focus:function(e,ui){
+			// 	/* scroll via keyboard */
+			// 	if(!ui.item){
+			// 		var first=$(".ui-autocomplete li:first");
+			// 		first.trigger("mouseenter");
+			// 		$(this).val(first.data("uiAutocompleteItem").label);
+			// 	}
+			// 	var el=$(".ui-state-active").parent();
+			// 	if(!el.is(":mcsInView") && !el.is(":hover")){
+			// 		$(".ui-autocomplete").mCustomScrollbar("scrollTo",el,{scrollInertia:0,timeout:0});
+			// 	}
+			// },
+			// close:function(e,ui){
+			// 	/* destroy the scrollbar each time autocomplete menu closes */
+			// 	$(".ui-autocomplete").mCustomScrollbar("destroy");
+			// },
+			select: function( event, ui ) {
+				console.log("ui.item.value: ", ui.item.value);
+				// log( ui.item ?
+				// "Selected: " + ui.item.value + ", geonameId: " + ui.item.id :
+				// "Nothing selected, input was " + this.value );
+				var text = ui.item.value;
+
+				$grid.isotope({ filter: function() {
+					var name = $(this).find('.products__content').text();
+					// return name.match( new RegExp('(' + text + ')', 'gi') );
+					return name.match( new RegExp('(' + text + ')', 'gi') );
+				}});
+			}
+		});
+	} );
+
+	// $( ".filters-search-js input" ).on('change keyup', function() {
+	// 	var text = $(this).val();
+	//
+	// 	$grid.isotope({ filter: function() {
+	// 		var name = $(this).find('.products__title').text();
+	// 		return name.match( new RegExp('(' + text + ')', 'gi') );
+	// 	} });
+	// });
 
 	// toggle class checked
 	$filtersTagsGroup.on( 'click', 'a', function(e) {
