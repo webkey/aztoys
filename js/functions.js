@@ -660,46 +660,12 @@ function filtersEvents() {
 		];
 		$( ".filters-search-js input" ).autocomplete({
 			source: availableTags,
-			// appendTo: ".filters-search-js",
-			// open:function(){
-			// 	/* create the scrollbar each time autocomplete menu opens/updates */
-			// 	$(".ui-autocomplete").mCustomScrollbar({
-			// 		setHeight:180,
-			// 		theme: "minimal-dark",
-			// 		autoHideScrollbar: true,
-			// 		autoExpandScrollbar: true
-			// 	});
-			// },
-			// response:function(){
-			// 	/* destroy the scrollbar after each search completes, before the menu is shown */
-			// 	$(".ui-autocomplete").mCustomScrollbar("destroy");
-			// },
-			// focus:function(e,ui){
-			// 	/* scroll via keyboard */
-			// 	if(!ui.item){
-			// 		var first=$(".ui-autocomplete li:first");
-			// 		first.trigger("mouseenter");
-			// 		$(this).val(first.data("uiAutocompleteItem").label);
-			// 	}
-			// 	var el=$(".ui-state-active").parent();
-			// 	if(!el.is(":mcsInView") && !el.is(":hover")){
-			// 		$(".ui-autocomplete").mCustomScrollbar("scrollTo",el,{scrollInertia:0,timeout:0});
-			// 	}
-			// },
-			// close:function(e,ui){
-			// 	/* destroy the scrollbar each time autocomplete menu closes */
-			// 	$(".ui-autocomplete").mCustomScrollbar("destroy");
-			// },
 			select: function( event, ui ) {
 				console.log("ui.item.value: ", ui.item.value);
-				// log( ui.item ?
-				// "Selected: " + ui.item.value + ", geonameId: " + ui.item.id :
-				// "Nothing selected, input was " + this.value );
 				var text = ui.item.value;
 
 				$grid.isotope({ filter: function() {
 					var name = $(this).find('.products__content').text();
-					// return name.match( new RegExp('(' + text + ')', 'gi') );
 					return name.match( new RegExp('(' + text + ')', 'gi') );
 				}});
 			}
@@ -1948,6 +1914,8 @@ function headerFixed(){
 				TweenMax.set($staggerItems, {autoAlpha: 1, x: 0});
 				TweenMax.set($sbFooter, {autoAlpha: 1, yPercent: 0});
 			} else {
+				// custom scroll page update
+				toggleScrollPage('main-navigation');
 				self.preparationAnimation();
 			}
 
@@ -2195,6 +2163,8 @@ function popupEvents() {
 				});
 			}
 		});
+
+		// replaceTegSEO();
 	}
 
 	// popup close
@@ -2226,6 +2196,8 @@ function popupEvents() {
 				});
 			}
 		});
+
+		// replaceTegSEO(false);
 	}
 
 	// hide close button
@@ -2270,6 +2242,30 @@ function popupEvents() {
 	// hide filters opener and header
 	function toggleMainClass(popupOpened) {
 		$('html').toggleClass('popup-show', popupOpened);
+	}
+
+	//replace tegs for SEO
+	function replaceTegSEO() {
+		var productTitle = $popup.find('.product-card__title');
+		var classesProductTitle = productTitle.attr('class');
+		var productTitleContent = productTitle.html();
+
+		var pageTitle = $('.section-title').find('h1');
+		var classesPageTitle = 'page-main-title';
+		var pageTitleContent = pageTitle.html();
+
+		if (arguments[0] === false) {
+			productTitle.replaceWith('<div class="' + classesProductTitle + '">' + productTitleContent + '</div>');
+
+			pageTitle = $('.page-main-title');
+			pageTitleContent = pageTitle.html();
+
+			pageTitle.replaceWith('<h1>' + pageTitleContent + '</h1>');
+		} else {
+			productTitle.replaceWith('<h1 class="' + classesProductTitle + '">' + productTitleContent + '</h1>');
+
+			pageTitle.replaceWith('<div class="'+classesPageTitle+'">' + pageTitleContent + '</div>');
+		}
 	}
 }
 /*popup events end*/
@@ -2378,25 +2374,34 @@ function footerBottom(){
 /*footer at bottom end*/
 
 /*preloader*/
-$(window).load(function () {
-	function preloadPage(){
-		var $preloader = $('#pagePreloader'),
-			$body = $('body');
+function preloadPage(){
+	var $preloader = $('#pagePreloader'),
+		$body = $('body');
 
-		$preloader.addClass('preloader-hide');
-		$body.removeClass('preloader-show');
+	$preloader.addClass('preloader-hide');
+	$body.removeClass('preloader-show');
 
-		setTimeout(function () {
-			TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
-				$preloader.hide(0);
-			}});
-		}, 200)
-	}
-	preloadPage();
-});
+	setTimeout(function () {
+		TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
+			$preloader.hide(0);
+			setTimeout(function () {
+				if (DESKTOP) {
+					mainScreenForDesktop();
+				} else {
+					mainScreenForMobile();
+				}
+			}, 2000)
+		}});
+	}, 200)
+}
 /*preloader end*/
 
 /** ready/load/resize document **/
+$(window).load(function () {
+	preloadPage();
+
+	popupEvents();
+});
 
 $(document).ready(function(){
 	pageCustomScroll();
@@ -2416,7 +2421,6 @@ $(document).ready(function(){
 	contacts();
 	mainNavigationInit();
 	textSlide();
-	popupEvents();
 	// toggleScrollPage(id); // toggle scroll page
 
 	if (!DESKTOP) {

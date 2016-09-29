@@ -453,6 +453,7 @@
 	.section-title{ padding: 55px 30px 35px; }
 	/*popup*/
 	.popup{ z-index: 99; }
+	.btn-close-wrap,
 	.btn-close-popup{
 		right: 10px;
 		top: 10px;
@@ -468,7 +469,10 @@
 
 	/*HEADER*/
 	.header{ display: block; }
-	.popup-show .header{ display: none; }
+	.popup-show .header{
+		top: auto;
+		bottom: 100%;
+	}
 	.nav-opened .header .logo{
 		-webkit-transform: translate(38px, 0);
 		-ms-transform: translate(38px, 0);
@@ -1061,7 +1065,9 @@
 	h1,
 	.section-title h2,
 	.section-title h1,
-	.video-section h2{
+	.video-section h2,
+	.section-title > div,
+	.section-title > strong{
 		font-size: 30px;
 		line-height: 40px;
 	}

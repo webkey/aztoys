@@ -2468,27 +2468,31 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .products__title{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	line-height: 30px;
-	color: #00abc7;
-	text-transform: uppercase;
-	padding: 0;
-}
-.products__subtitle{
-	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	line-height: 30px;
 	color: #333;
-	text-transform: none;
 	padding: 0 0 20px;
+}
+.products__title > strong,
+.products__title > span{
+	display: block;
+	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
+}
+.products__title > strong{
+	text-transform: uppercase;
+}
+.products__title > span{
+	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	text-transform: none;
 }
 .products__param{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	line-height: 28px;
+	font-size: 14px;
+	line-height: 24px;
 }
 .products__param dt{
 	margin: 0;
@@ -2509,7 +2513,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	text-align: center;
 }
 .section-title h2,
-.section-title h1{
+.section-title h1,
+.section-title > div,
+.section-title > strong{
+	display: block;
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 40px;
 	line-height: 50px;
@@ -3419,6 +3426,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	padding: 45px 0 50px;
 	box-sizing: border-box;
 }
+.btn-close-wrap{
+	position: fixed;
+	height: 0;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 7;
+}
 .btn-close-popup{
 	position: fixed;
 	right: 20px;
@@ -3426,6 +3441,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	z-index: 7;
 	opacity: 0;
 	visibility: hidden;
+}
+.btn-close-wrap .btn-close-popup{
+	position: absolute;
 }
 .btn-close-popup:active{
 	-webkit-transform: scale(0.9, 0.9);
@@ -3452,14 +3470,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .product-card__title > strong{
 	display: block;
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
-	font-size: 18px;
+	font-size: 30px;
 	color: #00abc7;
 	text-transform: uppercase;
 }
 .product-card__title > span{
 	display: block;
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
-	font-size: 30px;
+	font-size: 20px;
 	color: #00abc7;
 }
 .product-card__title:after{
@@ -3671,7 +3689,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*product card end*/
 
 /*popup footer*/
-.popup-subtitle{ padding: 0 30px 30px; }
+.popup-subtitle,
 .popup-subtitle h2{
 	font-family: 'rotondac-bold', Arial, Helvetica, sans-serif;
 	font-size: 30px;
@@ -3680,6 +3698,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	text-align: center;
 	padding: 0;
 }
+.popup-subtitle{ padding: 0 30px 30px; }
 /*popup footer end*/
 
 /*similar products*/
