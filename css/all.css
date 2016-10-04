@@ -2894,13 +2894,16 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition-duration: 0.2s;
 }
 .desktop a.news__inner:hover,
-.desktop .news__item:hover a.news__inner{ box-shadow: inset 0 0 0 1px #54c7d9, 0 10px 27px rgba(0, 0, 0, 0.25); }
+.desktop .news__item:hover a.news__inner{ box-shadow:0 10px 27px rgba(0, 0, 0, 0.25); }
 .news__img{
-	float: left;
-	position: relative;
-	/*overflow: hidden;*/
-	height: 250px;
-	width: 250px;
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	width: 210px;
+	overflow: hidden;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
 }
 .news__img:after{
 	content: '';
@@ -2916,6 +2919,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	padding: 25px 30px;
 	margin-left: 250px;
+	min-height: 250px;
+	box-sizing: border-box;
 }
 .news__content:before{
 	content: '';
