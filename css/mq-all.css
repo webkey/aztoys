@@ -389,7 +389,7 @@
 	/*about*/
 	.about__img,
 	.about__item_rtl .about__img{
-		width: 430px;
+		width: 435px;
 		max-width: 88%;
 		position: relative;
 		left: auto;
@@ -400,6 +400,11 @@
 		-webkit-transform: translate(0, 0);
 		-ms-transform: translate(0, 0);
 		transform: translate(0, 0);
+	}
+	.about__img img,
+	.about__item_rtl .about__img img {
+		display: block;
+		margin: 0 auto;
 	}
 	.about__content,
 	.about__item_rtl .about__content{
