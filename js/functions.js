@@ -661,11 +661,10 @@ function filtersEvents() {
 		$( ".filters-search-js input" ).autocomplete({
 			source: availableTags,
 			select: function( event, ui ) {
-				console.log("ui.item.value: ", ui.item.value);
 				var text = ui.item.value;
 
 				$grid.isotope({ filter: function() {
-					var name = $(this).find('.products__content').text();
+					var name = $(this).find('.products__title').text();
 					return name.match( new RegExp('(' + text + ')', 'gi') );
 				}});
 			}
