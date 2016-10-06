@@ -2896,23 +2896,15 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .desktop .news__item:hover a.news__inner{ box-shadow:0 10px 27px rgba(0, 0, 0, 0.25); }
 .news__img{
 	position: absolute;
-	top: 50%;
-	left: 20px;
-	width: 210px;
-	overflow: hidden;
-	-webkit-transform: translate(0, -50%);
-	-ms-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-}
-.news__img:after{
-	content: '';
-	position: absolute;
-	left: 0;
 	top: 0;
-	right: 0;
-	bottom: 0;
+	left: 0;
+	width: 250px;
+	height: 100%;
+	overflow: hidden;
+	background: no-repeat 50% 0;
+	-webkit-background-size: auto 100%;
+	background-size: auto 100%;
 }
-.news__img img{ position: relative; }
 .news__content{
 	position: relative;
 	padding: 25px 30px;
@@ -3944,6 +3936,35 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background: #fcd105;
 }
 /*about end*/
+
+/*apps*/
+.content a[href*="play.google.com"],
+.content a[href*="itunes.apple.com"]{
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+	background: no-repeat;
+	-webkit-background-size: contain;
+	background-size: contain;
+	text-indent: -9999px;
+	overflow: hidden;
+	margin: 0 10px 20px 0;
+}
+.content a[href*="play.google.com"]{
+	background-image: url(../img/google-play.png);
+	width: 141px;
+	height: 46px;
+}
+.content a[href*="itunes.apple.com"]{
+	background-image: url(../img/app-store.png);
+	width: 131px;
+	height: 46px;
+}
+.content a[href*="play.google.com"] + br,
+.content a[href*="itunes.apple.com"] + br{
+	display: none;
+}
+/*apps end*/
 /*CONTENT*/
 
 /*overlay*/
