@@ -1051,7 +1051,8 @@ function shareFixed(){
 			$drop = self.$drop,
 			_hover = this.modifiers.hover;
 
-		if (!self.desktop) {
+		if (!self.desktop && $(window).width() > 980) {
+			console.log(1);
 			$container.on('click', ''+item+'', function (e) {
 				var $currentItem = $(this);
 
@@ -1126,13 +1127,15 @@ function shareFixed(){
 }(jQuery));
 
 function hoverClassInit(){
-	var $navList = $('.nav');
-	if($navList.length){
-		new HoverClass({
-			container: $navList,
-			drop: '.js-nav-drop'
-		});
-	}
+	$(window).on('load resizeByWidth', function () {
+		var $navList = $('.nav');
+		if($navList.length){
+			new HoverClass({
+				container: $navList,
+				drop: '.js-nav-drop'
+			});
+		}
+	})
 }
 /*hover class end*/
 
@@ -1200,10 +1203,13 @@ function navDropEvents(){
 			});
 
 			$(window).on('resizeByWidth', function () {
-				closeNavDrop();
+				if ($currentNavDrop.is(':visible')) {
+					closeNavDrop();
+				}
 			});
 
 			function openNavDrop() {
+				console.log('openDrop');
 				toggleScrollPage('nav-drop-events', false);
 
 				// $html.addClass(activeClass);
@@ -1219,9 +1225,13 @@ function navDropEvents(){
 			function closeNavDrop() {
 				toggleScrollPage('nav-drop-events');
 
+				console.log('closeDrop1');
 				// $html.removeClass(activeClass);
+				console.log("$currentNavDrop: ", $currentNavDrop);
+				console.log("animateSpeed: ", animateSpeed);
 				TweenMax.to($currentNavDrop, animateSpeed, {
 					autoAlpha: 0, onComplete: function () {
+						console.log('closeDrop2');
 						$currentNavDrop.hide();
 					}
 				});

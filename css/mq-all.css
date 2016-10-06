@@ -499,8 +499,10 @@
 	/*social end*/
 
 	/*SIDEBAR*/
+
 	.sidebar,
 	.hide-screen .sidebar{ display: none; }
+	.sidebar{ width: 100%; }
 	.sidebar__holder { border-top: 1px solid #029db5; }
 	.sidebar .logo{ display: none; }
 	.color-tape-vertical,
@@ -518,6 +520,17 @@
 		transform: translate(0, 0);
 	}
 	/*main navigation*/
+	.nav-drop{
+		position: relative;
+		left: auto;
+		top: auto;
+		height: auto !important;
+		overflow: hidden;
+		z-index: 1;
+	}
+	.nav-drop__holder { padding-top: 0; }
+	.nav-drop__group { width: auto; }
+
 	.nav-drop__holder{ padding-top: 86px; }
 	.nav-drop__group {
 		border: none;
@@ -581,6 +594,12 @@
 	.previews__item:nth-child(3){ display: none; }
 	.previews__item_lg{ max-width: none; }
 	/*previews end*/
+
+	/*news*/
+	.news__content { margin: 0; }
+	.news__content:before { content: none; }
+	.news__img, .news__share { display: none; }
+	/*news end*/
 
 	/*contacts*/
 	.contacts__holder { float: none; }
@@ -840,38 +859,6 @@
 		border-width: 1px;
 	}
 	/*tabs end*/
-
-	/*news*/
-	.news__content {
-		margin-left: 0;
-		margin-top: 250px;
-	}
-	.news__content:before {
-		content: '';
-		position: absolute;
-		right: 0;
-		top: 0;
-		bottom: auto;
-		width: 100%;
-		border: none;
-		border-top: 1px solid #54c7d9;
-	}
-	.new__date{
-		text-align: right;
-		padding: 0 0 0 110px;
-		margin: 0 0 28px;
-	}
-	.news__img {
-		left: 50%;
-		top: 20px;
-		width: 210px;
-		height: 210px;
-		-webkit-transform: translate(-50%, 0);
-		-ms-transform: translate(-50%, 0);
-		transform: translate(-50%, 0);
-	}
-	.news__img img{ min-height: 100%; }
-	/*news end*/
 
 	/*video section*/
 	.video-slider .swipe-title {
@@ -1198,22 +1185,6 @@
 		padding-right: 20px;
 	}
 	/*popup end*/
-
-	/*SIDEBAR*/
-	.sidebar{ width: 100%; }
-	/*main navigation*/
-	.nav-drop{
-		position: relative;
-		left: auto;
-		top: auto;
-		height: auto !important;
-		overflow: hidden;
-		z-index: 1;
-	}
-	.nav-drop__holder { padding-top: 0; }
-	.nav-drop__group { width: auto; }
-	/*main navigation end*/
-	/*SIDEBAR end*/
 
 	/*FILTERS*/
 	.filters-drop__holder { padding: 24px 20px 14px; }
