@@ -4061,20 +4061,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	list-style: none;
 	margin: 0;
 	padding: 0;
-
-	position: absolute;
-	top: 50%;
-	left: 0;
-	width: 100%;
-	-webkit-transform: translate(0, -50%);
-	-ms-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-}
-.no-csstransforms .nav-list{
-	position: relative;
-	top: auto;
-	left: auto;
-	width: auto;
 }
 .nav-list > li{ margin-top: -1px; }
 .nav-list > li:first-child{ margin-top: 0; }
@@ -4794,7 +4780,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 
 .search-form-alt{
-	max-width: 286px;
+	max-width: 366px;
 	min-height: 141px;
 	padding: 0 0 10px;
 	box-sizing: border-box;
@@ -4846,6 +4832,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	height: 50px;
 	padding: 10px 20px;
 	margin: 0;
+}
+.search-form-alt input[type="text"],
+.search-form-alt input[type="email"]{
+	padding-right: 50px;
 }
 .subscribe-form input[type="submit"]{
 	position: absolute;

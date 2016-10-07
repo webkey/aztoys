@@ -41,14 +41,6 @@ function pageCustomScroll() {
 		$fixedBox = $('.soc-js');
 
 	$(window).on("load",function(){
-
-		if ( $('.about').length ) {
-			aboutPage = true;
-		}
-		else {
-			aboutPage = false;
-		}
-
 		// custom scroll on page
 		$body.mCustomScrollbar({
 			theme: "minimal-dark",
@@ -58,7 +50,6 @@ function pageCustomScroll() {
 			mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
-
 					var thisMCSTop = -this.mcs.top;
 
 					toggleHeaderForCustomScroll(thisMCSTop);
@@ -76,9 +67,7 @@ function pageCustomScroll() {
 					mainScreenForDesktop();
 
 					// show about items on init
-					if ( aboutPage ) {
-						showAboutItems.call(this);
-					}
+					showAboutItems.call(this);
 
 				}, onScroll: function () {
 
@@ -86,23 +75,20 @@ function pageCustomScroll() {
 
 				}, whileScrolling: function () {
 
+					var thisMCSTop = -this.mcs.top;
+
 					// parallaxBg(thisMCSTop);
 
 					if ($fixedBox.length) {
-						var thisMCSTop = -this.mcs.top;
 						shareFixedForCustomScroll(thisMCSTop);
 					}
 
 					// show about items on scroll
-					if ( aboutPage ) {
-						showAboutItems.call(this);
-					}
+					showAboutItems.call(this);
 				},
 				onUpdate: function(){
 					// show about items on update
-					if ( aboutPage ) {
-						showAboutItems.call(this);
-					}
+					showAboutItems.call(this);
 				}
 			}
 		});
@@ -357,7 +343,7 @@ function mainScreenForDesktop() {
 			var deltaY = event.deltaY;
 			newDelta = newDelta + deltaY;
 
-			if (newDelta < -1) {
+			if (newDelta < -3) {
 				$body.addClass('hide-screen');
 
 				$body.mCustomScrollbar("update");
@@ -429,7 +415,6 @@ function equalHeightInit(){
 				amount: elementLength,
 				resize: true
 			});
-
 			filtersEvents();
 		});
 	}
@@ -2108,9 +2093,8 @@ function popupEvents() {
 		topPosition = 0;
 
 	// add overlay on page
-
-	//var $popupOverlay = $('<div class="popup-overlay" />');
-	//$popupOverlay.appendTo('body');
+	var $popupOverlay = $('<div class="popup-overlay" />');
+	$popupOverlay.appendTo('body');
 
 	// prepare popup
 	TweenMax.set($popup, {
@@ -2173,10 +2157,10 @@ function popupEvents() {
 		$popup.height('auto');
 
 		// show popup
-		//TweenMax.to($popupOverlay, 0.3, {
-		//	autoAlpha: 1,
-		//	ease: Back.easeIn.config(1),
-		//	onComplete: function () {
+		TweenMax.to($popupOverlay, 0.3, {
+			autoAlpha: 1,
+			ease: Back.easeIn.config(1),
+			onComplete: function () {
 				TweenMax.set($main, {
 					height: $popup.outerHeight(),
 					onComplete: function () {
@@ -2188,15 +2172,15 @@ function popupEvents() {
 							ease: Power3.easeInOut,
 							onComplete: function () {
 								toggleBtnClose();
-								//TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
+								TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
 								popupOpened = true;
 								toggleMainClass(popupOpened);
 							}
 						}, 0.1);
 					}
 				});
-		//	}
-		//});
+			}
+		});
 
 		// replaceTegSEO();
 	}
@@ -2220,14 +2204,14 @@ function popupEvents() {
 			onComplete: function () {
 				// enable page scrolling
 				// toggleScrollPage('popup-events');
-				//TweenMax.to($popupOverlay, animateSpeed, {
-				//	autoAlpha: 0,
-				//	yPercent: 0,
-				//	ease: Back.easeOut.config(1),
-				//	onComplete: function () {
+				TweenMax.to($popupOverlay, animateSpeed, {
+					autoAlpha: 0,
+					yPercent: 0,
+					ease: Back.easeOut.config(1),
+					onComplete: function () {
 						popupOpened = false;
-				//	}
-				//});
+					}
+				});
 			}
 		});
 
@@ -2409,30 +2393,24 @@ function footerBottom(){
 
 /*preloader*/
 function preloadPage(){
-
 	var $preloader = $('#pagePreloader'),
 		$body = $('body');
 
-	if ( $body.hasClass('home-page') ) {
-		//$preloader.addClass('preloader-hide');
-		setTimeout(function () {
-			TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
-				$preloader.hide(0);
-				$body.removeClass('preloader-show');
-				setTimeout(function () {
-					if (DESKTOP) {
-						mainScreenForDesktop();
-					} else {
-						mainScreenForMobile();
-					}
-				}, 2000)
-			}});
-		}, 200)
-	}
-	else {
-		$preloader.hide();
-		$body.removeClass('preloader-show');
-	}
+	$preloader.addClass('preloader-hide');
+	$body.removeClass('preloader-show');
+
+	setTimeout(function () {
+		TweenMax.to($preloader, 0.3, {autoAlpha: 0, onComplete: function () {
+			$preloader.hide(0);
+			setTimeout(function () {
+				if (DESKTOP) {
+					mainScreenForDesktop();
+				} else {
+					mainScreenForMobile();
+				}
+			}, 2000)
+		}});
+	}, 200)
 }
 /*preloader end*/
 
