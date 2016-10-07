@@ -540,6 +540,10 @@ function filtersEvents() {
 		$jsDrop = $(jsDrop),
 		jsDropOpener = '.filter-more-options-js',
 		$jsDropOpener = $(jsDropOpener),
+		jsFiltersOpener = '.btn-filter-opener-js',
+		$jsFiltersOpener = $(jsFiltersOpener),
+		jsFiltersCloser = '.btn-filter-close-js',
+		$jsFiltersCloser = $(jsFiltersCloser),
 		tags = {},
 		classShowDrop = 'show-drop',
 		isCheckedClass = 'is-checked',
@@ -859,12 +863,13 @@ function filtersEvents() {
 		if ( $filters.attr('style') ) {
 			$filters.attr('style','');
 			$jsDropOpener.trigger('click');
+			toggleScrollPage('mobile-filter-panel');
 		}
 	});
 
 	// open filters on mobile
 	var filtersTLL = new TimelineLite();
-	$body.on('click', '.btn-filter-opener-js', function () {
+	$body.on('click', jsFiltersOpener, function () {
 		filtersTLL
 			.set($filters, {autoAlpha:1, transitionDuration: 0})
 			.to($filters, animationSpeedTween, {x: 0, ease: Power2.easeInOut});
@@ -875,7 +880,7 @@ function filtersEvents() {
 	});
 
 	// close filters on mobile
-	$body.on('click', '.btn-filter-close-js', function () {
+	$body.on('click', jsFiltersCloser, function () {
 		var filtersWidth = $('.filters-js').outerWidth();
 		filtersTLL.to($filters, animationSpeedTween, {x: -filtersWidth, ease: Power2.easeInOut});
 
@@ -1051,39 +1056,44 @@ function shareFixed(){
 			$drop = self.$drop,
 			_hover = this.modifiers.hover;
 
-		if (!self.desktop && $(window).width() > 980) {
-			console.log(1);
-			$container.on('click', ''+item+'', function (e) {
-				var $currentItem = $(this);
+		$container.on('click', ''+item+'', function (e) {
 
-				if (!$currentItem.has($drop).length){
-					return;
-				}
+			if (self.desktop || $(window).width() < 980) return;
 
-				if ($currentItem.hasClass(_hover)){
-					$currentItem
-						.removeClass(_hover)
-						.find('.'+_hover+'')
-						.removeClass(_hover);
+			var $currentItem = $(this);
 
-					return;
-				}
+			if (!$currentItem.has($drop).length){
+				return;
+			}
 
-				$item.removeClass(_hover);
-				$currentItem.addClass(_hover);
+			if ($currentItem.hasClass(_hover)){
+				$currentItem
+					.removeClass(_hover)
+					.find('.'+_hover+'')
+					.removeClass(_hover);
 
-				return false;
-			});
+				return;
+			}
 
-			$drop.children().not('.close-nav-drop-js').on('click', function (e) {
-				e.stopPropagation();
-			});
+			$item.removeClass(_hover);
+			$currentItem.addClass(_hover);
 
-			$(document).on('click', function () {
-				$item.removeClass(_hover);
-			});
+			return false;
+		});
 
-		} else {
+		$drop.children().not('.close-nav-drop-js').on('click', function (e) {
+			if (self.desktop || $(window).width() < 980) return;
+
+			e.stopPropagation();
+		});
+
+		$(document).on('click', function () {
+			if (self.desktop || $(window).width() < 980) return;
+
+			$item.removeClass(_hover);
+		});
+
+		if (self.desktop) {
 			$container.on('mouseenter', ''+item+'', function () {
 				var currentItem = $(this);
 
@@ -1113,7 +1123,6 @@ function shareFixed(){
 					currentItem.removeClass(_hover);
 				}, 100));
 			});
-
 		}
 	};
 
@@ -1127,15 +1136,13 @@ function shareFixed(){
 }(jQuery));
 
 function hoverClassInit(){
-	$(window).on('load resizeByWidth', function () {
-		var $navList = $('.nav');
-		if($navList.length){
-			new HoverClass({
-				container: $navList,
-				drop: '.js-nav-drop'
-			});
-		}
-	})
+	var $navList = $('.nav');
+	if($navList.length){
+		new HoverClass({
+			container: $navList,
+			drop: '.js-nav-drop'
+		});
+	}
 }
 /*hover class end*/
 
@@ -1184,11 +1191,13 @@ function navDropEvents(){
 			}
 
 			if(!DESKTOP){
-				$currentItem.on('click', function (e) {
-					openNavDrop();
+				$currentItem.on('click', function () {
+					if ($(window).width() >= 980) {
+						openNavDrop();
 
-					equalHeightNavDropGroup();
-					createOverlay();
+						equalHeightNavDropGroup();
+						createOverlay();
+					}
 				});
 			}
 
@@ -1200,6 +1209,8 @@ function navDropEvents(){
 				e.preventDefault();
 
 				closeNavDrop();
+
+				return false;
 			});
 
 			$(window).on('resizeByWidth', function () {
@@ -1209,7 +1220,6 @@ function navDropEvents(){
 			});
 
 			function openNavDrop() {
-				console.log('openDrop');
 				toggleScrollPage('nav-drop-events', false);
 
 				// $html.addClass(activeClass);
@@ -1225,13 +1235,10 @@ function navDropEvents(){
 			function closeNavDrop() {
 				toggleScrollPage('nav-drop-events');
 
-				console.log('closeDrop1');
 				// $html.removeClass(activeClass);
-				console.log("$currentNavDrop: ", $currentNavDrop);
-				console.log("animateSpeed: ", animateSpeed);
+				$currentItem.closest('li.hover').removeClass('hover');
 				TweenMax.to($currentNavDrop, animateSpeed, {
 					autoAlpha: 0, onComplete: function () {
-						console.log('closeDrop2');
 						$currentNavDrop.hide();
 					}
 				});

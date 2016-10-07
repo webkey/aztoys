@@ -1908,7 +1908,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .layout{
 	padding-left: 240px;
 	box-sizing: border-box;
-	max-width: 1920px;
+	max-width: 2560px;
 }
 .sidebar{
 	position: fixed;
@@ -4041,10 +4041,30 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*logo end*/
 
 /*main navigation*/
+.nav{
+	position: absolute;
+	width: 100%;
+	bottom: 301px;
+	top: 235px;
+}
 .nav-list{
 	list-style: none;
 	margin: 0;
 	padding: 0;
+
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+.no-csstransforms .nav-list{
+	position: relative;
+	top: auto;
+	left: auto;
+	width: auto;
 }
 .nav-list > li{ margin-top: -1px; }
 .nav-list > li:first-child{ margin-top: 0; }
@@ -4186,13 +4206,38 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	line-height: 24px;
 	color: #fff;
 	width: 100%;
+	text-decoration: none;
 }
-.slogan > span{
+.slogan .slogan__align{
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 	padding-left: 12px;
 	padding-right: 12px;
+}
+.slogan svg {
+	vertical-align: middle;
+	width: 48px;
+	margin-right: 2px;
+	margin: 8px 2px 0 0;
+}
+.slogan path {
+	fill: white;
+}
+.slogan__text{
+	display: inline-block;
+	vertical-align: middle;
+	max-width: 140px;
+	text-align: left;
+}
+.slogan__text span{
+	text-decoration: underline;
+	font-family: 'helvetica-neue-cyr-bold', Arial, Helvetica, sans-serif;
+}
+.slogan__text em{
+	display: block;
+	padding-top: 1px;
+	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 }
 /*slogan end*/
 
