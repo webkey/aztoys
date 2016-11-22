@@ -302,6 +302,8 @@ function mainScreenForMobile() {
 		_animationSpeed = 400,
 		_flagPositionCorrection = true;
 
+	if ( !$screen.length ) return false;
+
 	$(window).on('load scroll resizeByWidth', function () {
 
 		var currentScrollTop = $(window).scrollTop(),
@@ -346,7 +348,7 @@ function mainScreenForDesktop() {
 		$pageHome = $('.home-page'),
 		_screenHided = false;
 
-	if ($pageHome.length && !_screenHided) {
+	if ($('.screen').length && $pageHome.length && !_screenHided) {
 
 		var newDelta = 0;
 
@@ -1564,34 +1566,18 @@ function contacts() {
 function swiperSliderInit() {
 	var $slider = $('.swiper-container'),
 		slideHolder = '.swiper-holder',
-		$sliderBg = $('.swiper-img-js'),
-		$sliderTitle = $('.swipe-title-js'),
-		playVideoBtn = '.play-video-js',
-		closeVideoBtn = '.close-video-js',
 		classVideoPlayed = 'video-played',
 		animateSpeed = 0.3;
 
 	new Swiper ($slider, {
-		// Optional parameters
-		// direction: 'vertical',
 		loop: true,
-
-		// If we need pagination
-		// pagination: '.swiper-pagination',
-
-		// Navigation arrows
 		nextButton: '.swiper-button-next',
 		prevButton: '.swiper-button-prev',
-
-		// And if we need scrollbar
-		// scrollbar: '.swiper-scrollbar',
-		effect: 'coverflow',
+		// effect: 'coverflow',
 		grabCursor: false,
-		// loop: true,
 		centeredSlides: true,
 		slidesPerView: 'auto',
 		speed: 600,
-		// autoplay: 7000,
 		parallax: false,
 		simulateTouch: true,
 		coverflow: {
@@ -1604,7 +1590,7 @@ function swiperSliderInit() {
 		slideToClickedSlide: true,
 		slideNextClass: 'swiper-slide-next',
 		slidePrevClass: 'swiper-slide-prev',
-		onInit: function(event){
+		onInit: function(event, a){
 			var $iframe = $('<iframe src="about:blank" frameborder="0" allowfullscreen></iframe>'),
 				thisSlideHolder = $(event.slides).find(slideHolder);
 
@@ -1617,82 +1603,77 @@ function swiperSliderInit() {
 					'height': '100%'
 				})
 				.prependTo(thisSlideHolder);
-
-			playSwiperVideo(event.slides);
-			eventBtnCloseVideo(event.slides);
 		},
-		onSlideChangeStart: function(event){
-			var $slideWithVideoPlayed = $(event.container).find('.video-played');
-			closeSwiperVideo($slideWithVideoPlayed);
+		onSlideChangeStart: function(){
+			closeSwiperVideo();
 		}
 	});
 
+	$slider.on('click', '.play-video-js', function (e) {
+		e.preventDefault();
+
+		playSwiperVideo.call(this);
+	});
+
+	$slider.on('click', '.close-video-js', function (e) {
+		e.preventDefault();
+
+		closeSwiperVideo();
+	});
+
 	/*add video to each slide*/
-	function playSwiperVideo(content) {
-		$slider.on('click', playVideoBtn, function (e) {
-			e.preventDefault();
+	function playSwiperVideo() {
+		var $playBtn = $(this),
+			$container = $playBtn.closest($('.swiper-slide'));
 
-			var $playBtn = $(this),
-				$container = $playBtn.closest(content),
-				$img = $container.find($sliderBg),
-				$title = $container.find($sliderTitle),
-				$iframe = $container.find('iframe'),
-				$slidePrev = $playBtn.closest($slider).find('.swiper-button-prev'),
-				$slideNext = $playBtn.closest($slider).find('.swiper-button-next'),
-				$closeVideoBtn = $container.find(closeVideoBtn);
+		$container.addClass(classVideoPlayed);
 
-			$container.addClass(classVideoPlayed);
+		// TweenMax.to($playBtn, animateSpeed, {autoAlpha:0});
+		// TweenMax.to($img, animateSpeed, {autoAlpha:0});
+		// TweenMax.to($title, animateSpeed, {autoAlpha:0});
+		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0});
+		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0});
+		$playBtn.hide(0);
+		$container.find($('.swiper-img-js')).hide(0);
+		$container.find($('.swipe-title-js')).hide(0);
+		$playBtn.closest($slider).find('.swiper-button-prev').hide(0);
+		$playBtn.closest($slider).find('.swiper-button-next').hide(0);
 
-			TweenMax.to($playBtn, animateSpeed, {autoAlpha:0});
-			TweenMax.to($img, animateSpeed, {autoAlpha:0});
-			TweenMax.to($title, animateSpeed, {autoAlpha:0});
-			TweenMax.to($title, animateSpeed, {autoAlpha:0});
-			TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0});
-			TweenMax.to($slideNext, animateSpeed, {autoAlpha:0});
 
-			var src = $playBtn.attr('href');
+		var $iframe = $container.find('iframe');
+		var src = $playBtn.attr('href');
 
-			$iframe
-				.attr("src", src + '?rel=0&autoplay=1');
+		$iframe.attr("src", src + '?rel=0&autoplay=1');
+		TweenMax.to($iframe, animateSpeed, {autoAlpha:1});
 
-			TweenMax.to($iframe, animateSpeed, {autoAlpha:1});
-
-			TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha:1});
-		})
+		// TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha:1});
+		$container.find('.close-video-js').show(0);
 	}
 
-	function closeSwiperVideo(content) {
-		var $img = content.find($sliderBg),
-			$title = content.find($sliderTitle),
-			$iframe = content.find('iframe'),
-			$playVideoBtn = content.find(playVideoBtn),
-			$slidePrev = $('.swiper-button-prev'),
-			$slideNext = $('.swiper-button-next'),
-			$closeVideoBtn = content.find(closeVideoBtn);
+	function closeSwiperVideo() {
 
-		TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha: 0});
-		TweenMax.to($img, animateSpeed, {autoAlpha: 1});
-		TweenMax.to($title, animateSpeed, {autoAlpha: 1});
-		TweenMax.to($playVideoBtn, animateSpeed, {autoAlpha: 1});
-		TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0.75});
-		TweenMax.to($slideNext, animateSpeed, {autoAlpha:0.75});
+		var $content = $('.video-played');
+
+		// TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha: 0});
+		// TweenMax.to($img, animateSpeed, {autoAlpha: 1});
+		// TweenMax.to($title, animateSpeed, {autoAlpha: 1});
+		// TweenMax.to($playVideoBtn, animateSpeed, {autoAlpha: 1});
+		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0.75});
+		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0.75});
+		$content.find('.close-video-js').hide(0);
+		$content.find($('.swiper-img-js')).show(0);
+		$content.find($('.swipe-title-js')).show(0);
+		$content.find('.play-video-js').show(0);
+		$('.swiper-button-prev').show(0);
+		$('.swiper-button-next').show(0);
+
+
+		var $iframe = $content.find('iframe');
 
 		$iframe.attr("src", 'about:blank');
-
 		TweenMax.to($iframe, animateSpeed, {autoAlpha: 0});
 
-		content.removeClass(classVideoPlayed);
-	}
-
-	function eventBtnCloseVideo(content) {
-		$slider.on('click', closeVideoBtn, function (e) {
-			e.preventDefault();
-
-			var $closeBtn = $(this);
-			var $container = $closeBtn.closest(content);
-
-			closeSwiperVideo($container);
-		})
+		$content.removeClass(classVideoPlayed);
 	}
 }
 /*swiper slider initial end*/
