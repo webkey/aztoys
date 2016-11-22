@@ -1564,50 +1564,31 @@ function contacts() {
 // 1) Swiper 3.3.1 (widgets.js);
 // 2) TweetMax VERSION: 1.19.0 (widgets.js);
 function swiperSliderInit() {
-	var $slider = $('.swiper-container'),
-		slideHolder = '.swiper-holder',
-		classVideoPlayed = 'video-played',
-		animateSpeed = 0.3;
+	var $slider = $('.swiper-container');
 
-	new Swiper ($slider, {
-		loop: true,
-		nextButton: '.swiper-button-next',
-		prevButton: '.swiper-button-prev',
-		// effect: 'coverflow',
-		grabCursor: false,
-		centeredSlides: true,
-		slidesPerView: 'auto',
-		speed: 600,
-		parallax: false,
-		simulateTouch: true,
-		coverflow: {
-			rotate: 0,
-			modifier: 4,
-			stretch: 0,
-			slideShadows : false,
-			scale: 0.8
-		},
-		slideToClickedSlide: true,
-		slideNextClass: 'swiper-slide-next',
-		slidePrevClass: 'swiper-slide-prev',
-		onInit: function(event, a){
-			var $iframe = $('<iframe src="about:blank" frameborder="0" allowfullscreen></iframe>'),
-				thisSlideHolder = $(event.slides).find(slideHolder);
+	if ($slider.length) {
+		var slideHolder = '.swiper-holder', classVideoPlayed = 'video-played', animateSpeed = 0.3;
 
-			TweenMax.set($iframe, {autoAlpha:0});
+		new Swiper($slider, {
+			loop: true, nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev', // effect: 'coverflow',
+			grabCursor: false, centeredSlides: true, slidesPerView: 'auto', speed: 600, parallax: false, simulateTouch: true, coverflow: {
+				rotate: 0, modifier: 4, stretch: 0, slideShadows: false, scale: 0.8
+			}, slideToClickedSlide: true, slideNextClass: 'swiper-slide-next', slidePrevClass: 'swiper-slide-prev', onInit: function (event, a) {
+				var $iframe = $('<iframe src="about:blank" frameborder="0" allowfullscreen></iframe>'), thisSlideHolder = $(event.slides).find(slideHolder);
 
-			$iframe
-				.addClass('swiper-video')
-				.css({
-					'width': '100%',
-					'height': '100%'
-				})
-				.prependTo(thisSlideHolder);
-		},
-		onSlideChangeStart: function(){
-			closeSwiperVideo();
-		}
-	});
+				TweenMax.set($iframe, {autoAlpha: 0});
+
+				$iframe
+					.addClass('swiper-video')
+					.css({
+						'width': '100%', 'height': '100%'
+					})
+					.prependTo(thisSlideHolder);
+			}, onSlideChangeStart: function(){
+				closeSwiperVideo();
+			}
+		});
+	}
 
 	$slider.on('click', '.play-video-js', function (e) {
 		e.preventDefault();
@@ -1628,11 +1609,6 @@ function swiperSliderInit() {
 
 		$container.addClass(classVideoPlayed);
 
-		// TweenMax.to($playBtn, animateSpeed, {autoAlpha:0});
-		// TweenMax.to($img, animateSpeed, {autoAlpha:0});
-		// TweenMax.to($title, animateSpeed, {autoAlpha:0});
-		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0});
-		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0});
 		$playBtn.hide(0);
 		$container.find($('.swiper-img-js')).hide(0);
 		$container.find($('.swipe-title-js')).hide(0);
@@ -1646,7 +1622,6 @@ function swiperSliderInit() {
 		$iframe.attr("src", src + '?rel=0&autoplay=1');
 		TweenMax.to($iframe, animateSpeed, {autoAlpha:1});
 
-		// TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha:1});
 		$container.find('.close-video-js').show(0);
 	}
 
@@ -1654,12 +1629,6 @@ function swiperSliderInit() {
 
 		var $content = $('.video-played');
 
-		// TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha: 0});
-		// TweenMax.to($img, animateSpeed, {autoAlpha: 1});
-		// TweenMax.to($title, animateSpeed, {autoAlpha: 1});
-		// TweenMax.to($playVideoBtn, animateSpeed, {autoAlpha: 1});
-		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0.75});
-		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0.75});
 		$content.find('.close-video-js').hide(0);
 		$content.find($('.swiper-img-js')).show(0);
 		$content.find($('.swipe-title-js')).show(0);

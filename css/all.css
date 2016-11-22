@@ -157,6 +157,10 @@ body,
 body > .mCustomScrollBox > .mCSB_container{
 	background: #fff url(../img/bg-page.png) 50% 0;
 }
+body.about-page,
+body.about-page > .mCustomScrollBox > .mCSB_container{
+	background-attachment: fixed;
+}
 html.no-scroll,
 body.preloader-show{
 	width: 100%!important;
@@ -435,7 +439,8 @@ button{
 	border-radius: 50%;
 	text-indent: -9999px;
 	overflow: hidden;
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 }
 .btn-close:before,
 .btn-close:after{
@@ -1725,7 +1730,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	width: 100%;
 	z-index: 106;
 	display: none;
-	will-change: opacity, transform, box-shadow, visibility;
+	/*will-change: opacity, transform, box-shadow, visibility;*/
 	opacity: 1;
 	-webkit-transition-property: opacity, -webkit-transform, box-shadow;
 	transition-property: opacity, transform, box-shadow;
@@ -1737,7 +1742,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-ms-transform: translate(0, 0) rotateY(0deg);
 	transform: translate(0, 0) rotateY(0deg);
 }
-.home-page .screen{ display: block; }
+.home-page .screen{
+	display: block;
+}
+
 .home-page.hide-screen .screen{
 	opacity: 0;
 	-webkit-transform: translate(0, 0) rotateX(0deg) scale(0.8);
@@ -1790,7 +1798,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	letter-spacing: 0.025em;
 	font-weight: normal;
 	color: #fff;
-	padding: 0 30px;
+	padding: 0 310px;
 	box-sizing: border-box;
 	z-index: 2;
 }
@@ -2037,7 +2045,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 18px;
 	line-height: 24px;
 	color: #fff;
-	padding: 12px 12px 0;
+	padding: 12px 102px 0 12px;
 }
 /*slogan*/
 .logo__print{ display: none; }
@@ -2218,6 +2226,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-color: #00abc7 transparent;
 }
 .csstransforms .fotorama--fullscreen .fotorama__fullscreen-icon:after { content: none; }
+
+
+.fullscreen .fotorama__fullscreen-icon {
+	border: 2px solid #55c7da;
+	padding: 20px;
+	top: 40px;
+	right: 40px;
+}
 /*fotorama end*/
 
 /*search form*/
@@ -2372,7 +2388,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 .tab-controls .r-tabs-state-active a:after{ opacity: 1; }
 
-.tabs-wrap .tabs-panel{ padding: 0; }
+.tabs-wrap .tabs-panel{
+	padding: 0;
+	display: none;
+}
 .tab-controls a span{
 	display: inline-block;
 	border-bottom: 2px dotted #00abc7;
@@ -2396,10 +2415,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*products list*/
 .products__list{
 	padding: 0;
-	margin: 0;
+	margin-left: 1px;
 	font-size: 0;
 	letter-spacing: -4px;
 	box-sizing: border-box;
+}
+.home-page .products__list{
+	padding: 0 0 0 1px;
 }
 .products__item{
 	position: relative;
@@ -2589,7 +2611,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-size: 0;
 	letter-spacing: -4px;
 }
-.previews__img{ overflow: hidden; }
+.previews__img{ overflow: hidden; padding: 1px 1px 0 1px; }
 .previews__content{
 	padding: 30px;
 	box-sizing: border-box;
@@ -2672,16 +2694,20 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	white-space: normal;
 	overflow: hidden;
 }
+.previews__item_lg .previews__text p:last-child {
+	padding-bottom: 0;
+}
 /*previews*/
 
 /*video section*/
 .video-section{
 	padding: 50px 0 0;
-	background: #07a4e9;
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMyNzdjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwN2E0ZTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(left,  #3277c6 0%, #07a4e9 100%);
-	background: -webkit-linear-gradient(left,  #3277c6 0%,#07a4e9 100%);
-	background: linear-gradient(to right,  #3277c6 0%,#07a4e9 100%);
+	background: #44c3e3;
+	/*background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMyNzdjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwN2E0ZTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
+	/*background: -moz-linear-gradient(left,  #3277c6 0%, #07a4e9 100%);*/
+	/*background: -webkit-linear-gradient(left,  #3277c6 0%,#07a4e9 100%);*/
+	/*background: linear-gradient(to right,  #3277c6 0%,#07a4e9 100%);*/
+	box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.35);
 }
 .video-section h2{
 	color: #fff;
@@ -2709,6 +2735,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin: -70px 0;
 }
 .no-cssgradients .previews__item_lg .previews__img:after{ background: #07a4e9 url(../img/gradient-video-slider.png) repeat-y; }
+
+.video-slider .swiper-wrapper {
+	/*will-change: transform;*/
+}
+
 .video-slider .swiper-slide {
 	width: 770px;
 	max-width: 85%;
@@ -2783,6 +2814,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: absolute;
 	left: 0;
 	width: 100%;
+}
+.swiper-slide .btn-close{
+	opacity: 1;
+	visibility: visible;
+	display: none;
 }
 
 .video-slider .swipe-title{
@@ -2945,6 +2981,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background: no-repeat 50% 0;
 	-webkit-background-size: auto 100%;
 	background-size: auto 100%;
+}
+.news__img img {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
 }
 .news__content{
 	position: relative;
@@ -3497,6 +3540,23 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 /*popup end*/
 
+/*product is card*/
+.product-is-card .wrapper,
+.product-is-card .header,
+/*.product-is-card .footer,*/
+/*.product-is-card .sidebar,*/
+.product-is-card .color-tape-vertical,
+.product-is-card .filters-opener,
+.product-is-card .filters,
+.product-is-card .filters-opener,
+.product-is-card .filters-options{
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	visibility: hidden;
+}
+/*product is card end*/
+
 /*product card*/
 .product-card{ padding: 0 30px 40px; }
 .product-card:before,
@@ -3538,7 +3598,31 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	box-sizing: border-box;
 	padding-top: 5px;
 }
-.product-card__gallery{ margin-bottom: 40px; }
+.product-card__gallery{
+	margin-bottom: 40px;
+}
+.product-card__gallery .fotorama__stage:after{
+	content: none;
+}
+.product-card__gallery .fotorama__stage:before{
+	content: '' !important;
+	display: block !important;
+	position: relative;
+	height: 0;
+	width: 100%;
+	padding: 100% 0 0 0;
+	box-sizing: border-box;
+	box-shadow: none;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	background: none;
+	z-index: -1;
+}
+.product-card__gallery .fotorama__nav-wrap{
+	min-height: 122px;
+}
 .fotorama__wrap .fotorama__grab{ cursor: zoom-in; }
 .fotorama--fullscreen .fotorama__grab{
 	cursor: move;
@@ -3576,7 +3660,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	margin: 0 0 15px;
 	font-size: 16px;
 	line-height: 30px;
-	max-height: 120px;
 	overflow: hidden;
 	position: relative;
 }
@@ -3728,11 +3811,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 .product-card__spec{
 	float: left;
+	clear: left;
 	width: 50%;
 	box-sizing: border-box;
 }
 /*product card end*/
-
+	.spec_note {
+		margin-top:25px;
+	}
 /*popup footer*/
 .popup-subtitle,
 .popup-subtitle h2{
@@ -4580,8 +4666,10 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .user-content .filters-drop__list li:before,
 .user-content .filters-drop__list li:first-child:before{ content: none; }
 .filters-drop__list a{
-	display: inline-block;
-	vertical-align: top;
+	/*display: inline-block;
+	vertical-align: top;*/
+	/*?*/
+	display: block;
 	min-height: 30px;
 	padding: 0 0 0 40px;
 	position: relative;
