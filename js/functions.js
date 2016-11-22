@@ -1566,7 +1566,6 @@ function contacts() {
 function swiperSliderInit() {
 	var $slider = $('.swiper-container'),
 		slideHolder = '.swiper-holder',
-		playVideoBtn = '.play-video-js',
 		classVideoPlayed = 'video-played',
 		animateSpeed = 0.3;
 
@@ -1610,7 +1609,7 @@ function swiperSliderInit() {
 		}
 	});
 
-	$slider.on('click', playVideoBtn, function (e) {
+	$slider.on('click', '.play-video-js', function (e) {
 		e.preventDefault();
 
 		playSwiperVideo.call(this);
@@ -1630,14 +1629,14 @@ function swiperSliderInit() {
 		$container.addClass(classVideoPlayed);
 
 		// TweenMax.to($playBtn, animateSpeed, {autoAlpha:0});
-		$playBtn.hide(0);
 		// TweenMax.to($img, animateSpeed, {autoAlpha:0});
-		$container.find($('.swiper-img-js')).hide(0);
 		// TweenMax.to($title, animateSpeed, {autoAlpha:0});
-		$container.find($('.swipe-title-js')).hide(0);
 		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0});
-		$playBtn.closest($slider).find('.swiper-button-prev').hide(0);
 		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0});
+		$playBtn.hide(0);
+		$container.find($('.swiper-img-js')).hide(0);
+		$container.find($('.swipe-title-js')).hide(0);
+		$playBtn.closest($slider).find('.swiper-button-prev').hide(0);
 		$playBtn.closest($slider).find('.swiper-button-next').hide(0);
 
 
@@ -1656,16 +1655,16 @@ function swiperSliderInit() {
 		var $content = $('.video-played');
 
 		// TweenMax.to($closeVideoBtn, animateSpeed, {autoAlpha: 0});
-		$content.find('.close-video-js').hide(0);
 		// TweenMax.to($img, animateSpeed, {autoAlpha: 1});
-		$content.find($('.swiper-img-js')).show(0);
 		// TweenMax.to($title, animateSpeed, {autoAlpha: 1});
-		$content.find($('.swipe-title-js')).show(0);
 		// TweenMax.to($playVideoBtn, animateSpeed, {autoAlpha: 1});
-		$content.find(playVideoBtn).show(0);
 		// TweenMax.to($slidePrev, animateSpeed, {autoAlpha:0.75});
-		$('.swiper-button-prev').show(0);
 		// TweenMax.to($slideNext, animateSpeed, {autoAlpha:0.75});
+		$content.find('.close-video-js').hide(0);
+		$content.find($('.swiper-img-js')).show(0);
+		$content.find($('.swipe-title-js')).show(0);
+		$content.find('.play-video-js').show(0);
+		$('.swiper-button-prev').show(0);
 		$('.swiper-button-next').show(0);
 
 
