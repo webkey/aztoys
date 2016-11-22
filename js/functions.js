@@ -41,6 +41,14 @@ function pageCustomScroll() {
 		$fixedBox = $('.soc-js');
 
 	$(window).on("load",function(){
+
+		if ( $('.about').length ) {
+			aboutPage = true;
+		}
+		else {
+			aboutPage = false;
+		}
+
 		// custom scroll on page
 		$body.mCustomScrollbar({
 			theme: "minimal-dark",
@@ -50,6 +58,7 @@ function pageCustomScroll() {
 			mouseWheel:{ scrollAmount: 250 },
 			callbacks: {
 				onInit: function () {
+
 					var thisMCSTop = -this.mcs.top;
 
 					toggleHeaderForCustomScroll(thisMCSTop);
@@ -67,7 +76,9 @@ function pageCustomScroll() {
 					mainScreenForDesktop();
 
 					// show about items on init
-					showAboutItems.call(this);
+					if ( aboutPage ) {
+						showAboutItems.call(this);
+					}
 
 				}, onScroll: function () {
 
@@ -75,20 +86,23 @@ function pageCustomScroll() {
 
 				}, whileScrolling: function () {
 
-					var thisMCSTop = -this.mcs.top;
-
 					// parallaxBg(thisMCSTop);
 
 					if ($fixedBox.length) {
+						var thisMCSTop = -this.mcs.top;
 						shareFixedForCustomScroll(thisMCSTop);
 					}
 
 					// show about items on scroll
-					showAboutItems.call(this);
+					if ( aboutPage ) {
+						showAboutItems.call(this);
+					}
 				},
 				onUpdate: function(){
 					// show about items on update
-					showAboutItems.call(this);
+					if ( aboutPage ) {
+						showAboutItems.call(this);
+					}
 				}
 			}
 		});
@@ -343,7 +357,7 @@ function mainScreenForDesktop() {
 			var deltaY = event.deltaY;
 			newDelta = newDelta + deltaY;
 
-			if (newDelta < -3) {
+			if (newDelta < -1) {
 				$body.addClass('hide-screen');
 
 				$body.mCustomScrollbar("update");
@@ -415,6 +429,7 @@ function equalHeightInit(){
 				amount: elementLength,
 				resize: true
 			});
+
 			filtersEvents();
 		});
 	}
@@ -1177,7 +1192,9 @@ function navDropEvents(){
 			if (DESKTOP) {
 				$currentItem.on('mouseenter', function () {
 
-					openNavDrop();
+					if ($(window).width() >= 980) {
+						openNavDrop();
+					}
 
 				}).on('mouseleave', function () {
 
@@ -1610,17 +1627,6 @@ function swiperSliderInit() {
 		}
 	});
 
-	function eventBtnCloseVideo(content) {
-		$slider.on('click', closeVideoBtn, function (e) {
-			e.preventDefault();
-
-			var $closeBtn = $(this);
-			var $container = $closeBtn.closest(content);
-
-			closeSwiperVideo($container);
-		})
-	}
-
 	/*add video to each slide*/
 	function playSwiperVideo(content) {
 		$slider.on('click', playVideoBtn, function (e) {
@@ -1676,6 +1682,17 @@ function swiperSliderInit() {
 		TweenMax.to($iframe, animateSpeed, {autoAlpha: 0});
 
 		content.removeClass(classVideoPlayed);
+	}
+
+	function eventBtnCloseVideo(content) {
+		$slider.on('click', closeVideoBtn, function (e) {
+			e.preventDefault();
+
+			var $closeBtn = $(this);
+			var $container = $closeBtn.closest(content);
+
+			closeSwiperVideo($container);
+		})
 	}
 }
 /*swiper slider initial end*/
@@ -2097,8 +2114,9 @@ function popupEvents() {
 		topPosition = 0;
 
 	// add overlay on page
-	var $popupOverlay = $('<div class="popup-overlay" />');
-	$popupOverlay.appendTo('body');
+
+	//var $popupOverlay = $('<div class="popup-overlay" />');
+	//$popupOverlay.appendTo('body');
 
 	// prepare popup
 	TweenMax.set($popup, {
@@ -2161,13 +2179,10 @@ function popupEvents() {
 		$popup.height('auto');
 
 		// show popup
-		TweenMax.to($popupOverlay, 0.3, {
-			autoAlpha: 1,
-			ease: Back.easeIn.config(1),
-			onComplete: function () {
-
-				$(window).trigger('popupBeforeOpen');
-
+		//TweenMax.to($popupOverlay, 0.3, {
+		//	autoAlpha: 1,
+		//	ease: Back.easeIn.config(1),
+		//	onComplete: function () {
 				TweenMax.set($main, {
 					height: $popup.outerHeight(),
 					onComplete: function () {
@@ -2179,15 +2194,15 @@ function popupEvents() {
 							ease: Power3.easeInOut,
 							onComplete: function () {
 								toggleBtnClose();
-								TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
+								//TweenMax.to($popupOverlay, 0.3, {autoAlpha: 0});
 								popupOpened = true;
 								toggleMainClass(popupOpened);
 							}
 						}, 0.1);
 					}
 				});
-			}
-		});
+		//	}
+		//});
 
 		// replaceTegSEO();
 	}
@@ -2211,14 +2226,14 @@ function popupEvents() {
 			onComplete: function () {
 				// enable page scrolling
 				// toggleScrollPage('popup-events');
-				TweenMax.to($popupOverlay, animateSpeed, {
-					autoAlpha: 0,
-					yPercent: 0,
-					ease: Back.easeOut.config(1),
-					onComplete: function () {
+				//TweenMax.to($popupOverlay, animateSpeed, {
+				//	autoAlpha: 0,
+				//	yPercent: 0,
+				//	ease: Back.easeOut.config(1),
+				//	onComplete: function () {
 						popupOpened = false;
-					}
-				});
+				//	}
+				//});
 			}
 		});
 
