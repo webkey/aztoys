@@ -34,29 +34,11 @@
 	.slogan { min-height: 90px; }
 	.nav {
 		top: 171px;
-		bottom: 245px;
+		bottom: 279px;
 	}
-	.social-networks, .social-networks .list{ padding: 18px 0; }
+	.social-networks, .social-networks .list{ padding: 15px 0; }
 }
 @media only screen and (max-height: 829px){
-	.sidebar .logo{ height: 144px; }
-	.sidebar .logo__img{
-		width: 150px;
-		height: 65px;
-		margin: 20px auto 12px;
-	}
-	.nav {
-		top: 145px;
-		bottom: 245px;
-	}
-	.nav-list > li > a{
-		padding-top: 16px;
-		padding-bottom: 16px;
-	}
-}
-@media only screen and (max-height: 739px){
-	.sidebar__frame { padding-bottom: 238px; }
-	.slogan { min-height: 70px; }
 	.sidebar .logo { height: 90px; }
 	.sidebar .logo__img {
 		width: 140px;
@@ -64,10 +46,18 @@
 		margin: 16px auto 12px;
 	}
 	.sidebar .logo__slogan{ display: none; }
-	/*.nav {
+	.nav {
 		top: 91px;
-		bottom: 179px;
-	}*/
+		bottom: 279px;
+	}
+	.nav-list > li > a{
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+}
+@media only screen and (max-height: 739px){
+	.sidebar__frame { padding-bottom: 228px; }
+	.slogan { min-height: 70px; }
 	.nav {
 		position: relative;
 		width: auto;

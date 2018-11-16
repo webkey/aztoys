@@ -1342,7 +1342,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .social-networks .list{
 	overflow: hidden;
 	list-style: none;
-	padding: 33px 0;
+	padding: 12px 0;
 	margin: 0;
 	text-align: center;
 	width: 100%;
@@ -4127,14 +4127,17 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	position: relative;
 	min-height: 100%;
 	box-sizing: border-box;
-	padding-bottom: 301px;
+	padding-bottom: 268px;
 }
 /*logo*/
 .sidebar .logo{
 	display: block;
-	height: 234px;
+	height: 200px;
 	border-bottom: 1px solid #029db5;
 	overflow: hidden;
+
+	/*background-color: lightgreen;*/
+	/*opacity: 0.8;*/
 }
 .sidebar .logo a{
 	display: block;
@@ -4150,7 +4153,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	background-size: contain;
 	width: 180px;
 	height: 77px;
-	margin: 47px auto 25px;
+	margin: 40px auto 25px;
 	text-indent: -9999px;
 	overflow: hidden;
 }
@@ -4170,8 +4173,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .nav{
 	position: absolute;
 	width: 100%;
-	bottom: 301px;
-	top: 235px;
+	bottom: 269px;
+	top: 201px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+
+	/*background-color: lightskyblue;*/
 }
 .nav-list{
 	list-style: none;
@@ -4306,6 +4315,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	bottom: 0;
 	left: 0;
 	overflow: hidden;
+
+	/*background-color: lightsalmon;*/
+	/*opacity: 0.8;*/
 }
 .sidebar-footer__holder{ border-top: 1px solid #029db5; }
 /*sidebar footer end*/
@@ -4313,7 +4325,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*slogan*/
 .slogan{
 	display: table;
-	min-height: 116px;
+	min-height: 85px;
 	font-size: 16px;
 	line-height: 24px;
 	color: #fff;
@@ -4355,7 +4367,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*phone*/
 .phone{
-	height: 104px;
+	height: 94px;
 	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	line-height: 30px;
@@ -4366,12 +4378,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-webkit-background-size: 157px auto;
 	background-size: 157px auto;
 	background-repeat: no-repeat;
-	background-position: 50% 14px;
+	background-position: 50% 11px;
 	background-color: #fcd105;
 }
 .phone a{
 	display: block;
-	padding: 65px 10px 0;
+	padding: 58px 10px 0;
 	height: 100%;
 	text-decoration: none;
 	color: #1a1a1a;
