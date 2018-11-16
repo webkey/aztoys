@@ -1983,11 +1983,11 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-webkit-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
-.home-page.header-show .header{
+/*.home-page.header-show .header{
 	-webkit-transform: translate(0, -86px);
 	-ms-transform: translate(0, -86px);
 	transform: translate(0, -86px);
-}
+}*/
 .header-show .header,
 .home-page.header-show.hide-screen .header,
 .nav-opened .header,
@@ -1995,8 +1995,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
-	-webkit-transition-duration: 0.3s;
-	transition-duration: 0.3s;
 }
 /*logo*/
 .header .logo{
@@ -2415,13 +2413,14 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*products list*/
 .products__list{
 	padding: 0;
-	margin-left: 1px;
+	/*margin-left: 1px;*/
 	font-size: 0;
 	letter-spacing: -4px;
 	box-sizing: border-box;
 }
 .home-page .products__list{
-	padding: 0 0 0 1px;
+	/*padding: 0 0 0 1px;*/
+	margin-right: -1px;
 }
 .products__item{
 	position: relative;
@@ -4356,21 +4355,32 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*phone*/
 .phone{
-	background: #fcd105;
+	height: 104px;
 	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	line-height: 30px;
 	color: #1a1a1a;
 	text-align: center;
 	box-sizing: border-box;
+	background-image: url(../img/logo-az-books.png);
+	-webkit-background-size: 157px auto;
+	background-size: 157px auto;
+	background-repeat: no-repeat;
+	background-position: 50% 14px;
+	background-color: #fcd105;
 }
 .phone a{
 	display: block;
-	padding: 12px 5px;
+	padding: 65px 10px 0;
+	height: 100%;
 	text-decoration: none;
 	color: #1a1a1a;
+	box-sizing: border-box;
+	-webkit-transition: color 0.2s;
+	transition: color 0.2s;
 }
-.phone a:hover{ text-decoration: none; }
+.phone a:hover{
+	color: #00abc7; }
 /*phone end*/
 /*SIDEBAR end*/
 

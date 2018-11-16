@@ -13,6 +13,9 @@
 		max-width: 280px;
 		margin: 0 auto;
 	}
+	.home-page .products__list {
+		margin: 0 auto;
+	}
 	.products__list .products__item{
 		display: block;
 		width: 100%;
@@ -51,24 +54,9 @@
 		padding-bottom: 16px;
 	}
 }
-@media only screen and (max-height: 699px){
-	.sidebar__frame { padding-bottom: 195px; }
+@media only screen and (max-height: 739px){
+	.sidebar__frame { padding-bottom: 238px; }
 	.slogan { min-height: 70px; }
-	.phone {
-		font-size: 20px;
-		line-height: 24px;
-	}
-	.phone a{
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-	.nav {
-		top: 145px;
-		bottom: 215px;
-	}
-}
-@media only screen and (max-height: 639px){
-	.sidebar__frame { padding-bottom: 179px; }
 	.sidebar .logo { height: 90px; }
 	.sidebar .logo__img {
 		width: 140px;
@@ -76,28 +64,11 @@
 		margin: 16px auto 12px;
 	}
 	.sidebar .logo__slogan{ display: none; }
-	.nav {
+	/*.nav {
 		top: 91px;
 		bottom: 179px;
-	}
-	.social-networks, .social-networks .list { padding: 0; }
-}
-@media only screen and (max-height: 579px){
+	}*/
 	.nav {
-		top: 91px;
-		bottom: 179px;
-	}
-	.nav-list > li > a{
-		padding-top: 13px;
-		padding-bottom: 13px;
-	}
-	.color-tape-vertical{
-		-webkit-background-size: 100% 200%;
-		background-size: 100% 200%;
-	}
-}
-@media only screen and (max-height: 539px){
-	.nav{
 		position: relative;
 		width: auto;
 		bottom: auto;
@@ -111,6 +82,17 @@
 		-webkit-transform: none;
 		-ms-transform: none;
 		transform: none;
+	}
+	.social-networks, .social-networks .list { padding: 0; }
+}
+@media only screen and (max-height: 579px){
+	.nav-list > li > a{
+		padding-top: 13px;
+		padding-bottom: 13px;
+	}
+	.color-tape-vertical{
+		-webkit-background-size: 100% 200%;
+		background-size: 100% 200%;
 	}
 }
 @media only screen and (max-width: 979px){
@@ -460,6 +442,7 @@
 	.color-tape-horizontal{
 		-webkit-background-size: 100%;
 		background-size: 100%;
+		display: none;
 	}
 
 	/*MAIN*/
@@ -1074,9 +1057,9 @@
 		transform: translate(0, -68px);
 	}
 	.home-page.header-show .header{
-		-webkit-transform: translate(0, -68px);
-		-ms-transform: translate(0, -68px);
-		transform: translate(0, -68px);
+		/*-webkit-transform: translate(0, -68px);*/
+		/*-ms-transform: translate(0, -68px);*/
+		/*transform: translate(0, -68px);*/
 	}
 	.btn-menu{ right: 20px; }
 	/*HEADER end*/
