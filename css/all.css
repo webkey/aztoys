@@ -4367,23 +4367,22 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 
 /*phone*/
 .phone{
-	height: 94px;
+	height: 75px;
 	font-family: 'helvetica-neue-cyr-light', Arial, Helvetica, sans-serif;
-	font-size: 24px;
-	line-height: 30px;
-	color: #1a1a1a;
+	font-size: 17px;
+	line-height: 23px;
 	text-align: center;
 	box-sizing: border-box;
 	background-image: url(../img/logo-az-books.png);
 	-webkit-background-size: 157px auto;
-	background-size: 157px auto;
+	background-size: 114px auto;
 	background-repeat: no-repeat;
-	background-position: 50% 11px;
+	background-position: 50% 9px;
 	background-color: #fcd105;
 }
 .phone a{
 	display: block;
-	padding: 58px 10px 0;
+	padding: 46px 10px 0;
 	height: 100%;
 	text-decoration: none;
 	color: #1a1a1a;
@@ -4392,7 +4391,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	transition: color 0.2s;
 }
 .phone a:hover{
-	color: #00abc7; }
+	color: #00abc7;
+}
 /*phone end*/
 /*SIDEBAR end*/
 
