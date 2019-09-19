@@ -432,7 +432,6 @@
 	.color-tape-horizontal{
 		-webkit-background-size: 100%;
 		background-size: 100%;
-		display: none;
 	}
 
 	/*MAIN*/
@@ -1047,9 +1046,9 @@
 		transform: translate(0, -68px);
 	}
 	.home-page.header-show .header{
-		/*-webkit-transform: translate(0, -68px);*/
-		/*-ms-transform: translate(0, -68px);*/
-		/*transform: translate(0, -68px);*/
+		-webkit-transform: translate(0, -68px);
+		-ms-transform: translate(0, -68px);
+		transform: translate(0, -68px);
 	}
 	.btn-menu{ right: 20px; }
 	/*HEADER end*/
